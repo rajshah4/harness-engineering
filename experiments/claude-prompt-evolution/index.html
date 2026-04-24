@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Opus System Prompt Evolution: May 2025 – Apr 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #f7f7f8;
+    margin-bottom: 6px;
+  }
+
+  .subtitle { color: #94a3b8; font-size: 0.92rem; margin-bottom: 6px; }
+
+  .credit {
+    font-size: 0.8rem;
+    color: #4b5563;
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+  .credit a { color: #7c8cf8; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4b5563;
+    margin-bottom: 14px;
+  }
+
+  /* Theory */
+  .theory-box {
+    background: #1a1d2e;
+    border: 1px solid #2d3350;
+    border-left: 3px solid #7c8cf8;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 36px;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #94a3b8;
+  }
+  .theory-box strong { color: #f7f7f8; }
+
+  /* Caveat */
+  .caveat {
+    background: #1c1710;
+    border: 1px solid #3d2f0a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    color: #92620a;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  /* Chart */
+  .chart-card {
+    background: #1a1d2e;
+    border: 1px solid #2d3350;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chart-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+
+  .chart-subtitle {
+    font-size: 0.76rem;
+    color: #4b5563;
+    margin-top: 3px;
+  }
+
+  .toggle-group {
+    display: flex;
+    gap: 4px;
+    background: #0f1117;
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid #2d3350;
+  }
+
+  .toggle-btn {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: #4b5563;
+    transition: all 0.15s;
+  }
+
+  .toggle-btn.active {
+    background: #2d3350;
+    color: #f7f7f8;
+  }
+
+  .chart-container { height: 300px; }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .legend-item:hover { color: #94a3b8; }
+
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Version selector */
+  .version-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .version-tab {
+    padding: 7px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid #2d3350;
+    border-radius: 6px;
+    background: transparent;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .version-tab:hover { border-color: #4b5575; color: #94a3b8; }
+  .version-tab.active { color: #f7f7f8; }
+
+  /* Detail card */
+  .detail-card {
+    background: #1a1d2e;
+    border: 1px solid #2d3350;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .detail-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .detail-name { font-size: 1.1rem; font-weight: 700; color: #f7f7f8; }
+  .detail-date { font-size: 0.8rem; color: #4b5563; }
+  .detail-total {
+    font-size: 0.8rem;
+    color: #7c8cf8;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* Mini bar chart inside detail */
+  .cat-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .cat-label {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    width: 130px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .cat-bar-bg {
+    flex: 1;
+    background: #0f1117;
+    border-radius: 4px;
+    height: 20px;
+    overflow: hidden;
+  }
+
+  .cat-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  .cat-words {
+    font-size: 0.75rem;
+    color: #4b5563;
+    width: 70px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Change delta */
+  .delta {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-left: 4px;
+  }
+  .delta-up { background: #14532d22; color: #4ade80; }
+  .delta-neutral { background: #1e293b; color: #64748b; }
+
+  /* Quote */
+  .quote-block {
+    border-left: 3px solid #374151;
+    padding: 10px 16px;
+    margin-top: 20px;
+    font-size: 0.83rem;
+    color: #64748b;
+    font-style: italic;
+    line-height: 1.65;
+  }
+  .quote-source { font-size: 0.72rem; color: #374151; margin-top: 6px; font-style: normal; }
+  .quote-source a { color: #7c8cf8; text-decoration: none; }
+
+  /* Findings */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .finding-card {
+    background: #1a1d2e;
+    border: 1px solid #2d3350;
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .finding-card h3 { font-size: 0.85rem; font-weight: 700; color: #f7f7f8; margin-bottom: 6px; }
+  .finding-card p { font-size: 0.8rem; color: #64748b; line-height: 1.6; }
+
+  .verdict {
+    display: inline-block;
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-bottom: 7px;
+  }
+  .v-yes      { background: #052e16; color: #4ade80; }
+  .v-no       { background: #450a0a; color: #f87171; }
+  .v-nuanced  { background: #1c1917; color: #fbbf24; }
+
+  footer {
+    text-align: center;
+    font-size: 0.74rem;
+    color: #1f2937;
+    padding-top: 28px;
+    border-top: 1px solid #1a1d2e;
+    margin-top: 8px;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Claude Opus System Prompt Evolution</h1>
+  <p class="subtitle">Word count by category — 4 Opus versions, May 2025 to April 2026</p>
+  <p class="credit">
+    Prompts sourced from <a href="https://github.com/simonw/research/tree/main/extract-system-prompts" target="_blank">simonw/research</a>
+    (mirrors of <a href="https://platform.claude.com/docs/en/release-notes/system-prompts" target="_blank">Anthropic's published system prompts</a>).
+    Analysis informed by Simon Willison's
+    <a href="https://simonwillison.net/2025/May/25/claude-4-system-prompt/" target="_blank">May 2025</a> and
+    <a href="https://simonwillison.net/2026/Apr/18/opus-system-prompt/" target="_blank">April 2026</a> breakdowns.
+  </p>
+
+  <div class="theory-box">
+    <strong>The question:</strong> As models improve, do system prompts get shorter?
+    The data shows prompts <em>more than doubled</em> in 11 months — but not all sections grew equally.
+    Behavioral workarounds were retired into training; safety and agentic scaffolding expanded to fill the gap.
+  </div>
+
+  <div class="caveat">
+    ⚠ These are the <strong>claude.ai published system prompts</strong>, not the full API context.
+    Tool descriptions (web search, Artifacts, computer use) are injected separately and are not counted here.
+    Word counts are per-section; ~20–80 words of XML tag boilerplate are unassigned.
+  </div>
+
+  <!-- Main chart -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Words per category across Opus versions</div>
+        <div class="chart-subtitle">Total prompt length: 1,714 → 2,494 → 2,827 → 3,686 words (+115%)</div>
+      </div>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btn-abs" onclick="setMode('abs')">Absolute</button>
+        <button class="toggle-btn" id="btn-pct" onclick="setMode('pct')">% share</button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="mainChart"></canvas>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <!-- Version detail -->
+  <p class="section-label">Per-version breakdown</p>
+  <div class="version-tabs" id="version-tabs"></div>
+  <div class="detail-card" id="detail-card"></div>
+
+  <!-- Key findings -->
+  <p class="section-label">Key Findings</p>
+  <div class="findings-grid">
+    <div class="finding-card">
+      <span class="verdict v-no">False</span>
+      <h3>Prompts shrink as models improve</h3>
+      <p>The opposite: 1,714 words in May 2025 → 3,686 words by April 2026. A 115% increase in 11 months.</p>
+    </div>
+    <div class="finding-card">
+      <span class="verdict v-yes">True</span>
+      <h3>Behavioral workarounds get retired</h3>
+      <p>The behavior section grew (+202%) but its composition changed — explicit patches (letter-counting, puzzle constraints) were removed; new agentic guidance replaced them.</p>
+    </div>
+    <div class="finding-card">
+      <span class="verdict v-yes">True</span>
+      <h3>Safety is the fastest-growing category</h3>
+      <p>447 → 1,315 words (+194%). Opus 4.7 added a dedicated child safety XML block, disordered eating guidance, and means restriction language.</p>
+    </div>
+    <div class="finding-card">
+      <span class="verdict v-nuanced">Stable</span>
+      <h3>Identity stays constant</h3>
+      <p>479 → 540 words across all 4 versions. Who Claude is and what Anthropic is barely changed — those are trained in, not prompted.</p>
+    </div>
+    <div class="finding-card">
+      <span class="verdict v-nuanced">Surprising</span>
+      <h3>Soul document moved to training</h3>
+      <p>Claude 4.5's 14,000-token "soul overview" values document was incorporated into the training run rather than the system prompt — baking values in instead of specifying them at runtime.</p>
+    </div>
+    <div class="finding-card">
+      <span class="verdict v-yes">True</span>
+      <h3>Linguistic hedges moved to training</h3>
+      <p>Opus 4.7 dropped "genuinely," "honestly," and pushy follow-up language from the prompt. Tone calibration is now a training property, not a runtime instruction.</p>
+    </div>
+  </div>
+
+  <footer>
+    Data: simonw/research · platform.claude.com · Piebald-AI/claude-code-system-prompts<br>
+    Word counts are approximate; sections categorized by primary function.
+  </footer>
+
+</div>
+<script>
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+const CATS = [
+  { key: "safety",    label: "Safety & Ethics",      color: "#f87171", icon: "🔒" },
+  { key: "behavior",  label: "Behavioral Guidance",  color: "#a78bfa", icon: "🧠" },
+  { key: "identity",  label: "Identity & Values",    color: "#60a5fa", icon: "🪪" },
+  { key: "style",     label: "Style & Tone",         color: "#fbbf24", icon: "✍️" },
+  { key: "knowledge", label: "Knowledge & Facts",    color: "#94a3b8", icon: "📅" },
+  { key: "tools",     label: "Tools & Products",     color: "#4ade80", icon: "🔧" },
+];
+
+const VERSIONS = [
+  {
+    id: "opus4",
+    label: "Opus 4",
+    date: "May 22, 2025",
+    source: "https://github.com/simonw/research/blob/main/extract-system-prompts/claude-opus-4-2025-05-22.md",
+    total: 1714,
+    words: { safety: 447, behavior: 351, identity: 479, style: 195, knowledge: 225, tools: 0 },
+    notes: {
+      safety: "Copyright protection (>15-word chunk rule), harm avoidance, prompt injection resistance at 71% baseline / 89% with safeguards.",
+      behavior: "Avoid lists in chit-chat, avoid being preachy when declining, methodical letter-counting, restate puzzle constraints verbatim, poetry originality.",
+      identity: "Who Claude is, Anthropic's mission, model name, support URLs.",
+      style: "Formatting preferences, tone guidance.",
+      knowledge: "Cutoff end of Jan 2025, Trump inauguration clarification, election info block.",
+      tools: "No dedicated tools section — tool descriptions injected separately.",
+    },
+    quote: {
+      text: "Claude Opus 4 and Claude Sonnet 4 share nearly identical system prompts… only model identification text and one punctuation mark differ.",
+      source: "Simon Willison, May 25 2025",
+      url: "https://simonwillison.net/2025/May/25/claude-4-system-prompt/",
+    },
+  },
+  {
+    id: "opus45",
+    label: "Opus 4.5",
+    date: "Jan 18, 2026",
+    source: "https://github.com/simonw/research/blob/main/extract-system-prompts/claude-opus-4-5-2026-01-18.md",
+    total: 2494,
+    words: { safety: 705, behavior: 622, identity: 480, style: 396, knowledge: 183, tools: 156 },
+    notes: {
+      safety: "Anthropic reminders (prompt injection resistance), classifier warnings, soul document principles baked into training rather than prompt.",
+      behavior: "Claude can insist on dignity from rude users. Evenhandedness on contested topics. Responding to mistakes/criticism. Extended thinking sensitivity.",
+      identity: "Near-identical to Opus 4 — who Claude is stays constant.",
+      style: "New lists-and-bullets section. More responsive to system prompt language.",
+      knowledge: "Cutoff updated to ~Aug 2025.",
+      tools: "Feature list: web search, deep research, Artifacts, memory, style — injected product capabilities described.",
+    },
+    quote: {
+      text: "The document outlines Anthropic's approach to building safe AI… unsafe models stem from wrong values, self-knowledge gaps, or inability to act on principles.",
+      source: "Simon Willison, Dec 2 2025",
+      url: "https://simonwillison.net/2025/Dec/2/claude-soul-document/",
+    },
+  },
+  {
+    id: "opus46",
+    label: "Opus 4.6",
+    date: "Feb 5, 2026",
+    source: "https://github.com/simonw/research/blob/main/extract-system-prompts/claude-opus-4-6-2026-02-05.md",
+    total: 2827,
+    words: { safety: 893, behavior: 613, identity: 481, style: 403, knowledge: 313, tools: 61 },
+    notes: {
+      safety: "Safety section expanded further. Anthropic reminders section grown. Legal/financial advice scoping added.",
+      behavior: "Agentic improvements. Ambiguous request handling. Evenhandedness, responding-to-criticism sections retained.",
+      identity: "Essentially unchanged from Opus 4 and 4.5.",
+      style: "Lists-and-bullets section stable. Became default model for Free/Pro users.",
+      knowledge: "Cutoff expanded; election info block included; knowledge section larger than 4.5.",
+      tools: "Feature list trimmed back from 4.5 spike — shorter description of available capabilities.",
+    },
+    quote: null,
+  },
+  {
+    id: "opus47",
+    label: "Opus 4.7",
+    date: "Apr 16, 2026",
+    source: "https://github.com/simonw/research/blob/main/extract-system-prompts/claude-opus-4-7-2026-04-16.md",
+    total: 3686,
+    words: { safety: 1315, behavior: 1058, identity: 540, style: 376, knowledge: 256, tools: 61 },
+    notes: {
+      safety: "New <critical_child_safety_instructions> XML block with 5 sub-rules. Disordered eating guidance added. Means restriction language for suicidal ideation. Forced yes/no safeguard.",
+      behavior: "New <acting_vs_clarifying> section (proactive tool use, task completion). New <capability_check> (check deferred tools before claiming 'I can't'). Conversation-end handling. More agentic progress updates.",
+      identity: "Slight growth — 'Claude Platform' rename, minor structural updates.",
+      style: "Fewer emoji, more direct/opinionated tone. 'Genuinely'/'honestly' qualifiers removed — tone now calibrated in training. Conciseness instructions added.",
+      knowledge: "Cutoff end of Jan 2026. Trump inauguration clarification removed (no longer needed). Knowledge section shrank as fewer factual workarounds needed.",
+      tools: "Same size as 4.6 — tool descriptions still injected separately.",
+    },
+    quote: {
+      text: "Anthropic remains unique among major labs for publishing system prompts publicly.",
+      source: "Simon Willison, Apr 18 2026",
+      url: "https://simonwillison.net/2026/Apr/18/opus-system-prompt/",
+    },
+  },
+];
+
+// ─── State ───────────────────────────────────────────────────────────────────
+let mode = "abs"; // "abs" or "pct"
+let activeId = "opus4";
+let chart = null;
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function pct(v, total) { return Math.round((v / total) * 100); }
+
+function delta(cur, prev, cat) {
+  if (!prev) return "";
+  const d = (cur.words[cat] || 0) - (prev.words[cat] || 0);
+  if (d === 0) return `<span class="delta delta-neutral">±0</span>`;
+  return `<span class="delta delta-up">${d > 0 ? "+" : ""}${d}w</span>`;
+}
+
+// ─── Chart ───────────────────────────────────────────────────────────────────
+function buildChart() {
+  const labels = VERSIONS.map(v => v.label);
+  const maxTotal = Math.max(...VERSIONS.map(v => v.total));
+
+  const datasets = CATS.map(cat => ({
+    label: cat.label,
+    data: VERSIONS.map(v => {
+      const w = v.words[cat.key] || 0;
+      return mode === "abs" ? w : Math.round((w / v.total) * 100);
+    }),
+    backgroundColor: cat.color + "cc",
+    borderColor: cat.color + "66",
+    borderWidth: 1,
+    borderRadius: 2,
+  }));
+
+  const ctx = document.getElementById("mainChart").getContext("2d");
+
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: "bar",
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (item) => {
+              const v = VERSIONS[item.dataIndex];
+              const w = v.words[CATS[item.datasetIndex].key] || 0;
+              if (mode === "abs") return ` ${item.dataset.label}: ${w.toLocaleString()} words`;
+              return ` ${item.dataset.label}: ${item.raw}% (${w.toLocaleString()} words)`;
+            },
+            afterBody: (items) => {
+              const v = VERSIONS[items[0].dataIndex];
+              return [`Total: ${v.total.toLocaleString()} words`];
+            },
+          },
+          backgroundColor: "#1a1d2e",
+          borderColor: "#2d3350",
+          borderWidth: 1,
+          titleColor: "#f7f7f8",
+          bodyColor: "#94a3b8",
+          footerColor: "#7c8cf8",
+          padding: 10,
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { color: "#1a1d2e" },
+          ticks: { color: "#64748b", font: { size: 11 } },
+        },
+        y: {
+          stacked: true,
+          grid: { color: "#1e2235" },
+          ticks: {
+            color: "#4b5563",
+            font: { size: 11 },
+            callback: v => mode === "abs" ? v.toLocaleString() : v + "%",
+          },
+          max: mode === "abs" ? Math.ceil(maxTotal / 500) * 500 : 100,
+          title: {
+            display: true,
+            text: mode === "abs" ? "words" : "% of total",
+            color: "#374151",
+            font: { size: 10 },
+          },
+        },
+      },
+      onClick: (e, els) => {
+        if (els.length) selectVersion(VERSIONS[els[0].index].id);
+      },
+    },
+  });
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById("btn-abs").classList.toggle("active", m === "abs");
+  document.getElementById("btn-pct").classList.toggle("active", m === "pct");
+  buildChart();
+}
+
+// ─── Legend ──────────────────────────────────────────────────────────────────
+function buildLegend() {
+  const el = document.getElementById("legend");
+  CATS.forEach(cat => {
+    el.innerHTML += `
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:${cat.color}cc;border:1px solid ${cat.color}66"></div>
+        ${cat.icon} ${cat.label}
+      </div>`;
+  });
+}
+
+// ─── Version tabs ─────────────────────────────────────────────────────────────
+function buildTabs() {
+  const el = document.getElementById("version-tabs");
+  VERSIONS.forEach(v => {
+    const btn = document.createElement("button");
+    btn.className = "version-tab" + (v.id === activeId ? " active" : "");
+    btn.textContent = v.label + " (" + v.date.split(",")[0] + ")";
+    btn.dataset.id = v.id;
+    btn.style.borderColor = v.id === activeId ? v.color : "";
+    btn.style.color = v.id === activeId ? v.color : "";
+    btn.addEventListener("click", () => selectVersion(v.id));
+    el.appendChild(btn);
+  });
+}
+
+// ─── Detail ──────────────────────────────────────────────────────────────────
+function selectVersion(id) {
+  activeId = id;
+  const vIdx = VERSIONS.findIndex(v => v.id === id);
+  const v = VERSIONS[vIdx];
+  const prev = vIdx > 0 ? VERSIONS[vIdx - 1] : null;
+  const maxWords = Math.max(...CATS.map(c => v.words[c.key] || 0));
+
+  document.querySelectorAll(".version-tab").forEach(btn => {
+    const isActive = btn.dataset.id === id;
+    const match = VERSIONS.find(vv => vv.id === btn.dataset.id);
+    btn.classList.toggle("active", isActive);
+    btn.style.borderColor = isActive ? match.color : "";
+    btn.style.color = isActive ? match.color : "";
+  });
+
+  const rows = CATS.map(cat => {
+    const w = v.words[cat.key] || 0;
+    const barPct = maxWords > 0 ? Math.round((w / maxWords) * 100) : 0;
+    const prevW = prev ? (prev.words[cat.key] || 0) : null;
+    const d = prevW !== null ? delta(v, prev, cat.key) : "";
+    const pctOfTotal = pct(w, v.total);
+    return `
+      <div class="cat-row">
+        <div class="cat-label">
+          <span>${cat.icon}</span>
+          <span style="color:${cat.color}">${cat.label.split(" ")[0]}</span>
+        </div>
+        <div class="cat-bar-bg">
+          <div class="cat-bar-fill" style="width:${barPct}%;background:${cat.color}aa"></div>
+        </div>
+        <div class="cat-words">
+          ${w > 0 ? w.toLocaleString() + "w" : "—"}
+          ${d}
+        </div>
+      </div>
+      ${v.notes[cat.key] ? `<div style="font-size:0.74rem;color:#374151;margin:-4px 0 10px 140px;line-height:1.5">${v.notes[cat.key]}</div>` : ""}
+    `;
+  }).join("");
+
+  const changeText = prev
+    ? `+${(v.total - prev.total).toLocaleString()} words vs ${prev.label}`
+    : "Baseline version";
+
+  const quoteHtml = v.quote ? `
+    <div class="quote-block">
+      "${v.quote.text}"
+      <div class="quote-source">— <a href="${v.quote.url}" target="_blank">${v.quote.source}</a></div>
+    </div>` : "";
+
+  document.getElementById("detail-card").innerHTML = `
+    <div class="detail-meta">
+      <span class="detail-name" style="color:${v.color}">${v.label}</span>
+      <span class="detail-date">${v.date}</span>
+      <span class="detail-total">${v.total.toLocaleString()} words total &nbsp;·&nbsp; ${changeText}</span>
+    </div>
+    ${rows}
+    ${quoteHtml}
+    <div style="margin-top:14px;font-size:0.72rem;color:#374151">
+      Source: <a href="${v.source}" target="_blank" style="color:#4b5563">${v.source}</a>
+    </div>
+  `;
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+buildChart();
+buildLegend();
+buildTabs();
+selectVersion("opus4");
+</script>
+</body>
+</html>

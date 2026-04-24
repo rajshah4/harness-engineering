@@ -1,0 +1,22 @@
+# Talk materials (slides, script, workshop companion) kept local, not published
+talk/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.env.local
+
+# uv
+.uv-cache/
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
