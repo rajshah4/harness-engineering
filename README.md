@@ -36,7 +36,6 @@ At the bottom: [reference implementations](#reference-implementations) worth rea
 - **[Retriever vs. Reranker](https://colab.research.google.com/drive/1lRr0J5fumRBP-RmTm5kD9lMd9nuOlhmI)** (Colab) — why hybrid search plus a reranker beats either retriever alone. Runs in a browser.
 - **[Agentic RAG vs. Vanilla RAG](https://colab.research.google.com/drive/1hG3dPgd8wjrO9wSD0K0Feo7EY1iXqrEN)** (Colab) — one-shot retrieval vs. an agent that rewrites its own queries. Accuracy climbs, latency climbs harder.
 - **[BEIR benchmarks walkthrough](https://colab.research.google.com/drive/1HfutiEhHMJLXiWGT8pcipxT5L2TpYEdt)** (Colab) — stress-test retrievers across domains rather than one cherry-picked task.
-- **[cobusgreyling/ai_harness_engineering](https://github.com/cobusgreyling/ai_harness_engineering)** — a working playground harness. Toggle retrieval and other components via YAML, run the same task across configs, and read the side-by-side table.
 
 *Further reading:* [Anthropic on effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
@@ -83,6 +82,7 @@ Harnesses worth reading and cloning end-to-end.
 - **[SWE-agent](https://github.com/SWE-agent/SWE-agent)** — mature research coding agent. Harness, prompts, tools, and environment are all directly inspectable and well-documented.
 - **[deepagents](https://github.com/langchain-ai/deepagents)** — LangChain's open-source reference for longer-running agents with middleware and harness patterns.
 - **[OpenHands SDK](https://docs.openhands.dev/sdk)** — the open-source agent SDK I work on at OpenHands. Saves you from writing the harness boilerplate (tools, sandboxing, memory, orchestration) when you want to jump straight to building the agent.
+- **[cobusgreyling/ai_harness_engineering](https://github.com/cobusgreyling/ai_harness_engineering)** — a working playground harness covering the six harness components. Toggle any of them via YAML, run the same task across configs, and read the side-by-side comparison table. Good for poking at all the levers in one place.
 
 ---
 
