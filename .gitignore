@@ -20,3 +20,5 @@ venv/
 .vscode/
 .idea/
 *.swp
+talks/ODSC_2026/script.md
+talks/ODSC_2026/practice_feedback.md
