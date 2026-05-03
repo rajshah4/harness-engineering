@@ -45,6 +45,9 @@ At the bottom: [reference implementations](#reference-implementations) worth rea
 
 The same model can perform very differently depending on the harness wrapped around it. If you want to compare models honestly for agentic coding, you need benchmarks that make the harness visible.
 
+- **[Cross-benchmark model specialization](./experiments/model-specialization/)** — reusable prompt + local visualization showing that leaderboard winners change across bug fixing, app building, information gathering, and terminal-heavy tasks.
+- **[Multi-source leaderboard analysis guides](./experiments/model-specialization/references/normalization-schema.md)** — lightweight workflow for analyzing OpenHands Index and Artificial Analysis without turning the repo into a scraper collection.
+
 - **[OpenHands Index](https://index.openhands.dev/home)** — leaderboard across coding benchmarks with harness configuration made explicit.
 - **[SWE-bench Verified](https://www.swebench.com/)** — a canonical harness-sensitive benchmark for software engineering tasks.
 - **[Terminal-Bench / Harbor](https://www.tbench.ai/)** — stresses environment control and long-horizon execution. Useful when the task is less "write a patch" and more "drive a shell for an hour."
@@ -114,4 +117,3 @@ Projects worth reading end-to-end if you want to study harness design in code.
 - **[deepagents](https://github.com/langchain-ai/deepagents)** — LangChain's open-source reference for longer-running agents with middleware and harness patterns.
 - **[OpenHands SDK](https://docs.openhands.dev/sdk)** — the open-source agent SDK I work on at OpenHands.
 - **[cobusgreyling/ai_harness_engineering](https://github.com/cobusgreyling/ai_harness_engineering)** — a playground harness covering the main harness components, with YAML-based configuration and side-by-side comparisons.
-

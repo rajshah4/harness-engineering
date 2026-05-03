@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross-Benchmark Model Specialization</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="./openhands_snapshot.js"></script>
+<style>
+  :root {
+    --ink: #18212a;
+    --muted: #61707d;
+    --line: #d7e0e6;
+    --panel: rgba(255, 255, 255, 0.88);
+    --bg-1: #f6f2e9;
+    --bg-2: #e5f0ed;
+    --accent: #1f5e50;
+    --accent-2: #b55d3d;
+    --gold: #d59a27;
+    --silver: #8d97a3;
+    --bronze: #986347;
+    --shadow: 0 16px 50px rgba(24, 33, 42, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top left, rgba(181, 93, 61, 0.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(31, 94, 80, 0.14), transparent 32%),
+      linear-gradient(180deg, var(--bg-1), #fbfaf7 38%, var(--bg-2));
+    min-height: 100vh;
+    padding: 28px 20px 56px;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    padding: 30px 0 22px;
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.02;
+    max-width: 980px;
+    font-weight: 700;
+  }
+
+  .deck {
+    max-width: 820px;
+    font-size: 1.03rem;
+    line-height: 1.65;
+    color: #34424f;
+  }
+
+  .meta {
+    margin-top: 16px;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--panel);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(215, 224, 230, 0.92);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+
+  .span-12 { grid-column: span 12; }
+  .span-8 { grid-column: span 8; }
+  .span-7 { grid-column: span 7; }
+  .span-5 { grid-column: span 5; }
+  .span-6 { grid-column: span 6; }
+  .span-4 { grid-column: span 4; }
+
+  .section-title {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+  }
+
+  .section-copy {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .stat {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(215, 224, 230, 0.82);
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 1.45rem;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .stat-detail {
+    font-size: 0.84rem;
+    color: #44515d;
+    line-height: 1.4;
+  }
+
+  .podium-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .podium-card {
+    border: 1px solid rgba(215, 224, 230, 0.88);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.76);
+    padding: 16px;
+  }
+
+  .podium-task {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .podium-source {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .podium-slot {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 10px 0;
+    border-top: 1px solid rgba(215, 224, 230, 0.8);
+  }
+
+  .podium-slot:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .podium-rank {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: white;
+    margin-top: 2px;
+  }
+
+  .rank-1 { background: var(--gold); }
+  .rank-2 { background: var(--silver); }
+  .rank-3 { background: var(--bronze); }
+
+  .podium-models {
+    display: grid;
+    gap: 6px;
+  }
+
+  .podium-entry {
+    background: rgba(246, 250, 249, 0.9);
+    border: 1px solid rgba(215, 224, 230, 0.85);
+    border-radius: 12px;
+    padding: 8px 10px;
+  }
+
+  .podium-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .podium-score {
+    font-size: 0.8rem;
+    color: #44515d;
+  }
+
+  .control-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .pill {
+    appearance: none;
+    border: 1px solid #c4d2cc;
+    background: #f5fbf9;
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .pill:hover { transform: translateY(-1px); }
+
+  .pill.active {
+    background: var(--accent);
+    color: #fdfcf9;
+    border-color: var(--accent);
+  }
+
+  .benchmark-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  select {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font: inherit;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .chart-shell {
+    height: 330px;
+  }
+
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+  }
+
+  .matrix th,
+  .matrix td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(215, 224, 230, 0.9);
+    vertical-align: top;
+  }
+
+  .matrix th {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  .head-primary {
+    display: block;
+  }
+
+  .head-secondary {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-top: 3px;
+    color: #7a8792;
+  }
+
+  .model-name {
+    font-weight: 700;
+  }
+
+  .model-meta {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .score-chip {
+    display: inline-flex;
+    min-width: 64px;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #102018;
+  }
+
+  .rank-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: white;
+    margin-top: 6px;
+  }
+
+  .notes {
+    margin: 0;
+    padding-left: 18px;
+    color: #41505d;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 980px) {
+    .span-8, .span-7, .span-6, .span-5, .span-4 { grid-column: span 12; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    .podium-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 18px 14px 42px; }
+    .card { padding: 16px; border-radius: 16px; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .podium-grid { grid-template-columns: 1fr; }
+    .chart-shell { height: 280px; }
+    .matrix { font-size: 0.84rem; }
+    .score-chip { min-width: 54px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <section class="hero">
+    <div class="eyebrow">Harness Engineering Experiment</div>
+    <h1>No model finishes first at everything.</h1>
+    <p class="deck">
+      This view translates benchmark names into functional task types. Instead of asking which model is "best,"
+      compare which models win at bug fixing, app building, research, and terminal-heavy work. The podium rotates.
+    </p>
+    <div class="meta" id="meta"></div>
+  </section>
+
+  <section class="grid">
+    <div class="card span-12">
+      <h2 class="section-title">What the snapshot says</h2>
+      <p class="section-copy">These summaries are computed from the checked-in OpenHands snapshot.</p>
+      <div class="stat-strip" id="stats"></div>
+    </div>
+
+    <div class="card span-12">
+      <h2 class="section-title">Task-type podiums</h2>
+      <p class="section-copy">Look at first, second, and third place by functional task type. Ties stay tied.</p>
+      <div class="podium-grid" id="podiums"></div>
+    </div>
+
+    <div class="card span-7">
+      <h2 class="section-title">Task-type leaderboard</h2>
+      <p class="section-copy">Choose a functional task type and compare the full ordering.</p>
+      <div class="control-row" id="benchmark-controls"></div>
+      <div class="benchmark-note" id="benchmark-note"></div>
+      <div class="chart-shell">
+        <canvas id="leaderboard-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="card span-5">
+      <h2 class="section-title">Model profile</h2>
+      <p class="section-copy">Inspect one model's cross-task shape.</p>
+      <select id="model-select"></select>
+      <div class="chart-shell">
+        <canvas id="profile-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="card span-8">
+      <h2 class="section-title">Normalized score matrix</h2>
+      <p class="section-copy">Rows are models. Columns are functional task types. Rank badges show placement by task.</p>
+      <table class="matrix">
+        <thead>
+          <tr id="matrix-head"></tr>
+        </thead>
+        <tbody id="matrix-body"></tbody>
+      </table>
+    </div>
+
+    <div class="card span-4">
+      <h2 class="section-title">Method notes</h2>
+      <p class="section-copy">OpenHands provides the scores. This layer reframes them by workload type.</p>
+      <ul class="notes" id="notes"></ul>
+    </div>
+  </section>
+</div>
+
+<script>
+const data = window.MODEL_SPECIALIZATION_DATA;
+const benchmarkMap = new Map(data.benchmarks.map((item) => [item.id, item]));
+const benchmarkOrder = data.benchmarks.map((item) => item.id);
+const rankingMap = new Map(data.benchmark_rankings.map((item) => [item.benchmark, item]));
+let selectedBenchmark = benchmarkOrder[0];
+let selectedModel = data.models[0]?.id;
+let leaderboardChart;
+let profileChart;
+
+function formatTimestamp(value) {
+  const date = new Date(value);
+  return date.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+}
+
+function scoreColor(score) {
+  const clamped = Math.max(0, Math.min(100, score));
+  const alpha = 0.18 + (clamped / 100) * 0.62;
+  return `rgba(31, 94, 80, ${alpha.toFixed(2)})`;
+}
+
+function rankClass(rank) {
+  return rank === 1 ? "rank-1" : rank === 2 ? "rank-2" : "rank-3";
+}
+
+function renderMeta() {
+  const meta = document.getElementById("meta");
+  meta.textContent = `Generated ${formatTimestamp(data.generated_at)} from ${data.source_repo}`;
+}
+
+function renderStats() {
+  const container = document.getElementById("stats");
+  const widest = [...data.models].sort((a, b) => b.score_range - a.score_range)[0];
+  const steadiest = [...data.models].sort((a, b) => a.score_range - b.score_range)[0];
+  const benchmarkCount = data.benchmarks.length;
+  const maxFirst = Math.max(...data.models.map((model) => model.first_place_count));
+  const closestSweep = data.models.find((model) => model.first_place_count === maxFirst);
+  const uniqueLeaders = new Set();
+  for (const ranking of data.benchmark_rankings) {
+    for (const item of ranking.rankings) {
+      if (item.rank === 1) uniqueLeaders.add(item.model);
+    }
+  }
+
+  const items = [
+    {
+      label: "No clean sweep",
+      value: `${maxFirst}/${benchmarkCount}`,
+      detail: `${closestSweep.label} comes closest, but no model is first across every task type.`,
+    },
+    {
+      label: "Rotating winners",
+      value: `${uniqueLeaders.size}`,
+      detail: `Different models hold at least one first-place finish across the snapshot.`,
+    },
+    {
+      label: "Biggest swing",
+      value: `${widest.score_range.toFixed(1)} pts`,
+      detail: `${widest.label} varies the most across tasks.`,
+    },
+    {
+      label: "Most balanced",
+      value: `${steadiest.score_range.toFixed(1)} pts`,
+      detail: `${steadiest.label} has the tightest spread across tasks.`,
+    },
+  ];
+
+  container.innerHTML = items.map((item) => `
+    <div class="stat">
+      <div class="stat-label">${item.label}</div>
+      <div class="stat-value">${item.value}</div>
+      <div class="stat-detail">${item.detail}</div>
+    </div>
+  `).join("");
+}
+
+function renderPodiums() {
+  const container = document.getElementById("podiums");
+  container.innerHTML = data.benchmark_rankings.map((ranking) => {
+    const benchmark = benchmarkMap.get(ranking.benchmark);
+    const grouped = [1, 2, 3].map((rank) => ({
+      rank,
+      items: ranking.top_podium.filter((item) => item.rank === rank),
+    })).filter((group) => group.items.length > 0);
+
+    const slots = grouped.map((group) => `
+      <div class="podium-slot">
+        <div class="podium-rank ${rankClass(group.rank)}">${group.rank}</div>
+        <div class="podium-models">
+          ${group.items.map((item) => `
+            <div class="podium-entry">
+              <div class="podium-name">${item.model}</div>
+              <div class="podium-score">${item.score.toFixed(1)}%</div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+
+    return `
+      <div class="podium-card">
+        <div class="podium-task">${benchmark.task_type}</div>
+        <div class="podium-source">${benchmark.label} · ${benchmark.description}</div>
+        ${slots}
+      </div>
+    `;
+  }).join("");
+}
+
+function renderBenchmarkControls() {
+  const container = document.getElementById("benchmark-controls");
+  container.innerHTML = "";
+  for (const benchmark of data.benchmarks) {
+    const button = document.createElement("button");
+    button.className = `pill ${benchmark.id === selectedBenchmark ? "active" : ""}`;
+    button.textContent = benchmark.task_type;
+    button.addEventListener("click", () => {
+      selectedBenchmark = benchmark.id;
+      renderBenchmarkControls();
+      renderBenchmarkNote();
+      renderLeaderboardChart();
+    });
+    container.appendChild(button);
+  }
+}
+
+function renderBenchmarkNote() {
+  const benchmark = benchmarkMap.get(selectedBenchmark);
+  document.getElementById("benchmark-note").textContent = `${benchmark.label}: ${benchmark.description}`;
+}
+
+function leaderboardRows() {
+  return data.models
+    .filter((model) => model.scores[selectedBenchmark] !== undefined)
+    .sort((a, b) => b.scores[selectedBenchmark] - a.scores[selectedBenchmark]);
+}
+
+function renderLeaderboardChart() {
+  const ctx = document.getElementById("leaderboard-chart");
+  const rows = leaderboardRows();
+
+  if (leaderboardChart) leaderboardChart.destroy();
+
+  leaderboardChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: rows.map((item) => item.label),
+      datasets: [{
+        label: benchmarkMap.get(selectedBenchmark).task_type,
+        data: rows.map((item) => item.scores[selectedBenchmark]),
+        backgroundColor: rows.map((item) => item.id === selectedModel ? "rgba(181, 93, 61, 0.8)" : "rgba(31, 94, 80, 0.75)"),
+        borderRadius: 8,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: (context) => {
+              const model = rows[context.dataIndex];
+              const rank = model.ranks[selectedBenchmark];
+              return `Rank #${rank}`;
+            },
+            label: (context) => `${context.raw.toFixed(1)}%`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { color: "#44515d" },
+          grid: { display: false },
+        },
+        y: {
+          beginAtZero: true,
+          max: 100,
+          ticks: {
+            color: "#44515d",
+            callback: (value) => `${value}%`,
+          },
+          grid: { color: "rgba(215, 224, 230, 0.85)" },
+        },
+      },
+    },
+  });
+}
+
+function renderModelSelect() {
+  const select = document.getElementById("model-select");
+  select.innerHTML = data.models.map((model) => `
+    <option value="${model.id}" ${model.id === selectedModel ? "selected" : ""}>${model.label}</option>
+  `).join("");
+  select.addEventListener("change", (event) => {
+    selectedModel = event.target.value;
+    renderLeaderboardChart();
+    renderProfileChart();
+  });
+}
+
+function renderProfileChart() {
+  const ctx = document.getElementById("profile-chart");
+  const model = data.models.find((item) => item.id === selectedModel);
+  const values = benchmarkOrder.map((benchmark) => model.scores[benchmark] ?? null);
+
+  if (profileChart) profileChart.destroy();
+
+  profileChart = new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: data.benchmarks.map((item) => item.task_type),
+      datasets: [{
+        label: model.label,
+        data: values,
+        borderColor: "rgba(181, 93, 61, 0.92)",
+        backgroundColor: "rgba(181, 93, 61, 0.18)",
+        pointBackgroundColor: "rgba(181, 93, 61, 0.92)",
+        pointRadius: 3,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => {
+              const benchmark = data.benchmarks[items[0].dataIndex];
+              return `${benchmark.task_type} (${benchmark.label})`;
+            },
+            afterLabel: (context) => {
+              const benchmark = benchmarkOrder[context.dataIndex];
+              return `Rank #${model.ranks[benchmark]}`;
+            },
+            label: (context) => `${context.raw.toFixed(1)}%`,
+          },
+        },
+      },
+      scales: {
+        r: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+          angleLines: { color: "rgba(196, 210, 204, 0.9)" },
+          grid: { color: "rgba(196, 210, 204, 0.9)" },
+          pointLabels: { color: "#44515d", font: { size: 12 } },
+          ticks: {
+            backdropColor: "transparent",
+            color: "#60707f",
+            callback: (value) => `${value}%`,
+          },
+        },
+      },
+    },
+  });
+}
+
+function renderNotes() {
+  const list = document.getElementById("notes");
+  list.innerHTML = data.notes.map((item) => `<li>${item}</li>`).join("");
+}
+
+function renderMatrix() {
+  const head = document.getElementById("matrix-head");
+  const body = document.getElementById("matrix-body");
+
+  head.innerHTML = `
+    <th>Model</th>
+    ${data.benchmarks.map((item) => `
+      <th>
+        <span class="head-primary">${item.task_type}</span>
+        <span class="head-secondary">${item.label}</span>
+      </th>
+    `).join("")}
+    <th>Range</th>
+  `;
+
+  body.innerHTML = data.models.map((model) => {
+    const scoreCells = data.benchmarks.map((benchmark) => {
+      const score = model.scores[benchmark.id];
+      const rank = model.ranks[benchmark.id];
+      if (score === undefined) return "<td>—</td>";
+      return `
+        <td>
+          <span class="score-chip" style="background:${scoreColor(score)}">${score.toFixed(1)}</span>
+          <div class="rank-chip ${rankClass(rank)}">#${rank}</div>
+        </td>
+      `;
+    }).join("");
+
+    return `
+      <tr>
+        <td>
+          <div class="model-name">${model.label}</div>
+          <div class="model-meta">${model.first_place_count} first-place finish${model.first_place_count === 1 ? "" : "es"} · mean ${model.mean_score.toFixed(1)}%</div>
+        </td>
+        ${scoreCells}
+        <td><strong>${model.score_range.toFixed(1)}</strong></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+renderMeta();
+renderStats();
+renderPodiums();
+renderBenchmarkControls();
+renderBenchmarkNote();
+renderModelSelect();
+renderNotes();
+renderMatrix();
+renderLeaderboardChart();
+renderProfileChart();
+</script>
+</body>
+</html>
