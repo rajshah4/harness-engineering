@@ -110,11 +110,20 @@ Multi-agent systems are useful, but they are not a free performance gain. Coordi
 
 ---
 
+## Hands-on tutorials
+
+Walkthroughs that pair the conceptual levers above with a real, runnable harness you can read and modify.
+
+- **[OpenHands: Agent Server + Agent Canvas](./experiments/openhands-agent-server-canvas/)** — quickstart, harness tour, and five focused experiments built on the [OpenHands Agent Server](https://docs.openhands.dev/sdk/arch/agent-server) (the HTTP API that owns workspace, tools, and event stream) and [Agent Canvas](https://github.com/OpenHands/agent-canvas) (the operator UI). Each of the five levers is mapped to a concrete file, endpoint, or canvas affordance.
+- **[walkinglabs / learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering)** — project-based course built around the `AGENTS.md` + `feature_list.json` + `init.sh` + `progress.md` convention. Heavier on convention than on plumbing; complements the OpenHands tutorial well.
+
+---
+
 ## Reference implementations
 
 Projects worth reading end-to-end if you want to study harness design in code.
 
 - **[SWE-agent](https://github.com/SWE-agent/SWE-agent)** — mature research coding agent. Harness, prompts, tools, and environment are all directly inspectable and well-documented.
 - **[deepagents](https://github.com/langchain-ai/deepagents)** — LangChain's open-source reference for longer-running agents with middleware and harness patterns.
-- **[OpenHands SDK](https://docs.openhands.dev/sdk)** — the open-source agent SDK I work on at OpenHands.
+- **[OpenHands SDK](https://docs.openhands.dev/sdk)** — the open-source agent SDK I work on at OpenHands. See the [companion tutorial](./experiments/openhands-agent-server-canvas/) for a guided tour of agent-server + agent-canvas as a working harness.
 - **[cobusgreyling/ai_harness_engineering](https://github.com/cobusgreyling/ai_harness_engineering)** — a playground harness covering the main harness components, with YAML-based configuration and side-by-side comparisons.
