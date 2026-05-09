@@ -31,9 +31,18 @@ The OpenHands [post-mortem on Claude Code's recent regression](https://www.anthr
 |---|---|---|
 | 1 | [`01-quickstart.md`](./01-quickstart.md) | Install, run agent server + canvas, send your first message, confirm the loop |
 | 2 | [`02-harness-tour.md`](./02-harness-tour.md) | Map the five levers to concrete code paths and HTTP endpoints — including LLM routing, named confirmation policies, and an honest note on what OpenHands doesn't ship |
-| 3 | [`03-experiments.md`](./03-experiments.md) | Six small experiments where you change one knob and measure the effect (model + routing, tool surface, retrieval, memory, sandbox, critic) |
+| 3 | [`03-projects.md`](./03-projects.md) | A six-project learning path, each producing a config artifact, ending with a runnable `harness.py` capstone |
 
-Each experiment is intentionally narrow. The goal isn't to ship a feature — it's to make a single harness decision visible.
+The structure of step 3 is **inspired by [walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering)**, which organizes harness learning as a sequence of cumulative projects rather than disconnected ablations. Each project produces something concrete that survives into the next; by P06 you have a complete `harness.py` that wires together everything you kept.
+
+```text
+P01  Baseline + routing       → keep: a Router / LLMRegistry config
+P02  Tool surface             → keep: an Agent tool list
+P03  Retrieval                → keep: a one-line MCP-on/off decision rule
+P04  Memory                   → keep: a hand-written AGENTS.md + 1 evaluated skill
+P05  Sandbox + verification   → keep: DockerWorkspace runner + Critic + rubric
+P06  Capstone                 → wire P01-P05 into harness.py
+```
 
 ---
 
@@ -75,7 +84,7 @@ In order. Each step depends on the previous one being live.
 
 1. **[Quickstart](./01-quickstart.md)** — get a green health check and a working canvas in front of you. Skip nothing here.
 2. **[Harness tour](./02-harness-tour.md)** — with the system running, walk through where each of the five levers actually lives.
-3. **[Experiments](./03-experiments.md)** — change one thing at a time. Write down what happens. Don't read the next experiment before finishing the current one.
+3. **[Projects](./03-projects.md)** — change one thing at a time, save what you keep, move on. Don't read the next project before finishing the current one. The capstone (P06) is where the keepers compose into a single `harness.py`.
 
 There's a small `scripts/` directory with the helper bash scripts the experiments reference, and an `assets/` directory for screenshots and example trace dumps you can compare against your own.
 
