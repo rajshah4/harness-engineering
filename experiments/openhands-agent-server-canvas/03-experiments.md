@@ -8,32 +8,38 @@ Use a fresh conversation per run. Save event traces. Tabulate results in a singl
 
 ---
 
-## Experiment 1 — Model swap, harness held constant
+## Experiment 1 — Model swap, harness held constant (and the routing variant)
 
 **Lever:** Model.
 
-**Question:** How much of the variance you see between two LLMs comes from the model vs. the harness?
+**Question:** How much of the variance you see between two LLMs comes from the model vs. the harness — and does a router buy you anything for free?
 
 **Setup:**
 - Same agent server, same canvas, same workspace.
 - Same prompt, same tool set (`bash` + file editor only).
-- Two `LLM` configs: e.g. `anthropic/claude-sonnet-4-5-20250929` vs. `openai/gpt-5-mini-2025-08-07`.
+- Three configs:
+  - **A — flagship:** e.g. `anthropic/claude-sonnet-4-5-20250929`.
+  - **B — small:** e.g. `openai/gpt-5-mini-2025-08-07` or `anthropic/claude-haiku-4-5-20251001`.
+  - **C — routed:** a `Router` (start with the shipped `MultimodalRouter`, or write a 20-line keyword router that sends `"refactor"` / `"design"` / `"debug complex"` to the flagship and everything else to the small model).
 
 **Procedure:**
-1. Start a conversation with model A. Run to completion. Record: turn count, total tokens, accumulated cost, did it answer correctly.
-2. Click "Fork from start" in the canvas (or re-create an identical conversation).
-3. Switch model in the new conversation to model B. Send the same prompt. Record the same metrics.
+1. Start a conversation with config A. Run to completion. Record: turn count, in/out tokens *per `usage_id`*, accumulated cost, correctness.
+2. Fork from start (or re-create) and run config B. Same metrics.
+3. Run config C. Same metrics — but now `get_combined_metrics()` will break the cost down by leg of the router. Note which calls actually went to which model.
 
 **What to write down:**
 
-| Model | Turns | In tokens | Out tokens | Cost | Correct? | Notes |
+| Config | Turns | In tokens | Out tokens | Cost | Correct? | Where the cost landed |
 |---|---|---|---|---|---|---|
-| A | | | | | | |
-| B | | | | | | |
+| A flagship | | | | | | 100% flagship |
+| B small | | | | | | 100% small |
+| C routed | | | | | | _e.g. 20% flagship / 80% small_ |
 
-**What to look for:** turn-count differences are usually about *retrieval discipline* (does the model grep enough before guessing?), not raw intelligence. If the cheaper model uses fewer turns and gets the same answer, it's not because it's smarter — it's because the task didn't need the extra capability.
+**What to look for:**
+- Turn-count differences across A and B are usually about *retrieval discipline* (does the model grep enough before guessing?), not raw intelligence. If the cheaper model uses fewer turns and gets the same answer, it's not because it's smarter — it's because the task didn't need the extra capability.
+- Config C is the interesting one. If it lands within 10% of A's correctness at 30% of A's cost, you have evidence that *most of your task doesn't need the flagship*. If C drops sharply on correctness, your routing policy is sending the wrong things to the small model — fix the policy, not the models.
 
-> Connection to the talk: this is a personal-scale version of the [OpenHands Index](https://index.openhands.dev/home) experiment in [`experiments/model-specialization/`](../model-specialization/). One task is too few; one task is enough to convince yourself the harness matters.
+> Connection to the talk: slide 11 (same model, 2× gap from harness) and slide 22's framing of the model as *one of five levers, not the dominant one*. This is a personal-scale version of the [OpenHands Index](https://index.openhands.dev/home) experiment in [`experiments/model-specialization/`](../model-specialization/). One task is too few; one task is enough to convince yourself the harness matters.
 
 ---
 
@@ -170,6 +176,79 @@ uv run --with openhands-sdk --with openhands-tools --with openhands-workspace py
 - The event stream is byte-for-byte similar — same tools, same observations, same final message. That equivalence is the point of having a harness boundary.
 
 > If you're going to run agents on tasks with any real blast radius (slide 84: the database-deletion incident), this experiment is where you internalize that the cost of switching to Docker is "30 extra seconds and one Python script."
+
+---
+
+## Experiment 6 — Critic on / Critic off
+
+**Lever:** Architecture (the one multi-agent pattern that consistently wins).
+
+**Question:** What does an iterative critic actually buy you on a task you'd normally call "done" after one shot?
+
+**Why this experiment exists.** The talk is unambiguous on slide 97 — the critic is the multi-agent pattern that earns its keep. Reflexion-style critic loops on SWE-bench: 57.9% (random sampling) → 63.6% (success-only) → **73.8%** (iterative critic with rubrics). Boris Cherny's practitioner number is 2–3× quality. That's a big effect to take on faith. Run it on your task.
+
+**Setup:**
+- Pick a task with a *checkable* output. The COBOL→Java sample task in the [iterative-refinement guide](https://docs.openhands.dev/sdk/guides/iterative-refinement) works well; so does "write a small Python module with tests" against a public spec.
+- Same model, same tools, same prompt across both runs.
+- Two configurations:
+  - **A — no critic:** `get_default_agent(llm=llm)` and `conversation.run()` once. Whatever it produces is the answer.
+  - **B — critic with iterative refinement:** add `critic=...` to the `Agent` and an `IterativeRefinementConfig` with a `success_threshold` and `max_iterations`. `conversation.run()` will loop internally until the critic clears the threshold or you hit the cap.
+
+**Procedure A:**
+
+```python
+agent = get_default_agent(llm=llm, cli_mode=True)
+convo = Conversation(agent=agent, workspace=str(workspace))
+convo.send_message(TASK_PROMPT)
+convo.run()
+# Score the output against your rubric *manually*. Record pass/fail.
+```
+
+**Procedure B** (uses the API from [`34_critic_example.py`](https://github.com/OpenHands/software-agent-sdk/blob/main/examples/01_standalone_sdk/34_critic_example.py)):
+
+```python
+from openhands.sdk import LLM, Agent, Conversation
+from openhands.sdk.tool import Tool
+from openhands.tools.terminal import TerminalTool
+from openhands.tools.file_editor import FileEditorTool
+from openhands.tools.task_tracker import TaskTrackerTool
+# Critic API surface — see the iterative-refinement guide for current import paths
+from openhands.sdk.critic import APIBasedCritic, IterativeRefinementConfig, get_default_critic
+
+iterative = IterativeRefinementConfig(success_threshold=0.7, max_iterations=3)
+critic = get_default_critic(llm) or APIBasedCritic(
+    server_url=os.environ["CRITIC_SERVER_URL"],
+    api_key=os.environ["CRITIC_API_KEY"],
+    model_name=os.environ["CRITIC_MODEL_NAME"],
+    iterative_refinement=iterative,
+)
+critic = critic.model_copy(update={"iterative_refinement": iterative})
+
+agent = Agent(
+    llm=llm,
+    tools=[Tool(name=TerminalTool.name), Tool(name=FileEditorTool.name), Tool(name=TaskTrackerTool.name)],
+    critic=critic,
+)
+convo = Conversation(agent=agent, workspace=str(workspace))
+convo.send_message(TASK_PROMPT)
+convo.run()  # Loops automatically. Score the final output.
+```
+
+(If you don't have access to a critic LLM proxy, the [iterative-refinement guide](https://docs.openhands.dev/sdk/guides/iterative-refinement) shows a simpler two-conversation pattern — refactor agent then critique agent in a Python loop — that gets you the same shape without the hosted critic.)
+
+**Run each config five times.** This is the experiment where one-off measurements lie hardest. Score each run pass/fail against the same rubric. Track:
+
+| Config | Pass rate (n=5) | Median iterations | Median cost | Wall-clock |
+|---|---|---|---|---|
+| A no critic | _e.g._ 2/5 | 1 | $0.04 | 30s |
+| B critic, threshold 0.7, max 3 | _e.g._ 4/5 | 2 | $0.11 | 90s |
+
+**What to look for:**
+- Pass-rate lift is the headline number. If it doesn't move at least 10–15 percentage points on a non-trivial task, either your rubric is too lenient or the critic isn't actually scoring the right thing — read the critic's output before you blame the pattern.
+- Cost-per-pass (cost ÷ pass rate) is often *flat or better* with the critic, because the critic shortens the long tail of "ran for 30 turns, still wrong." Compute this and write it down.
+- Read the critic's verdicts in the event stream. The talk's slide-97 framing is "iterative critic *with rubrics*" — vague critics ("looks fine") barely help. Specific rubrics (`correctness 0–25`, `completeness 0–25`, `best practices 0–25`) drive most of the lift.
+
+> This experiment is the one most people skip because it sounds like extra work. It's also the one with the largest effect size in the talk. Don't skip it. If 10-percentage-points-of-pass-rate looks small written down, run it on a real task and see how it feels.
 
 ---
 

@@ -30,8 +30,8 @@ The OpenHands [post-mortem on Claude Code's recent regression](https://www.anthr
 | Step | File | What it covers |
 |---|---|---|
 | 1 | [`01-quickstart.md`](./01-quickstart.md) | Install, run agent server + canvas, send your first message, confirm the loop |
-| 2 | [`02-harness-tour.md`](./02-harness-tour.md) | Map the five levers to concrete code paths and HTTP endpoints |
-| 3 | [`03-experiments.md`](./03-experiments.md) | Five small experiments where you change one knob and measure the effect |
+| 2 | [`02-harness-tour.md`](./02-harness-tour.md) | Map the five levers to concrete code paths and HTTP endpoints — including LLM routing, named confirmation policies, and an honest note on what OpenHands doesn't ship |
+| 3 | [`03-experiments.md`](./03-experiments.md) | Six small experiments where you change one knob and measure the effect (model + routing, tool surface, retrieval, memory, sandbox, critic) |
 
 Each experiment is intentionally narrow. The goal isn't to ship a feature — it's to make a single harness decision visible.
 

@@ -25,6 +25,8 @@ The "model" lever isn't only "which LLM." It's:
 
 ### What you can change
 
+The basic case — one model, swap the string:
+
 ```python
 llm = LLM(
     usage_id="agent",                         # logical name
@@ -36,11 +38,30 @@ llm = LLM(
 
 LiteLLM resolves the `provider/model` string. You can swap `openai/gpt-5-mini-2025-08-07`, a Bedrock route, or a local Ollama via `base_url`. The harness doesn't care.
 
+### The model lever has a second knob: routing
+
+A real harness rarely uses one model for everything. Cheap calls go to a small model; hard calls go to a flagship; vision calls go to a multimodal one. OpenHands exposes this two ways:
+
+- **[`LLMRegistry`](https://docs.openhands.dev/sdk/guides/llm-registry)** — a name-keyed bag of `LLM` instances. You build them once at startup, look them up by `usage_id`. The SDK already uses it internally — note the `title-gen-llm` distinct from `agent` in the [local-server example](https://docs.openhands.dev/sdk/guides/agent-server/local-server). Title generation goes to a cheap model; the main loop goes to your flagship. That's a real cost lever, not a curiosity.
+- **[Model Routing](https://docs.openhands.dev/sdk/guides/llm-routing)** — `Router` subclasses (e.g. `MultimodalRouter`) that act *as* an `LLM`. Pass one to `Agent(llm=router, ...)` and the router decides per-message which underlying model to call. The shipped `MultimodalRouter` switches between a primary and a secondary based on whether the message contains images:
+
+  ```python
+  from openhands.sdk.llm.router import MultimodalRouter
+
+  multimodal = MultimodalRouter(
+      usage_id="multimodal-router",
+      llms_for_routing={"primary": flagship_llm, "secondary": cheap_llm},
+  )
+  agent = Agent(llm=multimodal, tools=tools)
+  ```
+
+  Subclass `Router` for your own policy — keyword-based, complexity-based, latency-based. This is the same pattern the talk's slide-22 framing implies but most operators never wire up.
+
 ### What you can measure
 
-`conversation.conversation_stats.get_combined_metrics()` returns tokens, cost, and latency per `usage_id`. That's the right granularity — you want to compare the *same* harness across two LLMs, not "the cost of running OpenHands."
+`conversation.conversation_stats.get_combined_metrics()` returns tokens, cost, and latency per `usage_id`. That's the right granularity — you want to compare the *same* harness across two LLMs, not "the cost of running OpenHands." With a router in place, each leg shows up under its own `usage_id` so you can see exactly which calls went where.
 
-> **Pointer to the talk:** slide 11 ("Same model, 2× performance gap") — model picks matter less than harness picks. The way you check that for *your* task is by changing only the `model` argument and rerunning the same conversation. Everything else in this tour stays constant.
+> **Pointer to the talk:** slide 11 ("Same model, 2× performance gap") — model picks matter less than harness picks. The way you check that for *your* task is by changing only the `model` argument and rerunning the same conversation, *or* by changing only the routing policy and watching where the cost lands. Everything else in this tour stays constant.
 
 ---
 
@@ -119,6 +140,10 @@ Across sessions, two things persist:
 
 You evaluate skills the way you evaluate retrieval: with-skill vs. without-skill on the same prompts. There's a worked example at [`rajshah4/evaluating-skills-tutorial`](https://github.com/rajshah4/evaluating-skills-tutorial) — use that pattern.
 
+### What OpenHands doesn't ship (yet)
+
+Honesty check, because the talk's slide 64 talks about an *outer loop* — the agent updating its own skills across sessions based on what worked. OpenHands has the inputs for this (skills, metrics, experience persistence in conversation state) but doesn't ship the consolidator that turns "task X failed three times the same way" into a new or revised skill file. Other harnesses are starting to wire this up (the Hermes pattern, dream-consolidation designs in some forthcoming systems). If you're studying how harnesses evolve, this is the seam to watch — and a reasonable place to build something yourself, since the building blocks are already exposed.
+
 ---
 
 ## 2.4 Lever 4 — Loops & tools: making the cycle disciplined
@@ -130,7 +155,34 @@ The agent loop is the part most outsiders mean when they say "the agent." In Ope
 - **`Conversation.run()`** drives the loop. Each iteration: build prompt → call LLM → parse tool calls → dispatch tools → ingest results → repeat or stop.
 - **Hooks** ([guide](https://docs.openhands.dev/sdk/guides/hooks)) let you observe or veto each step. This is where "force hypothesis before action" (slide 78) becomes implementable: a pre-action hook can reject tool calls missing a `hypothesis` field.
 - **Stuck Detector** ([guide](https://docs.openhands.dev/sdk/guides/agent-stuck-detector)) is the harness's defense against Ralph Wiggum loops — it watches for repeated identical actions and kills them.
-- **Confirmation policy** ([guide](https://docs.openhands.dev/sdk/guides/security)) implements the friction tiers from slide 86 — auto-allow safe, prompt for network, require approval for destructive.
+- **Confirmation policy + Security analyzer** ([guide](https://docs.openhands.dev/sdk/guides/security)) implement the friction tiers from slide 86 — but it's worth seeing the actual API rather than waving at "the security guide."
+
+### Friction tiers, named explicitly
+
+The talk's slide 86 prescribes four tiers; OpenHands gives you two composable pieces that, together, cover them. From `openhands.sdk.security.confirmation_policy`:
+
+| Slide-86 tier | OpenHands policy | What happens |
+|---|---|---|
+| Auto-allow safe (read, grep, ls) | `NeverConfirm()` *or* `ConfirmRisky()` with analyzer scoring `LOW` | Action runs, no prompt |
+| Auto-allow reversible (edit, commit) | `ConfirmRisky()` with analyzer scoring `LOW`/`MEDIUM` | Action runs, no prompt — sandboxed by your `Workspace` choice |
+| Prompt for network / unfamiliar | `ConfirmRisky()` with analyzer scoring `HIGH` | Conversation enters `WAITING_FOR_CONFIRMATION`; canvas surfaces the action for you to approve or reject |
+| Require explicit approval for destructive | `AlwaysConfirm()` | Every action requires explicit yes; rejection feeds a string back to the agent so it can try a different approach |
+
+`ConfirmRisky()` only does anything if you also attach an analyzer. The shipped `LLMSecurityAnalyzer` runs a separate cheap LLM (its own `usage_id="security-analyzer"`, which is exactly why the registry pattern from §2.1 matters) to score each action `LOW` / `MEDIUM` / `HIGH` / `UNKNOWN`. You can swap in a rule-based or hybrid analyzer (the [defense-in-depth](https://docs.openhands.dev/sdk/guides/security#defense-in-depth-security-analyzer) pattern) without changing the policy.
+
+Wired up:
+
+```python
+from openhands.sdk.security.confirmation_policy import ConfirmRisky
+from openhands.sdk.security.llm_analyzer import LLMSecurityAnalyzer
+
+conversation.set_security_analyzer(LLMSecurityAnalyzer(llm=cheap_llm))
+conversation.set_confirmation_policy(ConfirmRisky())
+```
+
+When the agent emits an action, the loop pauses with `execution_status == WAITING_FOR_CONFIRMATION`. You drain `ConversationState.get_unmatched_actions(...)`, decide, and either let `conversation.run()` proceed or call `conversation.reject_pending_actions("reason here")`. The rejection string goes back into the loop as feedback, which is how the agent learns to try a different approach instead of retrying the same blocked thing.
+
+That's the whole stack from slide 86. The policy enum is small on purpose; the variability lives in the analyzer.
 
 ### What's enforced by tool *schema*, not prompt
 
