@@ -114,7 +114,7 @@ Multi-agent systems are useful, but they are not a free performance gain. Coordi
 
 Walkthroughs that pair the conceptual levers above with a real, runnable harness you can read and modify.
 
-- **[OpenHands: Agent Server + Agent Canvas](./experiments/openhands-agent-server-canvas/)** — quickstart, harness tour, and five focused experiments built on the [OpenHands Agent Server](https://docs.openhands.dev/sdk/arch/agent-server) (the HTTP API that owns workspace, tools, and event stream) and [Agent Canvas](https://github.com/OpenHands/agent-canvas) (the operator UI). Each of the five levers is mapped to a concrete file, endpoint, or canvas affordance.
+- **[OpenHands: Agent Server + Agent Canvas](./experiments/openhands-agent-server-canvas/)** — quickstart, harness tour, and a six-project learning path (model routing → tools → retrieval → memory → sandbox + verification → capstone `harness.py`) built on the [OpenHands Agent Server](https://docs.openhands.dev/sdk/arch/agent-server) (the HTTP API that owns workspace, tools, and event stream) and [Agent Canvas](https://github.com/OpenHands/agent-canvas) (the operator UI). Each of the five levers maps to a concrete file, endpoint, or canvas affordance; each project produces a config artifact that survives into the capstone. Project structure inspired by `walkinglabs/learn-harness-engineering` below.
 - **[walkinglabs / learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering)** — project-based course built around the `AGENTS.md` + `feature_list.json` + `init.sh` + `progress.md` convention. Heavier on convention than on plumbing; complements the OpenHands tutorial well.
 
 ---
