@@ -7,7 +7,7 @@ A practical companion to my talk *Engineering the Harness*. This repo collects t
 
 ## Presentation Materials
 
-- **Deep Dive on Harness Engineering** - [Youtube](https://www.youtube.com/watch?v=KijChx7q2nY)
+- **Deep Dive on Harness Engineering** - [Youtube](https://www.youtube.com/watch?v=KijChx7q2nY), [Blog post - all the slides](https://rajivshah.com/blog/harness-engineering.html), [ODSC Podcast](https://opendatascience.com/what-is-an-agent-harness-the-architecture-behind-reliable-agentic-ai/)
 - **ODSC Talk, April 28** — [ODSC East](https://odsc.ai/east/) · [Slides](./talks/ODSC_2026/ODSC_Shah_Apr2026.pdf) · [References](./talks/ODSC_2026/references.md)
 
 
