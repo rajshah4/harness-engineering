@@ -2,6 +2,10 @@
 
 Six small projects, in order, each changing one harness lever and producing a config artifact that carries forward. By P06 you'll have a runnable `harness.py` that wires together everything you kept — your model routing, your tool selection, your `AGENTS.md`, your critic, your sandbox.
 
+If you're using this as a first learning path, treat P01-P04 as the core concepts. P05-P06 are the advanced path where safety, verification, and composition start looking like production harness design.
+
+The pattern is behavior first: decide what agent behavior you want, change the smallest harness surface that could affect it, then observe whether the trace changed.
+
 > **Inspired by [walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering)**, which organizes harness learning as a sequence of cumulative projects on the same Electron app rather than disconnected one-off ablations. That's a better shape for learning than the standard "here are some experiments" format, and it adapts naturally to OpenHands. The phase names, the two-column "What You Do / Harness Mechanism" preamble, and the "each project's solution becomes the next project's starter" property are all borrowed from there. Credit where it's due.
 
 > **Common task across all projects.** Pick one repo and one prompt, and freeze them. A good default: clone [`OpenHands/agent-canvas`](https://github.com/OpenHands/agent-canvas) and use the prompt `"Find every place VITE_BACKEND_HOST is read or set, and write a short note explaining how the dev script picks the backend."` — narrow, repeatable, doesn't write code, and forces real retrieval.
@@ -15,7 +19,7 @@ PROJECT EVOLUTION (OpenHands harness)
 =====================================
 
   P01  Baseline + routing            → SEE THE GAP & RIGHT-SIZE
-       |                               keep: a Router / LLMRegistry config
+       |                               keep: a RouterLLM / LLMRegistry config
        v
   P02  Tool surface                  → CONSTRAIN THE LOOP
        |                               keep: an Agent tool list with
@@ -56,17 +60,17 @@ Use a fresh conversation per run. Save event traces. Keep `results.md` next to y
 | | |
 |---|---|
 | **What You Do** | Run the same prompt three ways: flagship LLM, small LLM, and a router that mixes them. Compare turns, tokens, cost, and where the cost lands. |
-| **Harness Mechanism** | [`LLMRegistry`](https://docs.openhands.dev/sdk/guides/llm-registry) + [`Router`](https://docs.openhands.dev/sdk/guides/llm-routing) (e.g. `MultimodalRouter`) |
+| **Harness Mechanism** | [`LLMRegistry`](https://docs.openhands.dev/sdk/guides/llm-registry) + [`RouterLLM`](https://docs.openhands.dev/sdk/guides/llm-routing) (e.g. `MultimodalRouter`) |
 
 **Phase: SEE THE GAP & RIGHT-SIZE.** Most operators leave the model lever untouched. This project changes that.
 
 **Setup:**
 - Same agent server, same canvas, same workspace.
-- Same prompt, same tool set (`bash` + file editor only).
+- Same prompt, same tool set (`terminal` + `file_editor` only).
 - Three configs:
   - **A — flagship:** e.g. `anthropic/claude-sonnet-4-5-20250929`.
   - **B — small:** e.g. `openai/gpt-5-mini-2025-08-07` or `anthropic/claude-haiku-4-5-20251001`.
-  - **C — routed:** a `Router` (start with the shipped `MultimodalRouter`, or write a 20-line keyword router that sends `"refactor"` / `"design"` / `"debug complex"` to the flagship and everything else to the small model).
+  - **C — routed:** a `RouterLLM` (start with the shipped `MultimodalRouter`, or write a 20-line keyword router that sends `"refactor"` / `"design"` / `"debug complex"` to the flagship and everything else to the small model).
 
 **Procedure:**
 1. Start a conversation with config A. Run to completion. Record: turn count, in/out tokens *per `usage_id`*, accumulated cost, correctness.
@@ -87,7 +91,7 @@ Use a fresh conversation per run. Save event traces. Keep `results.md` next to y
 
 > Connection to the talk: slide 11 (same model, 2× gap from harness) and slide 22's framing of the model as *one of five levers, not the dominant one*. This is a personal-scale version of the [OpenHands Index](https://index.openhands.dev/home) experiment in [`experiments/model-specialization/`](../model-specialization/).
 
-> **What you keep:** a `Router` or `LLMRegistry` configuration that lands within 10% of flagship correctness at 30–50% of flagship cost. Save the Python snippet (5–20 lines) verbatim. You'll paste it into `harness.py` in P06.
+> **What you keep:** a `RouterLLM` or `LLMRegistry` configuration that lands within 10% of flagship correctness at 30–50% of flagship cost. Save the Python snippet (5–20 lines) verbatim. You'll paste it into `harness.py` in P06.
 
 ---
 
@@ -95,22 +99,22 @@ Use a fresh conversation per run. Save event traces. Keep `results.md` next to y
 
 | | |
 |---|---|
-| **What You Do** | Run the same task with a minimal `bash`-only agent, then with the full default tool set. Compare turn count and how the agent edits files. |
-| **Harness Mechanism** | `Agent(tools=[...])` selection. The default file editor's `str_replace` schema enforces uniqueness; `bash` doesn't. |
+| **What You Do** | Run the same task with a minimal `terminal`-only agent, then with the full default tool set. Compare turn count and how the agent edits files. |
+| **Harness Mechanism** | `Agent(tools=[...])` selection. The default file editor's schema enforces structured edits; raw shell output redirection doesn't. |
 
 **Phase: CONSTRAIN THE LOOP.** "More tools" isn't the win. "Tools whose *schema* makes the wrong move impossible" is.
 
 **Setup:**
 - Pick one model from P01. Hold it constant.
 - Two configurations:
-  - **A — minimal:** `tools=[Tool(TerminalTool.name)]`. No file editor, no task tracker. Force the agent to do everything through bash.
-  - **B — default:** `get_default_agent(llm=llm, cli_mode=True)`. Bash, file editor, task tracker.
+  - **A — minimal:** `tools=[Tool(name=TerminalTool.name)]`. No file editor, no task tracker. Force the agent to do everything through the shell.
+  - **B — default:** `get_default_agent(llm=llm, cli_mode=True)`. Terminal, file editor, task tracker.
 
 **Procedure:**
 1. Build agent A in the SDK. Send the prompt against the running agent server. Record turns, tokens, cost, correctness.
 2. Build agent B. Same prompt, same server, fresh conversation.
 
-**What to look for:** the file editor's `str_replace` tool *constrains the agent's actions* in a way bash doesn't. Agents using only bash tend to over-write files (`echo > file`) and lose context. The harness change isn't "more tools"; it's "more constrained tools."
+**What to look for:** the file editor *constrains the agent's actions* in a way raw shell commands don't. Agents using only shell commands tend to over-write files (`echo > file`) and lose context. The harness change isn't "more tools"; it's "more constrained tools."
 
 This is the slide-78 lesson — schema-enforced thinking — at human scale. Write down at least one specific failure mode you saw in agent A that agent B avoided. That observation is more valuable than the metrics.
 
@@ -122,19 +126,19 @@ This is the slide-78 lesson — schema-enforced thinking — at human scale. Wri
 
 | | |
 |---|---|
-| **What You Do** | Run the prompt with `bash + view` only, then with an MCP semantic-search server attached. Measure when semantic earns its slot vs when it just adds turns. |
-| **Harness Mechanism** | Lexical baseline (grep / view / find) vs. lexical + [MCP](https://docs.openhands.dev/sdk/guides/mcp) semantic |
+| **What You Do** | Run the prompt with `terminal + file_editor` only, then with an MCP semantic-search server attached. Measure when semantic earns its slot vs when it just adds turns. |
+| **Harness Mechanism** | Lexical baseline (`grep` / file reads / `find`) vs. lexical + [MCP](https://docs.openhands.dev/sdk/guides/mcp) semantic |
 
 **Phase: STOP HALLUCINATED PATHS.** Coding agents default to `grep`. The talk's stance (slides 25–31): semantic only earns its slot when you have a vocabulary mismatch.
 
 **Setup:**
 - Same model (from P01), same tool list (from P02). Hold them constant.
 - Two configurations:
-  - **A — lexical only:** `bash` + file editor.
+  - **A — lexical only:** `terminal` + `file_editor`.
   - **B — lexical + semantic:** add an MCP server that exposes a `search_code` tool against the same repo. A small, real one is [`OpenHands/extensions`](https://github.com/OpenHands/extensions) — pick one or build a stub that wraps `bm25s` over the repo files.
 
 **Procedure:**
-1. Run the prompt against config A. Note: how many `grep`/`bash` calls, how many file reads, did it find the answer?
+1. Run the prompt against config A. Note: how many `terminal` / `grep` calls, how many file reads, did it find the answer?
 2. Run against config B. Note the same plus how many `search_code` calls, and whether the agent actually *uses* the new tool or sticks with `grep`.
 
 **What to look for:**
@@ -246,16 +250,15 @@ from openhands.sdk.tool import Tool
 from openhands.tools.terminal import TerminalTool
 from openhands.tools.file_editor import FileEditorTool
 from openhands.tools.task_tracker import TaskTrackerTool
-from openhands.sdk.critic import APIBasedCritic, IterativeRefinementConfig, get_default_critic
+from openhands.sdk.critic import APIBasedCritic, IterativeRefinementConfig
 
 iterative = IterativeRefinementConfig(success_threshold=0.7, max_iterations=3)
-critic = get_default_critic(llm) or APIBasedCritic(
+critic = APIBasedCritic(
     server_url=os.environ["CRITIC_SERVER_URL"],
     api_key=os.environ["CRITIC_API_KEY"],
     model_name=os.environ["CRITIC_MODEL_NAME"],
     iterative_refinement=iterative,
 )
-critic = critic.model_copy(update={"iterative_refinement": iterative})
 
 agent = Agent(
     llm=llm,
@@ -323,7 +326,7 @@ from openhands.tools.task_tracker import TaskTrackerTool
 from openhands.workspace import DockerWorkspace
 
 # --- P01: model + routing ---------------------------------------------------
-# Paste your Router or LLMRegistry config here.
+# Paste your RouterLLM or LLMRegistry config here.
 flagship_llm = LLM(
     usage_id="agent",
     model=os.environ["LLM_MODEL_FLAGSHIP"],
@@ -339,7 +342,7 @@ security_llm = LLM(
     model=os.environ.get("LLM_MODEL_SECURITY", "anthropic/claude-haiku-4-5-20251001"),
     api_key=SecretStr(os.environ["LLM_API_KEY"]),
 )
-# Replace with your actual Router subclass. MultimodalRouter is the shipped
+# Replace with your actual RouterLLM subclass. MultimodalRouter is the shipped
 # example; your P01 keeper might be a keyword router instead.
 from openhands.sdk.llm.router import MultimodalRouter
 agent_llm = MultimodalRouter(
@@ -458,7 +461,7 @@ Three runs is barely a signal; ten is convincing; thirty is real. Pick a budget 
 
 `harness.py` exists. The next questions are about how it evolves:
 
-- **Add a hook** that requires every `bash` call to include a `hypothesis` field. Compare turn counts before/after on a long task. ([Hooks guide](https://docs.openhands.dev/sdk/guides/hooks).)
+- **Add a hook** that requires every `terminal` call to include a `hypothesis` field. Compare turn counts before/after on a long task. ([Hooks guide](https://docs.openhands.dev/sdk/guides/hooks).)
 - **Write a custom condenser** that drops noisy `npm install` output but keeps test-failure traces. Measure cost over a 50-turn session.
 - **Build a custom tool** that reads a `feature_list.json` (the [walkinglabs](https://github.com/walkinglabs/learn-harness-engineering) convention) and forces the agent to mark a feature as in-progress before editing files in its scope.
 - **Fork an MCP server** for your own data. Plug it into your harness. Re-run P03 with your real data.

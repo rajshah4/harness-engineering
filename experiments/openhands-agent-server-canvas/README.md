@@ -36,7 +36,7 @@ The OpenHands [post-mortem on Claude Code's recent regression](https://www.anthr
 The structure of step 3 is **inspired by [walkinglabs/learn-harness-engineering](https://github.com/walkinglabs/learn-harness-engineering)**, which organizes harness learning as a sequence of cumulative projects rather than disconnected ablations. Each project produces something concrete that survives into the next; by P06 you have a complete `harness.py` that wires together everything you kept.
 
 ```text
-P01  Baseline + routing       → keep: a Router / LLMRegistry config
+P01  Baseline + routing       → keep: a RouterLLM / LLMRegistry config
 P02  Tool surface             → keep: an Agent tool list
 P03  Retrieval                → keep: a one-line MCP-on/off decision rule
 P04  Memory                   → keep: a hand-written AGENTS.md + 1 evaluated skill
@@ -50,11 +50,11 @@ P06  Capstone                 → wire P01-P05 into harness.py
 
 - macOS or Linux. Windows works but the canvas dev script assumes a POSIX shell.
 - **Node.js 22.12+** and `npm` for the canvas frontend.
-- **`uv`** ([install](https://docs.astral.sh/uv/getting-started/installation/)) — the canvas dev script uses `uvx` to spawn an agent-server subprocess on `127.0.0.1:18000`. You don't need to `pip install` anything yourself.
-- **An LLM API key** — Anthropic, OpenAI, or anything else [LiteLLM](https://docs.litellm.ai/docs/providers) understands. Examples here use `anthropic/claude-sonnet-4-5-20250929`. Subscription login (`LLM.subscription_login()`) is supported if you'd rather not burn API credits.
-- **Docker** is optional. You only need it if you want to run the agent server in `DockerWorkspace` mode (Step 3 of the harness tour) instead of as a local subprocess.
+- **`uv`** ([install](https://docs.astral.sh/uv/getting-started/installation/)) — the dockerless canvas dev script uses `uvx` to spawn an agent-server subprocess on `127.0.0.1:18000` and the automation backend on `127.0.0.1:18001`. You don't need to `pip install` anything yourself.
+- **An LLM API key** — Anthropic, OpenAI, or anything else [LiteLLM](https://docs.litellm.ai/docs/providers) understands. Examples here use `anthropic/claude-sonnet-4-5-20250929`. The canvas stores this in its LLM settings; the SDK examples read `LLM_API_KEY` / `LLM_MODEL` from your shell. Subscription login (`LLM.subscription_login()`) is supported if you'd rather not burn API credits.
+- **Docker** is optional. The quickstart uses the explicit no-Docker command so you can inspect the local process directly. Use Docker once you are ready to bound the agent's filesystem access.
 
-> Heads up: by default `npm run dev` runs the agent server *directly on your machine*. It can read and write your filesystem. The canvas authors warn about this in big bold letters in their README. The Docker walkthrough in the tour fixes this; do that before you point the agent at anything you care about.
+> Heads up: `npm run dev:dangerously-dockerless` runs the agent server directly on your machine. It can read and write the working directory you give it, and broader filesystem access is possible through shell tools. The Docker walkthrough in the tour reduces that blast radius; do that before you point the agent at anything you care about.
 
 ---
 
@@ -86,13 +86,13 @@ In order. Each step depends on the previous one being live.
 2. **[Harness tour](./02-harness-tour.md)** — with the system running, walk through where each of the five levers actually lives.
 3. **[Projects](./03-projects.md)** — change one thing at a time, save what you keep, move on. Don't read the next project before finishing the current one. The capstone (P06) is where the keepers compose into a single `harness.py`.
 
-There's a small `scripts/` directory with the helper bash scripts the experiments reference, and an `assets/` directory for screenshots and example trace dumps you can compare against your own.
+There's a small `scripts/` directory with the helper scripts the experiments reference.
 
 ---
 
 ## What I'd hope you take away
 
-- **A harness is not abstract.** It is `POST /conversations`, `GET /conversations/{id}/stream`, `tools=[...]`, `cli_mode=False`, `OH_AGENT_SERVER_LOCAL_PATH=...`. Every lever in the talk has a corresponding string in a config file or a parameter in an SDK call.
+- **A harness is not abstract.** It is `POST /api/conversations`, `GET /api/conversations/{id}/events/search`, `GET /sockets/events/{id}`, `tools=[...]`, `cli_mode=False`, `OH_AGENT_SERVER_LOCAL_PATH=...`. Every lever in the talk has a corresponding string in a config file or a parameter in an SDK call.
 - **Open harnesses are diagnostic instruments.** When something goes wrong, you can read the loop. When something goes right, you can copy the policy.
 - **Canvas is doing more than rendering.** The UI is enforcing decisions about what the operator can see, what they can replay, what they can fork, and what they can change. That's harness work, not frontend work.
 

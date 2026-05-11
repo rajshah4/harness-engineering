@@ -1,6 +1,6 @@
 # 1 — Quickstart
 
-The fastest path from zero to "I can see the harness running." We'll start the agent server and the canvas with a single `npm run dev`, send a message, and prove the loop is alive.
+The fastest path from zero to "I can see the harness running." We'll start the agent server and the canvas with the explicit no-Docker dev command, send a message, and prove the loop is alive.
 
 If anything in this section fails, fix it before continuing. The rest of the tutorial assumes you have a working setup.
 
@@ -12,7 +12,7 @@ If anything in this section fails, fix it before continuing. The rest of the tut
 # Node 22.12+
 node --version   # → v22.12.x or higher
 
-# uv (used by the canvas to run uvx-spawned agent-server)
+# uv (used by the canvas to run uvx-spawned backends)
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv --version
 
@@ -21,7 +21,7 @@ export LLM_API_KEY="sk-..."
 export LLM_MODEL="anthropic/claude-sonnet-4-5-20250929"
 ```
 
-The canvas dev script will install Python dependencies into a uvx-managed env on first run. You don't manage that env yourself.
+The canvas dev script will install Python dependencies into uvx-managed envs on first run. You don't manage those envs yourself.
 
 ---
 
@@ -31,16 +31,18 @@ The canvas dev script will install Python dependencies into a uvx-managed env on
 git clone https://github.com/OpenHands/agent-canvas.git
 cd agent-canvas
 npm install
-npm run dev
+npm run dev:dangerously-dockerless
 ```
 
 What this actually does, from `DEVELOPMENT.md`:
 
 - Spawns an agent-server subprocess via `uvx` on `127.0.0.1:18000`.
-- Starts a Vite dev server on `http://localhost:8000` (the ingress port).
-- Writes isolated state under `.openhands-dev/` (tmux sockets, conversation persistence, bash event log, VS Code port). This means it won't fight any other OpenHands install you have running.
+- Spawns the automation backend via `uvx` on `127.0.0.1:18001`.
+- Starts a Vite dev server on `http://localhost:3001`.
+- Starts an ingress proxy on `http://localhost:8000`; this is the URL you open.
+- Writes isolated state under `~/.openhands/agent-canvas/` (session key, conversation persistence, workspaces, bash event log, tmux sockets). This means it won't fight the default OpenHands desktop/cloud-backed state, but repeated Agent Canvas dev runs will share this local state.
 
-You should see logs from both processes interleaved. Wait until the agent server prints something like `API server is ready at http://127.0.0.1:18000` — that's the [readiness probe](https://docs.openhands.dev/sdk/guides/agent-server/local-server) firing. Then open `http://localhost:8000` in a browser.
+You should see logs from the agent server, automation backend, Vite, and ingress interleaved. Wait until the launcher prints `Ready at http://localhost:18000/server_info` and then `Main UI: http://localhost:8000/`. Then open `http://localhost:8000` in a browser.
 
 > **Filesystem warning, repeated.** This setup runs the agent server directly on your machine. The agent has full bash, file-edit, and (optionally) browser tools against your real filesystem. Don't run risky tasks until you switch to a Docker sandbox in the tour.
 
@@ -56,27 +58,26 @@ curl -s http://127.0.0.1:18000/health | jq .
 
 # Expected response (shape may evolve):
 # {
-#   "status": "healthy",
-#   "docker": "connected",   # or "disconnected" for local process mode
-#   "workspaces": 0,
-#   "uptime": 12
+#   "status": "ok"
 # }
 ```
 
-If you get a connection refused, the server isn't up yet — wait, then try again. If you get a 401, you're running with `SESSION_API_KEY` set; export `VITE_SESSION_API_KEY` to the same value (see [DEVELOPMENT.md](https://github.com/OpenHands/agent-canvas/blob/main/DEVELOPMENT.md#environment-variables)) and restart.
+If you get a connection refused, the server isn't up yet — wait, then try again. `/health`, `/ready`, and `/server_info` are public server-detail endpoints. Most `/api/*` routes are authenticated because the dev script generates or reuses a session key. For direct API calls, send `X-Session-API-Key` with the value from `~/.openhands/agent-canvas/session-api-key.txt`, or export `SESSION_API_KEY` / `VITE_SESSION_API_KEY` yourself before starting the stack.
 
 The interesting endpoints, all documented in the [agent-server architecture page](https://docs.openhands.dev/sdk/arch/agent-server):
 
 ```text
-POST   /workspaces                       Create a new workspace
-DELETE /workspaces/{id}                  Tear it down
-POST   /conversations                    Create a conversation
-POST   /conversations/{id}/messages      Send a user message
-GET    /conversations/{id}/stream        WebSocket for events
-GET    /metrics                          Prometheus metrics
+POST   /api/conversations                         Create a conversation
+POST   /api/conversations/{id}/events             Send a user message
+POST   /api/conversations/{id}/run                Run or resume the loop
+GET    /api/conversations/{id}/events/search      Read persisted events
+GET    /sockets/events/{id}                       WebSocket for live events
+GET    /server_info                               Server version, uptime, and usable tools
 ```
 
 This is your harness. It's a REST/WS API and a workspace abstraction. The model has not entered the picture yet.
+
+One subtle but important distinction: `/server_info` lists every tool the server knows how to run. A conversation stores the smaller tool list its agent is actually allowed to use. We'll inspect that distinction in the harness tour.
 
 ---
 
@@ -85,16 +86,16 @@ This is your harness. It's a REST/WS API and a workspace abstraction. The model 
 In the browser:
 
 1. Open `http://localhost:8000`.
-2. Create a new conversation. Pick the LLM and model you exported above.
+2. Create a new conversation. If this is your first run, set the provider API key and model in the canvas LLM settings first.
 3. Type something narrow and verifiable. A good first prompt is:
 
    > Read the current repo and write three facts about it into `FACTS.txt`.
 
 4. Watch the event stream as it runs.
 
-You'll see the canvas render a sequence of typed events: tool calls (`bash`, `view`, `str_replace`, `create`), tool returns, model deltas, and a final message. Each row is one event from the [`Event`](https://docs.openhands.dev/sdk/arch/events) framework. Save this trace; we'll come back to it in the harness tour.
+You'll see the canvas render a sequence of typed events: tool calls such as `terminal`, `file_editor`, and `task_tracker`, tool returns, model deltas, and a final message. Each row is one event from the [`Event`](https://docs.openhands.dev/sdk/arch/events) framework. Save this trace; we'll come back to it in the harness tour.
 
-If `FACTS.txt` shows up in your `.openhands-dev/` workspace dir, you have a working harness end-to-end.
+If `FACTS.txt` shows up in the workspace directory the canvas chose, usually under `~/.openhands/agent-canvas/workspaces/`, you have a working harness end-to-end.
 
 ---
 
@@ -102,13 +103,19 @@ If `FACTS.txt` shows up in your `.openhands-dev/` workspace dir, you have a work
 
 The canvas is one client. The Python SDK is another. Running the same task through both, against the same server, makes it obvious that the *harness* is the server, not either client.
 
-Save this as `quickstart.py`:
+Use the checked-in helper at [`scripts/quickstart.py`](./scripts/quickstart.py), or save this equivalent code as `quickstart.py`:
 
 ```python
 import os, tempfile
+from pathlib import Path
 from pydantic import SecretStr
 from openhands.sdk import LLM, Conversation, RemoteConversation, Workspace
 from openhands.tools.preset.default import get_default_agent
+
+session_key_path = Path.home() / ".openhands" / "agent-canvas" / "session-api-key.txt"
+agent_server_api_key = os.getenv("AGENT_SERVER_API_KEY") or (
+    session_key_path.read_text().strip() if session_key_path.exists() else None
+)
 
 llm = LLM(
     usage_id="agent",
@@ -120,6 +127,7 @@ agent = get_default_agent(llm=llm, cli_mode=True)
 # The canvas already started this server on :18000.
 workspace = Workspace(
     host="http://127.0.0.1:18000",
+    api_key=agent_server_api_key,
     working_dir=tempfile.mkdtemp(prefix="harness_quickstart_"),
 )
 conversation = Conversation(agent=agent, workspace=workspace, visualize=True)
@@ -136,10 +144,12 @@ conversation.close()
 Run it:
 
 ```bash
-uv run --with openhands-sdk --with openhands-tools python quickstart.py
+uv run --with openhands-sdk --with openhands-tools python scripts/quickstart.py
 ```
 
-You should now have *two* conversations on the same agent server — one started from the canvas, one from Python. They share workspace state (subject to `working_dir`) and event persistence. Open the canvas; you can see the SDK-created conversation in the sidebar. That's not a coincidence — both clients write through the same `/conversations` endpoint.
+If this exits with `Missing required environment variable: LLM_API_KEY`, the server is fine; the SDK client just doesn't have model credentials in your shell. Export `LLM_API_KEY` and rerun, or use the canvas LLM settings path from §1.4.
+
+You should now have *two* conversations on the same agent server — one started from the canvas, one from Python. They share workspace state (subject to `working_dir`) and event persistence. Open the canvas; you can see the SDK-created conversation in the sidebar. That's not a coincidence — both clients write through the same `/api/conversations` endpoint.
 
 ---
 
@@ -147,10 +157,10 @@ You should now have *two* conversations on the same agent server — one started
 
 Before moving on, confirm all of these are true:
 
-- [ ] `curl http://127.0.0.1:18000/health` returns `"status": "healthy"`.
+- [ ] `curl http://127.0.0.1:18000/health` returns `"status": "ok"`.
 - [ ] The canvas at `http://localhost:8000` shows your test conversation.
 - [ ] `FACTS.txt` exists in the working directory the canvas chose.
-- [ ] You've eyeballed the event stream and recognize at least: a user message, a `bash` or `view` tool call, the matching observation, and an agent message.
+- [ ] You've eyeballed the event stream and recognize at least: a user message, a `terminal` or `file_editor` tool call, the matching observation, and an agent message.
 - [ ] You ran the SDK script *and* the canvas conversation against the same server, and both show up.
 
 If any of the above is false, fix it now. Common failures and fixes:
@@ -159,9 +169,9 @@ If any of the above is false, fix it now. Common failures and fixes:
 |---|---|---|
 | `node: command not found` | Wrong Node version | `nvm install 22.12 && nvm use 22.12` |
 | `uvx: command not found` | `uv` not on `PATH` | Re-source your shell, or `~/.local/bin/uvx --version` |
-| Server exits immediately, no health endpoint | Wrong/missing `LLM_API_KEY` | `export LLM_API_KEY=...` and restart `npm run dev` |
-| `401 Unauthorized` from `/health` | Backend started with session auth on | Either unset `SESSION_API_KEY` / `OH_SESSION_API_KEYS_0`, or set `VITE_SESSION_API_KEY` to the same value |
-| Canvas blank, console errors about CORS | Frontend pointing at wrong backend | Check `VITE_BACKEND_HOST` matches the agent-server port (default `127.0.0.1:18000` in dev mode) |
-| Canvas can't connect, port 8000 in use | Some other dev server | Set `PORT=8123 npm run dev` |
+| Server exits immediately, no health endpoint | `uvx` install/start failure or a busy port | Re-read the launcher error; rerun after freeing the port or fixing `uvx` |
+| `401 Unauthorized` from `/api/*` | Dev server generated a session API key | Send `X-Session-API-Key: $(cat ~/.openhands/agent-canvas/session-api-key.txt)` or pin `SESSION_API_KEY` / `VITE_SESSION_API_KEY` before restart |
+| Canvas blank, console errors about CORS | Frontend pointing at wrong backend | In the full dockerless stack, `VITE_BACKEND_HOST` should point at the ingress port (`127.0.0.1:8000` by default). In frontend-only mode, point it at your existing backend. |
+| Canvas can't connect, port 8000 in use | Some other dev server | Set `PORT=8123 npm run dev:dangerously-dockerless` |
 
 Once the checklist passes, move on to [`02-harness-tour.md`](./02-harness-tour.md).

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tiny helper: hit the agent-server health endpoint and pretty-print.
-# Defaults assume `npm run dev` from agent-canvas (uvx-spawned server on :18000).
+# Defaults assume `npm run dev:dangerously-dockerless` from agent-canvas.
 # Override with: AGENT_SERVER=http://127.0.0.1:8000 ./health.sh
 
 set -euo pipefail
