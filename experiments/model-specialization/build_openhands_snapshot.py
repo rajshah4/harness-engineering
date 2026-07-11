@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+from urllib.error import HTTPError
 import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
@@ -17,6 +18,7 @@ BENCHMARKS = [
         "task_type": "Bug fixing",
         "functional_label": "Bug fixing",
         "description": "Issue resolution on real repositories.",
+        "total_instances": 500,
     },
     {
         "id": "commit0",
@@ -24,6 +26,7 @@ BENCHMARKS = [
         "task_type": "Greenfield building",
         "functional_label": "App building",
         "description": "Greenfield application building tasks, often closer to end-to-end feature construction than patching.",
+        "total_instances": 16,
     },
     {
         "id": "gaia",
@@ -31,6 +34,7 @@ BENCHMARKS = [
         "task_type": "Research",
         "functional_label": "Research",
         "description": "Research-heavy tasks with tool use.",
+        "total_instances": 165,
     },
     {
         "id": "swt-bench",
@@ -38,18 +42,29 @@ BENCHMARKS = [
         "task_type": "Terminal execution",
         "functional_label": "Terminal work",
         "description": "Software tasks with heavier shell interaction.",
+        "total_instances": 433,
+    },
+    {
+        "id": "swe-bench-multimodal",
+        "label": "SWE-Bench Multimodal",
+        "task_type": "Multimodal software work",
+        "functional_label": "Multimodal software work",
+        "description": "Software issue resolution where visual context is part of the task.",
+        "total_instances": 102,
     },
 ]
 
 DEFAULT_MODEL_PATHS = [
-    "results/GPT-5.4",
+    "results/GPT-5.5",
     "results/claude-opus-4-7",
-    "results/claude-opus-4-6",
-    "results/claude-sonnet-4-6",
-    "results/Gemini-3.1-Pro",
     "results/GLM-5.1",
-    "results/Kimi-K2.5",
-    "results/GPT-5.2",
+    "results/Kimi-K2.6",
+    "results/MiniMax-M2.7",
+    "results/DeepSeek-V3.2-Reasoner",
+    "results/DeepSeek-V4-Pro",
+    "results/Qwen3-Coder-Next",
+    "results/Qwen3-Coder-480B",
+    "results/Nemotron-3-Super",
 ]
 
 RAW_BASE = "https://raw.githubusercontent.com/OpenHands/openhands-index-results/main"
@@ -70,6 +85,59 @@ def round2(value: float) -> float:
     return round(value + 1e-9, 2)
 
 
+def report_url_from_archive(archive_url: str) -> str:
+    if archive_url.endswith("/results.tar.gz"):
+        return archive_url.removesuffix("/results.tar.gz") + "/output.report.json"
+    if archive_url.endswith(".tar.gz"):
+        return archive_url.removesuffix(".tar.gz") + "/output.report.json"
+    raise ValueError(f"unexpected archive url: {archive_url}")
+
+
+def fetch_task_counts(report_url: str) -> dict[str, int] | None:
+    try:
+        report = fetch_json(report_url)
+    except HTTPError as exc:
+        if exc.code == 404:
+            return None
+        raise
+    if not isinstance(report, dict):
+        raise TypeError(f"unexpected report payload from {report_url}")
+    total = int(report["total_instances"])
+    resolved = int(report["resolved_instances"])
+    return {
+        "total": total,
+        "submitted": int(report.get("submitted_instances", total)),
+        "completed": int(report.get("completed_instances", 0)),
+        "resolved": resolved,
+        "missed": total - resolved,
+        "unresolved": int(report.get("unresolved_instances", 0)),
+        "empty_patch": int(report.get("empty_patch_instances", 0)),
+        "error": int(report.get("error_instances", 0)),
+        "inferred": 0,
+    }
+
+
+def infer_task_counts(row: dict, benchmark_meta: dict) -> dict[str, int] | None:
+    total = benchmark_meta.get("total_instances")
+    if total is None:
+        return None
+    score = row.get("score")
+    if not isinstance(score, (int, float)):
+        return None
+    resolved = int(round(total * (float(score) / 100.0)))
+    return {
+        "total": int(total),
+        "submitted": int(total),
+        "completed": resolved,
+        "resolved": resolved,
+        "missed": int(total) - resolved,
+        "unresolved": int(total) - resolved,
+        "empty_patch": 0,
+        "error": 0,
+        "inferred": 1,
+    }
+
+
 def build_model_entry(model_path: str, rows: list[dict], benchmark_order: list[str]) -> dict | None:
     by_benchmark = {row["benchmark"]: row for row in rows}
     available = [benchmark for benchmark in benchmark_order if benchmark in by_benchmark]
@@ -85,12 +153,24 @@ def build_model_entry(model_path: str, rows: list[dict], benchmark_order: list[s
     details = {}
     for benchmark in available:
         row = by_benchmark[benchmark]
+        benchmark_meta = next(item for item in BENCHMARKS if item["id"] == benchmark)
+        archive_url = row.get("full_archive")
+        report_url = report_url_from_archive(archive_url) if archive_url else ""
+        task_counts = fetch_task_counts(report_url) if report_url else None
+        if task_counts is None:
+            task_counts = infer_task_counts(row, benchmark_meta)
         details[benchmark] = {
             "score": row["score"],
+            "metric": row.get("metric"),
             "agent_version": row.get("agent_version"),
             "submission_time": row.get("submission_time"),
             "cost_per_instance": row.get("cost_per_instance"),
             "average_runtime": row.get("average_runtime"),
+            "full_archive": archive_url,
+            "report_url": report_url,
+            "eval_visualization_page": row.get("eval_visualization_page"),
+            "component_scores": row.get("component_scores"),
+            "task_counts": task_counts,
             "source_url": f"{RAW_BASE}/{model_path}/scores.json",
         }
 

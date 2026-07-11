@@ -404,6 +404,15 @@
       </div>
     </div>
 
+    <div class="card span-12">
+      <h2 class="section-title">Solved vs missed task counts</h2>
+      <p class="section-copy">Same benchmark, but shown as raw task counts instead of percentage accuracy.</p>
+      <div class="benchmark-note" id="completion-note"></div>
+      <div class="chart-shell">
+        <canvas id="completion-chart"></canvas>
+      </div>
+    </div>
+
     <div class="card span-8">
       <h2 class="section-title">Normalized score matrix</h2>
       <p class="section-copy">Rows are models. Columns are functional task types. Rank badges show placement by task.</p>
@@ -432,6 +441,7 @@ let selectedBenchmark = benchmarkOrder[0];
 let selectedModel = data.models[0]?.id;
 let leaderboardChart;
 let profileChart;
+let completionChart;
 
 function formatTimestamp(value) {
   const date = new Date(value);
@@ -455,9 +465,11 @@ function renderMeta() {
 
 function renderStats() {
   const container = document.getElementById("stats");
-  const widest = [...data.models].sort((a, b) => b.score_range - a.score_range)[0];
-  const steadiest = [...data.models].sort((a, b) => a.score_range - b.score_range)[0];
   const benchmarkCount = data.benchmarks.length;
+  const completeModels = data.models.filter((model) => model.coverage === benchmarkCount);
+  const statModels = completeModels.length > 0 ? completeModels : data.models;
+  const widest = [...statModels].sort((a, b) => b.score_range - a.score_range)[0];
+  const steadiest = [...statModels].sort((a, b) => a.score_range - b.score_range)[0];
   const maxFirst = Math.max(...data.models.map((model) => model.first_place_count));
   const closestSweep = data.models.find((model) => model.first_place_count === maxFirst);
   const uniqueLeaders = new Set();
@@ -481,12 +493,12 @@ function renderStats() {
     {
       label: "Biggest swing",
       value: `${widest.score_range.toFixed(1)} pts`,
-      detail: `${widest.label} varies the most across tasks.`,
+      detail: `${widest.label} varies the most across full-coverage tasks.`,
     },
     {
       label: "Most balanced",
       value: `${steadiest.score_range.toFixed(1)} pts`,
-      detail: `${steadiest.label} has the tightest spread across tasks.`,
+      detail: `${steadiest.label} has the tightest spread across full-coverage tasks.`,
     },
   ];
 
@@ -544,6 +556,7 @@ function renderBenchmarkControls() {
       renderBenchmarkControls();
       renderBenchmarkNote();
       renderLeaderboardChart();
+      renderCompletionChart();
     });
     container.appendChild(button);
   }
@@ -558,6 +571,16 @@ function leaderboardRows() {
   return data.models
     .filter((model) => model.scores[selectedBenchmark] !== undefined)
     .sort((a, b) => b.scores[selectedBenchmark] - a.scores[selectedBenchmark]);
+}
+
+function completionRows() {
+  return data.models
+    .map((model) => ({
+      ...model,
+      counts: model.details[selectedBenchmark]?.task_counts,
+    }))
+    .filter((model) => model.counts)
+    .sort((a, b) => b.counts.resolved - a.counts.resolved);
 }
 
 function renderLeaderboardChart() {
@@ -612,6 +635,84 @@ function renderLeaderboardChart() {
   });
 }
 
+function renderCompletionChart() {
+  const ctx = document.getElementById("completion-chart");
+  const rows = completionRows();
+  const note = document.getElementById("completion-note");
+
+  if (!rows.length) {
+    note.textContent = "No raw task-count reports were available for this benchmark.";
+    if (completionChart) {
+      completionChart.destroy();
+      completionChart = null;
+    }
+    return;
+  }
+
+  const totals = [...new Set(rows.map((item) => item.counts.total))].sort((a, b) => a - b);
+  note.textContent = totals.length === 1
+    ? `${benchmarkMap.get(selectedBenchmark).label} runs ${totals[0]} tasks. Missed = total tasks - solved tasks, so this chart shows workload counts rather than percentages.`
+    : "Task totals vary across submissions for this benchmark. Tooltips show each model's exact solved, missed, and total counts.";
+
+  if (completionChart) completionChart.destroy();
+
+  completionChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: rows.map((item) => item.label),
+      datasets: [
+        {
+          label: "Solved",
+          data: rows.map((item) => item.counts.resolved),
+          backgroundColor: rows.map((item) => item.id === selectedModel ? "rgba(31, 94, 80, 0.92)" : "rgba(31, 94, 80, 0.76)"),
+          borderRadius: 8,
+        },
+        {
+          label: "Missed",
+          data: rows.map((item) => item.counts.missed),
+          backgroundColor: rows.map((item) => item.id === selectedModel ? "rgba(181, 93, 61, 0.92)" : "rgba(181, 93, 61, 0.76)"),
+          borderRadius: 8,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: "y",
+      plugins: {
+        legend: { position: "bottom" },
+        tooltip: {
+          callbacks: {
+            afterBody: (items) => {
+              const row = rows[items[0].dataIndex];
+              const solvedRate = (row.counts.resolved / row.counts.total) * 100;
+              const lines = [
+                `Total tasks: ${row.counts.total}`,
+                `Accuracy equivalent: ${solvedRate.toFixed(1)}%`,
+              ];
+              if (row.counts.inferred) lines.push("Counts inferred from published accuracy.");
+              return lines;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          beginAtZero: true,
+          ticks: { color: "#44515d", precision: 0 },
+          grid: { color: "rgba(215, 224, 230, 0.85)" },
+        },
+        y: {
+          stacked: true,
+          ticks: { color: "#44515d" },
+          grid: { display: false },
+        },
+      },
+    },
+  });
+}
+
 function renderModelSelect() {
   const select = document.getElementById("model-select");
   select.innerHTML = data.models.map((model) => `
@@ -621,6 +722,7 @@ function renderModelSelect() {
     selectedModel = event.target.value;
     renderLeaderboardChart();
     renderProfileChart();
+    renderCompletionChart();
   });
 }
 
@@ -657,9 +759,10 @@ function renderProfileChart() {
             },
             afterLabel: (context) => {
               const benchmark = benchmarkOrder[context.dataIndex];
-              return `Rank #${model.ranks[benchmark]}`;
+              const rank = model.ranks[benchmark];
+              return rank === undefined ? "No checked-in result" : `Rank #${rank}`;
             },
-            label: (context) => `${context.raw.toFixed(1)}%`,
+            label: (context) => context.raw === null ? "No result" : `${context.raw.toFixed(1)}%`,
           },
         },
       },
@@ -718,7 +821,7 @@ function renderMatrix() {
       <tr>
         <td>
           <div class="model-name">${model.label}</div>
-          <div class="model-meta">${model.first_place_count} first-place finish${model.first_place_count === 1 ? "" : "es"} · mean ${model.mean_score.toFixed(1)}%</div>
+          <div class="model-meta">${model.first_place_count} first-place finish${model.first_place_count === 1 ? "" : "es"} · mean ${model.mean_score.toFixed(1)}% · coverage ${model.coverage}/${benchmarkOrder.length}</div>
         </td>
         ${scoreCells}
         <td><strong>${model.score_range.toFixed(1)}</strong></td>
@@ -737,6 +840,7 @@ renderNotes();
 renderMatrix();
 renderLeaderboardChart();
 renderProfileChart();
+renderCompletionChart();
 </script>
 </body>
 </html>

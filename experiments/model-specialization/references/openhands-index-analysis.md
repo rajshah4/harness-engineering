@@ -50,6 +50,7 @@ Then answer:
 2. Does any model finish first across every task type?
 3. Which model is most balanced?
 4. Which model shows the biggest swing across task types?
+5. If comparing open-weight models to closed frontier baselines, which gaps remain after grouping by task type?
 
 Rules:
 - Preserve ties.

@@ -6,7 +6,10 @@ This experiment packages the pattern in three parts:
 
 - `research_prompt.md` — a reusable prompt for comparing leaderboard results across task types
 - `build_openhands_snapshot.py` — a small script that normalizes OpenHands `scores.json` files into one snapshot
+- `extract_openhands_reports.py` — extracts compact resolved/unresolved task reports from OpenHands result archives
 - `index.html` — a local visualization of the normalized results
+- `open-source-vs-frontier.md` — a current OpenHands readout comparing open-weight challengers with Claude Opus 4.7 and GPT-5.5
+- `open-model-routing-boundary.md` — a deeper cost and per-task routing analysis for open-weight versus frontier models
 
 It also includes source-specific analysis guides under `references/`:
 
@@ -38,6 +41,7 @@ open index.html
 
 - **Score matrix** — one row per model, one column per benchmark
 - **Task-type leaderboard** — sort models by functional task type and compare gaps directly
+- **Solved vs. missed counts** — raw task counts per benchmark, so you can see workload volume rather than only percentages
 - **Podium board** — first, second, and third place for each task type, including ties
 - **Per-model profile** — inspect how one model's performance shifts across task types
 - **Specialization metrics** — identify the most balanced models and the biggest cross-benchmark swings
@@ -48,8 +52,11 @@ open index.html
 - **App building** — measured with `commit0`
 - **Research** — measured with `gaia`
 - **Terminal work** — measured with `swt-bench`
+- **Multimodal software work** — measured with `swe-bench-multimodal`
 
 This framing is deliberate. The OpenHands Index supplies the scores; this experiment translates benchmark names into more intuitive workload categories.
+
+The solved-vs.-missed chart pulls raw counts from each run's `output.report.json`, using `resolved_instances` for solved work and `total_instances - resolved_instances` for misses. When an older archive layout does not expose that report directly, the snapshot falls back to benchmark totals plus the published accuracy. That keeps the visualization in task counts rather than collapsing everything to percentages.
 
 ## Reusing The Pattern
 
