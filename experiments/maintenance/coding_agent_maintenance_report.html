@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenHands Ecosystem Maintenance Workload</title>
+  <meta name="description" content="A data-backed look at the maintenance workload behind open-source coding-agent ecosystems.">
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f7f8f5;
+  --panel: #ffffff;
+  --panel-soft: #f1f5f2;
+  --ink: #171a1f;
+  --muted: #667085;
+  --line: #d9dfd6;
+  --line-strong: #b7c2b1;
+  --openhands: #16856f;
+  --canvas: #2f6fd6;
+  --sdk: #0f9fbd;
+  --cli: #7b6b43;
+  --codex: #6d59d3;
+  --opencode: #d4871f;
+  --hermes: #c9463d;
+  --bug: #d44842;
+  --other: #8fb7a8;
+  --shadow: 0 18px 48px rgba(31, 41, 55, 0.10);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0) 260px),
+    var(--bg);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: rgba(22, 133, 111, 0.45);
+  text-underline-offset: 0.18em;
+}
+
+.page-shell {
+  width: min(1180px, calc(100vw - 40px));
+  margin: 0 auto;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(16px);
+  background: rgba(247, 248, 245, 0.82);
+  border-bottom: 1px solid rgba(183, 194, 177, 0.55);
+}
+
+.topbar-inner {
+  width: min(1180px, calc(100vw - 40px));
+  height: 64px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 750;
+  letter-spacing: 0;
+}
+
+.brand-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: conic-gradient(from 210deg, var(--openhands), var(--canvas), var(--opencode), var(--bug), var(--openhands));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #394150;
+  font-size: 14px;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+  gap: 36px;
+  padding: 54px 0 28px;
+  align-items: stretch;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 0 0 18px;
+  padding: 6px 10px;
+  border: 1px solid rgba(22, 133, 111, 0.28);
+  border-radius: 999px;
+  color: #1f6f60;
+  background: rgba(22, 133, 111, 0.08);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0;
+  max-width: 850px;
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.hero-copy {
+  max-width: 720px;
+  margin: 24px 0 0;
+  color: #3c4655;
+  font-size: 19px;
+}
+
+.hero-note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  max-width: 720px;
+  margin: 26px 0 0;
+  padding: 16px 18px;
+  border-left: 4px solid var(--openhands);
+  background: rgba(255,255,255,0.72);
+  color: #354052;
+}
+
+.hero-note strong {
+  color: var(--ink);
+}
+
+.hero-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;
+}
+
+.hero-panel h2,
+.section h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.hero-panel p,
+.section-lede {
+  margin: 10px 0 0;
+  color: var(--muted);
+}
+
+.metric-stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.metric-card {
+  min-height: 112px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #f8faf7);
+}
+
+.metric-value {
+  display: block;
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.metric-label {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.hero-strip {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: #4d5969;
+  font-size: 14px;
+}
+
+.section {
+  padding: 42px 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.section-title-block {
+  max-width: 760px;
+}
+
+.takeaways {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.takeaway {
+  min-height: 210px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 10px 28px rgba(31, 41, 55, 0.07);
+}
+
+.takeaway-number {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--panel-soft);
+  color: #235d51;
+  font-weight: 800;
+}
+
+.takeaway h3 {
+  margin: 16px 0 8px;
+  font-size: 19px;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.takeaway p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.ecosystem-map {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ecosystem-item {
+  min-height: 238px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(31, 41, 55, 0.06);
+}
+
+.ecosystem-item h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.ecosystem-role {
+  margin: 8px 0 12px;
+  color: #235d51;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ecosystem-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.ecosystem-repo {
+  display: inline-block;
+  margin-top: 16px;
+  color: #394150;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.chart-card {
+  min-height: 430px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(31, 41, 55, 0.07);
+}
+
+.chart-card.wide {
+  grid-column: 1 / -1;
+  min-height: 470px;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.chart-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.chart-subtitle {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.segmented {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-soft);
+  flex: 0 0 auto;
+}
+
+.segmented button {
+  appearance: none;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #4b5563;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 760;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.segmented button[aria-pressed="true"] {
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 1px 5px rgba(31, 41, 55, 0.14);
+}
+
+.chart {
+  width: 100%;
+  min-height: 320px;
+}
+
+.chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 12px;
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.repo-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 10px 28px rgba(31, 41, 55, 0.06);
+}
+
+.repo-card h3 {
+  margin: 0 0 12px;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.repo-stat {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.repo-stat strong {
+  color: var(--ink);
+  font-size: 14px;
+  text-align: right;
+}
+
+.data-table-wrap {
+  overflow-x: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 920px;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+th:first-child,
+td:first-child,
+th:nth-child(2),
+td:nth-child(2) {
+  text-align: left;
+}
+
+th {
+  color: #4b5563;
+  background: #f9fbf8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.method {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+}
+
+.method-card {
+  background: #20251f;
+  color: #f4f8f1;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.method-card h2 {
+  color: #fff;
+}
+
+.method-card p,
+.method-card li {
+  color: #d7ded2;
+}
+
+.method-card ul {
+  margin: 16px 0 0;
+  padding-left: 18px;
+}
+
+.footer {
+  padding: 32px 0 52px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.axis-label {
+  fill: #5c6675;
+  font-size: 13px;
+}
+
+.axis-small {
+  fill: #697386;
+  font-size: 11px;
+}
+
+.bar-label {
+  fill: #1f2937;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.bar-value {
+  fill: #374151;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.grid-line {
+  stroke: #e5e9e1;
+  stroke-width: 1;
+}
+
+@media (max-width: 1040px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .takeaways,
+  .ecosystem-map,
+  .repo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .page-shell,
+  .topbar-inner {
+    width: min(100vw - 24px, 1180px);
+  }
+
+  .topbar-inner {
+    height: auto;
+    min-height: 64px;
+    align-items: flex-start;
+    padding: 14px 0;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .hero {
+    padding-top: 34px;
+  }
+
+  .metric-stack,
+  .takeaways,
+  .ecosystem-map,
+  .chart-grid,
+  .repo-grid,
+  .method {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card.wide {
+    grid-column: auto;
+  }
+
+  .section-header,
+  .chart-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .segmented {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>OpenHands maintenance report</span></div>
+      <nav class="nav" aria-label="Report sections">
+        <a href="#takeaways">Takeaways</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#charts">Charts</a>
+        <a href="#repos">Repos</a>
+        <a href="#method">Method</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Open-source coding agents, July 8, 2026</p>
+        <h1 id="page-title">The hard part is keeping a coding-agent ecosystem alive.</h1>
+        <p class="hero-copy">A coding agent demo can happen quickly. A coding agent that real users depend on becomes an ecosystem for software work: runtime and SDK layers, sandboxing, auth, model routing, browser and terminal control, UI, integrations, telemetry, releases, tests, and a steady stream of edge cases.</p>
+        <div class="hero-note">
+          <strong>Thesis:</strong>
+          <span>Measure OpenHands as the public ecosystem it has become, then use peer harness repos as spot checks. The pattern is consistent: serious coding agents need sustained maintenance, large code surfaces, and a real contributor community.</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="OpenHands headline metrics">
+        <div>
+          <h2>OpenHands public ecosystem</h2>
+          <p>Last 12 months across 4 OpenHands repos: main, Agent Canvas, Software Agent SDK, and CLI.</p>
+          <div class="metric-stack">
+            <div class="metric-card">
+              <span class="metric-value">5,679</span>
+              <span class="metric-label">merged PRs</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">1,778</span>
+              <span class="metric-label">bug-fix PRs</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">252</span>
+              <span class="metric-label">unique ecosystem contributors</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">2.39M</span>
+              <span class="metric-label">changed lines reviewed</span>
+            </div>
+          </div>
+        </div>
+        <p class="hero-strip">The last 3 months alone: <strong>2,007</strong> merged PRs from <strong>87</strong> unique human contributors across the ecosystem.</p>
+      </aside>
+    </section>
+
+    <section class="section" id="takeaways">
+      <div class="section-header">
+        <div class="section-title-block">
+          <h2>High-Level Takeaways</h2>
+          <p class="section-lede">The numbers point to maintenance as the real work: not just writing agent loops, but operating a complex product surface as models, tools, users, and environments keep changing.</p>
+        </div>
+      </div>
+      <div class="takeaways">
+        <article class="takeaway">
+          <span class="takeaway-number">1</span>
+          <h3>Agents become platforms.</h3>
+          <p>Every serious agent needs runtime isolation, provider plumbing, repo access, terminals, browsers, secrets, storage, APIs, and UI surfaces that explain what happened.</p>
+        </article>
+        <article class="takeaway">
+          <span class="takeaway-number">2</span>
+          <h3>Fixes are not side quests.</h3>
+          <p>For the OpenHands ecosystem, bug-fix PRs are roughly a third of merged work over 12 months. Reliability is a central product investment.</p>
+        </article>
+        <article class="takeaway">
+          <span class="takeaway-number">3</span>
+          <h3>People are the scaling factor.</h3>
+          <p>OpenHands saw 252 unique human PR contributors in a year. Mature agents require review, triage, release judgment, and community care.</p>
+        </article>
+        <article class="takeaway">
+          <span class="takeaway-number">4</span>
+          <h3>The category is heavy.</h3>
+          <p>Codex, OpenCode, and Hermes all show thousands of merged PRs. They are peer harness spot checks, not perfect apples-to-apples comparables.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ecosystem">
+      <div class="section-header">
+        <div class="section-title-block">
+          <h2>What The OpenHands Repos Cover</h2>
+          <p class="section-lede">The main repo is not the whole story anymore. Counting the ecosystem is the honest measurement because the maintenance burden now spans product, runtime, server, SDK, and terminal surfaces.</p>
+        </div>
+      </div>
+      <div class="ecosystem-map">
+        
+        <article class="ecosystem-item" style="border-top: 4px solid var(--openhands);">
+          <h3>OpenHands main</h3>
+          <div class="ecosystem-role">Original and umbrella platform repo</div>
+          <p>Historical/current platform surface: core product work, integrations, workflows, tests, docs, packaging, and a large amount of long-running maintenance.</p>
+          <span class="ecosystem-repo">OpenHands/OpenHands</span>
+        </article>
+        
+
+        <article class="ecosystem-item" style="border-top: 4px solid var(--canvas);">
+          <h3>Agent Canvas</h3>
+          <div class="ecosystem-role">Self-hosted control center</div>
+          <p>The UI and product shell for managing agents, conversations, automations, and human-in-the-loop workflows.</p>
+          <span class="ecosystem-repo">OpenHands/agent-canvas</span>
+        </article>
+        
+
+        <article class="ecosystem-item" style="border-top: 4px solid var(--sdk);">
+          <h3>Software Agent SDK</h3>
+          <div class="ecosystem-role">Agent runtime and server layer</div>
+          <p>The OpenHands Agent, Agent Server, SDK abstractions, runtime behavior, API surface, and backend logic that Agent Canvas builds on.</p>
+          <span class="ecosystem-repo">OpenHands/software-agent-sdk</span>
+        </article>
+        
+
+        <article class="ecosystem-item" style="border-top: 4px solid var(--cli);">
+          <h3>OpenHands CLI</h3>
+          <div class="ecosystem-role">Terminal/TUI surface</div>
+          <p>The command-line and terminal UI experience for using OpenHands from a developer workflow without the full web interface.</p>
+          <span class="ecosystem-repo">OpenHands/OpenHands-CLI</span>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="section" id="charts">
+      <div class="section-header">
+        <div class="section-title-block">
+          <h2>Visual Evidence</h2>
+          <p class="section-lede">Use the window selector for OpenHands ecosystem repos plus peer harness spot checks. LOC is current repo surface area; the monthly chart focuses on the OpenHands ecosystem cadence.</p>
+        </div>
+        <div class="segmented" aria-label="Time window">
+          <button type="button" data-window="3mo" aria-pressed="false">3 mo</button>
+          <button type="button" data-window="6mo" aria-pressed="false">6 mo</button>
+          <button type="button" data-window="12mo" aria-pressed="true">12 mo</button>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <article class="chart-card">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Merged PRs by repo</h3>
+              <p class="chart-subtitle"><span data-window-label>12mo</span> contribution volume.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="merged-prs"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Bug fixes versus everything else</h3>
+              <p class="chart-subtitle"><span data-window-label>12mo</span> merged PRs split by fix heuristic.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="bugfix-share"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Human contributors</h3>
+              <p class="chart-subtitle"><span data-window-label>12mo</span> unique non-bot PR authors.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="contributors"></div>
+        </article>
+
+        <article class="chart-card">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Changed lines through review</h3>
+              <p class="chart-subtitle"><span data-window-label>12mo</span> additions plus deletions.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="changed-lines"></div>
+        </article>
+
+        <article class="chart-card wide">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">OpenHands monthly maintenance cadence</h3>
+              <p class="chart-subtitle">Merged PRs per month, stacked across the OpenHands public ecosystem repos.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="monthly-openhands"></div>
+        </article>
+
+        <article class="chart-card wide">
+          <div class="chart-head">
+            <div>
+              <h3 class="chart-title">Current code surface area</h3>
+              <p class="chart-subtitle">Tracked code/config/test LOC counted from shallow clones.</p>
+            </div>
+          </div>
+          <div class="chart" data-chart="loc"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="repos">
+      <div class="section-header">
+        <div class="section-title-block">
+          <h2>Repo Scorecards</h2>
+          <p class="section-lede">A compact 12-month view: OpenHands ecosystem repos first, followed by peer harness spot checks.</p>
+        </div>
+      </div>
+      <div class="repo-grid">
+        
+        <article class="repo-card" style="border-top: 4px solid var(--openhands);">
+          <h3><a href="https://github.com/OpenHands/OpenHands">OpenHands main</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>2,600</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>866</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>179</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>1.25M</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>404.3K</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--canvas);">
+          <h3><a href="https://github.com/OpenHands/agent-canvas">Agent Canvas</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>719</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>270</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>31</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>444.7K</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>246.5K</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--sdk);">
+          <h3><a href="https://github.com/OpenHands/software-agent-sdk">Software Agent SDK</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>2,036</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>573</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>90</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>568.6K</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>333.3K</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--cli);">
+          <h3><a href="https://github.com/OpenHands/OpenHands-CLI">OpenHands CLI</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>324</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>69</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>31</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>124.6K</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>66.8K</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--hermes);">
+          <h3><a href="https://github.com/NousResearch/hermes-agent">Hermes</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>7,736</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>5,288</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>314</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>2.99M</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>1.75M</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--codex);">
+          <h3><a href="https://github.com/openai/codex">OpenAI Codex</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>7,688</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>1,202</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>398</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>3.81M</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>1.32M</strong></div>
+        </article>
+        
+
+        <article class="repo-card" style="border-top: 4px solid var(--opencode);">
+          <h3><a href="https://github.com/anomalyco/opencode">OpenCode</a></h3>
+          <div class="repo-stat"><span>Merged PRs</span><strong>5,700</strong></div>
+          <div class="repo-stat"><span>Bug-fix PRs</span><strong>2,304</strong></div>
+          <div class="repo-stat"><span>Human contributors</span><strong>892</strong></div>
+          <div class="repo-stat"><span>Changed lines</span><strong>2.86M</strong></div>
+          <div class="repo-stat"><span>Code LOC</span><strong>1.05M</strong></div>
+        </article>
+        
+      </div>
+    </section>
+
+    <section class="section" id="table">
+      <div class="section-header">
+        <div class="section-title-block">
+          <h2>12-Month Data Table</h2>
+          <p class="section-lede">The same data behind the headline charts, kept visible for citation and copy-paste use.</p>
+        </div>
+      </div>
+      <div class="data-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Repo</th>
+              <th>Merged PRs</th>
+              <th>Bug-fix PRs</th>
+              <th>Fix share</th>
+              <th>Contributors</th>
+              <th>Commits</th>
+              <th>Changed lines</th>
+              <th>Code LOC</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td><a href="https://github.com/OpenHands/OpenHands">OpenHands main</a></td>
+          <td>OpenHands/OpenHands</td>
+          <td>2,600</td>
+          <td>866</td>
+          <td>33%</td>
+          <td>179</td>
+          <td>2,341</td>
+          <td>1.25M</td>
+          <td>404.3K</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/OpenHands/agent-canvas">Agent Canvas</a></td>
+          <td>OpenHands/agent-canvas</td>
+          <td>719</td>
+          <td>270</td>
+          <td>38%</td>
+          <td>31</td>
+          <td>733</td>
+          <td>444.7K</td>
+          <td>246.5K</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/OpenHands/software-agent-sdk">Software Agent SDK</a></td>
+          <td>OpenHands/software-agent-sdk</td>
+          <td>2,036</td>
+          <td>573</td>
+          <td>28%</td>
+          <td>90</td>
+          <td>2,026</td>
+          <td>568.6K</td>
+          <td>333.3K</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/OpenHands/OpenHands-CLI">OpenHands CLI</a></td>
+          <td>OpenHands/OpenHands-CLI</td>
+          <td>324</td>
+          <td>69</td>
+          <td>21%</td>
+          <td>31</td>
+          <td>353</td>
+          <td>124.6K</td>
+          <td>66.8K</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/NousResearch/hermes-agent">Hermes</a></td>
+          <td>NousResearch/hermes-agent</td>
+          <td>7,736</td>
+          <td>5,288</td>
+          <td>68%</td>
+          <td>314</td>
+          <td>14,936</td>
+          <td>2.99M</td>
+          <td>1.75M</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/openai/codex">OpenAI Codex</a></td>
+          <td>openai/codex</td>
+          <td>7,688</td>
+          <td>1,202</td>
+          <td>16%</td>
+          <td>398</td>
+          <td>7,579</td>
+          <td>3.81M</td>
+          <td>1.32M</td>
+        </tr>
+        
+
+        <tr>
+          <td><a href="https://github.com/anomalyco/opencode">OpenCode</a></td>
+          <td>anomalyco/opencode</td>
+          <td>5,700</td>
+          <td>2,304</td>
+          <td>40%</td>
+          <td>892</td>
+          <td>13,631</td>
+          <td>2.86M</td>
+          <td>1.05M</td>
+        </tr>
+        
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section method" id="method">
+      <article class="method-card">
+        <h2>Suggested Framing</h2>
+        <p>Building your own coding agent is possible. Maintaining one for real users is a long-running engineering commitment across product, runtime, SDK, server, and interface surfaces.</p>
+        <ul>
+          <li>Show the OpenHands ecosystem numbers first.</li>
+          <li>Use peers as spot checks, not a strict ranking.</li>
+          <li>Keep bug-fix work visible, not buried.</li>
+          <li>Center the people doing the work.</li>
+        </ul>
+      </article>
+      <article class="method-card">
+        <h2>Method Notes</h2>
+        <p>Merged PRs are treated as the contribution unit. Bug-fix PRs use labels containing bug, regression, defect, or crash, plus titles beginning with fix, bugfix, hotfix, or repair. LOC uses tracked files from shallow clones, excluding common lockfiles, generated/vendor directories, binary assets, and docs from the code LOC number.</p>
+        <p>OpenHands ecosystem repos analyzed: OpenHands/OpenHands, OpenHands/agent-canvas, OpenHands/software-agent-sdk, and OpenHands/OpenHands-CLI. Peer harness spot checks: openai/codex, anomalyco/opencode, and NousResearch/hermes-agent.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer page-shell">
+    Generated from GitHub data and local clone LOC counts on July 8, 2026. Source tables live alongside this report in the outputs folder.
+  </footer>
+
+  <script>
+const DATA = {"activity":[{"repo":"OpenHands/OpenHands","label":"OpenHands main","group":"OpenHands","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":593,"bugfix_prs":227,"bugfix_pr_share":0.3828,"active_pr_contributors_human":46,"active_pr_contributors_total":49,"commits":578,"active_commit_authors_human":45,"active_commit_authors_total":48,"pr_additions":168416,"pr_deletions":201604,"pr_changed_files":4997,"current_code_lines":404261,"current_code_nonblank_lines":350708,"current_tracked_text_lines":413156,"current_code_files":2425,"stars":80035,"forks":10206,"open_issues":356,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands"},{"repo":"OpenHands/OpenHands","label":"OpenHands main","group":"OpenHands","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":1256,"bugfix_prs":477,"bugfix_pr_share":0.3798,"active_pr_contributors_human":79,"active_pr_contributors_total":82,"commits":1199,"active_commit_authors_human":78,"active_commit_authors_total":81,"pr_additions":367283,"pr_deletions":327636,"pr_changed_files":8984,"current_code_lines":404261,"current_code_nonblank_lines":350708,"current_tracked_text_lines":413156,"current_code_files":2425,"stars":80035,"forks":10206,"open_issues":356,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands"},{"repo":"OpenHands/OpenHands","label":"OpenHands main","group":"OpenHands","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":2600,"bugfix_prs":866,"bugfix_pr_share":0.3331,"active_pr_contributors_human":179,"active_pr_contributors_total":182,"commits":2341,"active_commit_authors_human":177,"active_commit_authors_total":180,"pr_additions":756190,"pr_deletions":494094,"pr_changed_files":18262,"current_code_lines":404261,"current_code_nonblank_lines":350708,"current_tracked_text_lines":413156,"current_code_files":2425,"stars":80035,"forks":10206,"open_issues":356,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands"},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","group":"OpenHands","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":719,"bugfix_prs":270,"bugfix_pr_share":0.3755,"active_pr_contributors_human":31,"active_pr_contributors_total":33,"commits":733,"active_commit_authors_human":32,"active_commit_authors_total":34,"pr_additions":253617,"pr_deletions":191083,"pr_changed_files":7737,"current_code_lines":246466,"current_code_nonblank_lines":222918,"current_tracked_text_lines":249778,"current_code_files":1738,"stars":154,"forks":72,"open_issues":288,"default_branch":"main","repo_url":"https://github.com/OpenHands/agent-canvas"},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","group":"OpenHands","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":719,"bugfix_prs":270,"bugfix_pr_share":0.3755,"active_pr_contributors_human":31,"active_pr_contributors_total":33,"commits":733,"active_commit_authors_human":32,"active_commit_authors_total":34,"pr_additions":253617,"pr_deletions":191083,"pr_changed_files":7737,"current_code_lines":246466,"current_code_nonblank_lines":222918,"current_tracked_text_lines":249778,"current_code_files":1738,"stars":154,"forks":72,"open_issues":288,"default_branch":"main","repo_url":"https://github.com/OpenHands/agent-canvas"},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","group":"OpenHands","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":719,"bugfix_prs":270,"bugfix_pr_share":0.3755,"active_pr_contributors_human":31,"active_pr_contributors_total":33,"commits":733,"active_commit_authors_human":32,"active_commit_authors_total":34,"pr_additions":253617,"pr_deletions":191083,"pr_changed_files":7737,"current_code_lines":246466,"current_code_nonblank_lines":222918,"current_tracked_text_lines":249778,"current_code_files":1738,"stars":154,"forks":72,"open_issues":288,"default_branch":"main","repo_url":"https://github.com/OpenHands/agent-canvas"},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","group":"OpenHands","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":643,"bugfix_prs":213,"bugfix_pr_share":0.3313,"active_pr_contributors_human":47,"active_pr_contributors_total":49,"commits":632,"active_commit_authors_human":48,"active_commit_authors_total":50,"pr_additions":153113,"pr_deletions":32574,"pr_changed_files":3097,"current_code_lines":333281,"current_code_nonblank_lines":274384,"current_tracked_text_lines":346051,"current_code_files":1281,"stars":884,"forks":335,"open_issues":255,"default_branch":"main","repo_url":"https://github.com/OpenHands/software-agent-sdk"},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","group":"OpenHands","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":1209,"bugfix_prs":385,"bugfix_pr_share":0.3184,"active_pr_contributors_human":67,"active_pr_contributors_total":69,"commits":1188,"active_commit_authors_human":67,"active_commit_authors_total":69,"pr_additions":252810,"pr_deletions":50479,"pr_changed_files":5072,"current_code_lines":333281,"current_code_nonblank_lines":274384,"current_tracked_text_lines":346051,"current_code_files":1281,"stars":884,"forks":335,"open_issues":255,"default_branch":"main","repo_url":"https://github.com/OpenHands/software-agent-sdk"},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","group":"OpenHands","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":2036,"bugfix_prs":573,"bugfix_pr_share":0.2814,"active_pr_contributors_human":90,"active_pr_contributors_total":92,"commits":2026,"active_commit_authors_human":91,"active_commit_authors_total":95,"pr_additions":461753,"pr_deletions":106872,"pr_changed_files":11171,"current_code_lines":333281,"current_code_nonblank_lines":274384,"current_tracked_text_lines":346051,"current_code_files":1281,"stars":884,"forks":335,"open_issues":255,"default_branch":"main","repo_url":"https://github.com/OpenHands/software-agent-sdk"},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","group":"OpenHands","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":52,"bugfix_prs":13,"bugfix_pr_share":0.25,"active_pr_contributors_human":15,"active_pr_contributors_total":17,"commits":52,"active_commit_authors_human":15,"active_commit_authors_total":17,"pr_additions":4862,"pr_deletions":1221,"pr_changed_files":291,"current_code_lines":66765,"current_code_nonblank_lines":56014,"current_tracked_text_lines":68503,"current_code_files":402,"stars":213,"forks":106,"open_issues":37,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands-CLI"},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","group":"OpenHands","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":196,"bugfix_prs":46,"bugfix_pr_share":0.2347,"active_pr_contributors_human":25,"active_pr_contributors_total":27,"commits":195,"active_commit_authors_human":25,"active_commit_authors_total":27,"pr_additions":50057,"pr_deletions":11553,"pr_changed_files":1329,"current_code_lines":66765,"current_code_nonblank_lines":56014,"current_tracked_text_lines":68503,"current_code_files":402,"stars":213,"forks":106,"open_issues":37,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands-CLI"},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","group":"OpenHands","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":324,"bugfix_prs":69,"bugfix_pr_share":0.213,"active_pr_contributors_human":31,"active_pr_contributors_total":33,"commits":353,"active_commit_authors_human":32,"active_commit_authors_total":34,"pr_additions":99442,"pr_deletions":25127,"pr_changed_files":2180,"current_code_lines":66765,"current_code_nonblank_lines":56014,"current_tracked_text_lines":68503,"current_code_files":402,"stars":213,"forks":106,"open_issues":37,"default_branch":"main","repo_url":"https://github.com/OpenHands/OpenHands-CLI"},{"repo":"openai/codex","label":"OpenAI Codex","group":"Comparison","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":2949,"bugfix_prs":283,"bugfix_pr_share":0.096,"active_pr_contributors_human":163,"active_pr_contributors_total":164,"commits":2880,"active_commit_authors_human":162,"active_commit_authors_total":163,"pr_additions":1000804,"pr_deletions":400386,"pr_changed_files":30683,"current_code_lines":1324542,"current_code_nonblank_lines":1219349,"current_tracked_text_lines":1358160,"current_code_files":4696,"stars":96314,"forks":14289,"open_issues":8485,"default_branch":"main","repo_url":"https://github.com/openai/codex"},{"repo":"openai/codex","label":"OpenAI Codex","group":"Comparison","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":5441,"bugfix_prs":736,"bugfix_pr_share":0.1353,"active_pr_contributors_human":243,"active_pr_contributors_total":245,"commits":5354,"active_commit_authors_human":243,"active_commit_authors_total":245,"pr_additions":2093841,"pr_deletions":1013598,"pr_changed_files":56247,"current_code_lines":1324542,"current_code_nonblank_lines":1219349,"current_tracked_text_lines":1358160,"current_code_files":4696,"stars":96314,"forks":14289,"open_issues":8485,"default_branch":"main","repo_url":"https://github.com/openai/codex"},{"repo":"openai/codex","label":"OpenAI Codex","group":"Comparison","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":7688,"bugfix_prs":1202,"bugfix_pr_share":0.1563,"active_pr_contributors_human":398,"active_pr_contributors_total":400,"commits":7579,"active_commit_authors_human":396,"active_commit_authors_total":398,"pr_additions":2582509,"pr_deletions":1226299,"pr_changed_files":70236,"current_code_lines":1324542,"current_code_nonblank_lines":1219349,"current_tracked_text_lines":1358160,"current_code_files":4696,"stars":96314,"forks":14289,"open_issues":8485,"default_branch":"main","repo_url":"https://github.com/openai/codex"},{"repo":"anomalyco/opencode","label":"OpenCode","group":"Comparison","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":2648,"bugfix_prs":999,"bugfix_pr_share":0.3773,"active_pr_contributors_human":158,"active_pr_contributors_total":158,"commits":3920,"active_commit_authors_human":159,"active_commit_authors_total":161,"pr_additions":1048468,"pr_deletions":740265,"pr_changed_files":24217,"current_code_lines":1047601,"current_code_nonblank_lines":989604,"current_tracked_text_lines":1284379,"current_code_files":5022,"stars":183758,"forks":22832,"open_issues":4689,"default_branch":"dev","repo_url":"https://github.com/anomalyco/opencode"},{"repo":"anomalyco/opencode","label":"OpenCode","group":"Comparison","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":4340,"bugfix_prs":1775,"bugfix_pr_share":0.409,"active_pr_contributors_human":495,"active_pr_contributors_total":495,"commits":7976,"active_commit_authors_human":493,"active_commit_authors_total":495,"pr_additions":1627386,"pr_deletions":980989,"pr_changed_files":33992,"current_code_lines":1047601,"current_code_nonblank_lines":989604,"current_tracked_text_lines":1284379,"current_code_files":5022,"stars":183758,"forks":22832,"open_issues":4689,"default_branch":"dev","repo_url":"https://github.com/anomalyco/opencode"},{"repo":"anomalyco/opencode","label":"OpenCode","group":"Comparison","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":5700,"bugfix_prs":2304,"bugfix_pr_share":0.4042,"active_pr_contributors_human":892,"active_pr_contributors_total":892,"commits":13631,"active_commit_authors_human":890,"active_commit_authors_total":893,"pr_additions":1820270,"pr_deletions":1039068,"pr_changed_files":40885,"current_code_lines":1047601,"current_code_nonblank_lines":989604,"current_tracked_text_lines":1284379,"current_code_files":5022,"stars":183758,"forks":22832,"open_issues":4689,"default_branch":"dev","repo_url":"https://github.com/anomalyco/opencode"},{"repo":"NousResearch/hermes-agent","label":"Hermes","group":"Comparison","window":"3mo","start_date":"2026-04-08","end_date":"2026-07-08","merged_prs":6309,"bugfix_prs":4381,"bugfix_pr_share":0.6944,"active_pr_contributors_human":221,"active_pr_contributors_total":222,"commits":11470,"active_commit_authors_human":1595,"active_commit_authors_total":1603,"pr_additions":2129953,"pr_deletions":406723,"pr_changed_files":35356,"current_code_lines":1746187,"current_code_nonblank_lines":1485429,"current_tracked_text_lines":2190088,"current_code_files":4659,"stars":211569,"forks":38895,"open_issues":26951,"default_branch":"main","repo_url":"https://github.com/NousResearch/hermes-agent"},{"repo":"NousResearch/hermes-agent","label":"Hermes","group":"Comparison","window":"6mo","start_date":"2026-01-08","end_date":"2026-07-08","merged_prs":7729,"bugfix_prs":5286,"bugfix_pr_share":0.6839,"active_pr_contributors_human":314,"active_pr_contributors_total":315,"commits":14876,"active_commit_authors_human":1759,"active_commit_authors_total":1767,"pr_additions":2535314,"pr_deletions":455725,"pr_changed_files":41343,"current_code_lines":1746187,"current_code_nonblank_lines":1485429,"current_tracked_text_lines":2190088,"current_code_files":4659,"stars":211569,"forks":38895,"open_issues":26951,"default_branch":"main","repo_url":"https://github.com/NousResearch/hermes-agent"},{"repo":"NousResearch/hermes-agent","label":"Hermes","group":"Comparison","window":"12mo","start_date":"2025-07-08","end_date":"2026-07-08","merged_prs":7736,"bugfix_prs":5288,"bugfix_pr_share":0.6836,"active_pr_contributors_human":314,"active_pr_contributors_total":315,"commits":14936,"active_commit_authors_human":1760,"active_commit_authors_total":1768,"pr_additions":2537400,"pr_deletions":455992,"pr_changed_files":41376,"current_code_lines":1746187,"current_code_nonblank_lines":1485429,"current_tracked_text_lines":2190088,"current_code_files":4659,"stars":211569,"forks":38895,"open_issues":26951,"default_branch":"main","repo_url":"https://github.com/NousResearch/hermes-agent"}],"monthlyOpenHands":[{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-07-08","month_end":"2025-07-31","merged_prs":213,"bugfix_prs":61,"active_pr_contributors_human":34,"pr_additions":38036,"pr_deletions":12991,"month_label":"Jul","changed_lines":51027},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-08-01","month_end":"2025-08-31","merged_prs":332,"bugfix_prs":84,"active_pr_contributors_human":40,"pr_additions":73078,"pr_deletions":37862,"month_label":"Aug","changed_lines":110940},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-09-01","month_end":"2025-09-30","merged_prs":219,"bugfix_prs":46,"active_pr_contributors_human":32,"pr_additions":134974,"pr_deletions":30554,"month_label":"Sep","changed_lines":165528},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-10-01","month_end":"2025-10-31","merged_prs":195,"bugfix_prs":72,"active_pr_contributors_human":38,"pr_additions":57462,"pr_deletions":30358,"month_label":"Oct","changed_lines":87820},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-11-01","month_end":"2025-11-30","merged_prs":137,"bugfix_prs":45,"active_pr_contributors_human":26,"pr_additions":37488,"pr_deletions":26825,"month_label":"Nov","changed_lines":64313},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2025-12-01","month_end":"2025-12-31","merged_prs":208,"bugfix_prs":70,"active_pr_contributors_human":35,"pr_additions":37058,"pr_deletions":15309,"month_label":"Dec","changed_lines":52367},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-01-01","month_end":"2026-01-31","merged_prs":193,"bugfix_prs":71,"active_pr_contributors_human":26,"pr_additions":70928,"pr_deletions":44253,"month_label":"Jan","changed_lines":115181},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-02-01","month_end":"2026-02-28","merged_prs":174,"bugfix_prs":64,"active_pr_contributors_human":28,"pr_additions":41877,"pr_deletions":67242,"month_label":"Feb","changed_lines":109119},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-03-01","month_end":"2026-03-31","merged_prs":287,"bugfix_prs":115,"active_pr_contributors_human":41,"pr_additions":82538,"pr_deletions":19666,"month_label":"Mar","changed_lines":102204},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-04-01","month_end":"2026-04-30","merged_prs":275,"bugfix_prs":86,"active_pr_contributors_human":26,"pr_additions":64143,"pr_deletions":178909,"month_label":"Apr","changed_lines":243052},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-05-01","month_end":"2026-05-31","merged_prs":142,"bugfix_prs":45,"active_pr_contributors_human":24,"pr_additions":47178,"pr_deletions":13401,"month_label":"May","changed_lines":60579},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-06-01","month_end":"2026-06-30","merged_prs":180,"bugfix_prs":93,"active_pr_contributors_human":29,"pr_additions":51275,"pr_deletions":13352,"month_label":"Jun","changed_lines":64627},{"repo":"OpenHands/OpenHands","label":"OpenHands main","month_start":"2026-07-01","month_end":"2026-07-08","merged_prs":45,"bugfix_prs":14,"active_pr_contributors_human":15,"pr_additions":20155,"pr_deletions":3372,"month_label":"Jul","changed_lines":23527},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-07-08","month_end":"2025-07-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Jul","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-08-01","month_end":"2025-08-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Aug","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-09-01","month_end":"2025-09-30","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Sep","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-10-01","month_end":"2025-10-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Oct","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-11-01","month_end":"2025-11-30","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Nov","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2025-12-01","month_end":"2025-12-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Dec","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-01-01","month_end":"2026-01-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Jan","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-02-01","month_end":"2026-02-28","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Feb","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-03-01","month_end":"2026-03-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Mar","changed_lines":0},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-04-01","month_end":"2026-04-30","merged_prs":33,"bugfix_prs":3,"active_pr_contributors_human":2,"pr_additions":24718,"pr_deletions":104448,"month_label":"Apr","changed_lines":129166},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-05-01","month_end":"2026-05-31","merged_prs":429,"bugfix_prs":176,"active_pr_contributors_human":18,"pr_additions":147721,"pr_deletions":59448,"month_label":"May","changed_lines":207169},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-06-01","month_end":"2026-06-30","merged_prs":231,"bugfix_prs":84,"active_pr_contributors_human":29,"pr_additions":64407,"pr_deletions":22184,"month_label":"Jun","changed_lines":86591},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","month_start":"2026-07-01","month_end":"2026-07-08","merged_prs":26,"bugfix_prs":7,"active_pr_contributors_human":8,"pr_additions":16771,"pr_deletions":5003,"month_label":"Jul","changed_lines":21774},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-07-08","month_end":"2025-07-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Jul","changed_lines":0},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-08-01","month_end":"2025-08-31","merged_prs":29,"bugfix_prs":1,"active_pr_contributors_human":1,"pr_additions":15784,"pr_deletions":3247,"month_label":"Aug","changed_lines":19031},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-09-01","month_end":"2025-09-30","merged_prs":281,"bugfix_prs":53,"active_pr_contributors_human":12,"pr_additions":90669,"pr_deletions":28140,"month_label":"Sep","changed_lines":118809},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-10-01","month_end":"2025-10-31","merged_prs":186,"bugfix_prs":46,"active_pr_contributors_human":19,"pr_additions":42483,"pr_deletions":13405,"month_label":"Oct","changed_lines":55888},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-11-01","month_end":"2025-11-30","merged_prs":145,"bugfix_prs":41,"active_pr_contributors_human":24,"pr_additions":26427,"pr_deletions":7239,"month_label":"Nov","changed_lines":33666},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2025-12-01","month_end":"2025-12-31","merged_prs":142,"bugfix_prs":37,"active_pr_contributors_human":30,"pr_additions":26617,"pr_deletions":2254,"month_label":"Dec","changed_lines":28871},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-01-01","month_end":"2026-01-31","merged_prs":163,"bugfix_prs":43,"active_pr_contributors_human":20,"pr_additions":30735,"pr_deletions":5979,"month_label":"Jan","changed_lines":36714},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-02-01","month_end":"2026-02-28","merged_prs":186,"bugfix_prs":61,"active_pr_contributors_human":21,"pr_additions":35710,"pr_deletions":5388,"month_label":"Feb","changed_lines":41098},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-03-01","month_end":"2026-03-31","merged_prs":205,"bugfix_prs":58,"active_pr_contributors_human":24,"pr_additions":30204,"pr_deletions":7933,"month_label":"Mar","changed_lines":38137},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-04-01","month_end":"2026-04-30","merged_prs":185,"bugfix_prs":58,"active_pr_contributors_human":24,"pr_additions":41918,"pr_deletions":9365,"month_label":"Apr","changed_lines":51283},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-05-01","month_end":"2026-05-31","merged_prs":225,"bugfix_prs":83,"active_pr_contributors_human":23,"pr_additions":49222,"pr_deletions":7612,"month_label":"May","changed_lines":56834},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-06-01","month_end":"2026-06-30","merged_prs":239,"bugfix_prs":73,"active_pr_contributors_human":28,"pr_additions":57762,"pr_deletions":11860,"month_label":"Jun","changed_lines":69622},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","month_start":"2026-07-01","month_end":"2026-07-08","merged_prs":50,"bugfix_prs":19,"active_pr_contributors_human":14,"pr_additions":14222,"pr_deletions":4450,"month_label":"Jul","changed_lines":18672},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-07-08","month_end":"2025-07-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Jul","changed_lines":0},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-08-01","month_end":"2025-08-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Aug","changed_lines":0},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-09-01","month_end":"2025-09-30","merged_prs":27,"bugfix_prs":1,"active_pr_contributors_human":2,"pr_additions":6181,"pr_deletions":1343,"month_label":"Sep","changed_lines":7524},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-10-01","month_end":"2025-10-31","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Oct","changed_lines":0},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-11-01","month_end":"2025-11-30","merged_prs":23,"bugfix_prs":4,"active_pr_contributors_human":6,"pr_additions":14927,"pr_deletions":2596,"month_label":"Nov","changed_lines":17523},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2025-12-01","month_end":"2025-12-31","merged_prs":61,"bugfix_prs":14,"active_pr_contributors_human":8,"pr_additions":25717,"pr_deletions":8597,"month_label":"Dec","changed_lines":34314},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-01-01","month_end":"2026-01-31","merged_prs":77,"bugfix_prs":13,"active_pr_contributors_human":11,"pr_additions":27717,"pr_deletions":6095,"month_label":"Jan","changed_lines":33812},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-02-01","month_end":"2026-02-28","merged_prs":54,"bugfix_prs":14,"active_pr_contributors_human":12,"pr_additions":17147,"pr_deletions":4162,"month_label":"Feb","changed_lines":21309},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-03-01","month_end":"2026-03-31","merged_prs":23,"bugfix_prs":9,"active_pr_contributors_human":7,"pr_additions":1971,"pr_deletions":1040,"month_label":"Mar","changed_lines":3011},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-04-01","month_end":"2026-04-30","merged_prs":29,"bugfix_prs":6,"active_pr_contributors_human":10,"pr_additions":2466,"pr_deletions":575,"month_label":"Apr","changed_lines":3041},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-05-01","month_end":"2026-05-31","merged_prs":23,"bugfix_prs":7,"active_pr_contributors_human":10,"pr_additions":2898,"pr_deletions":573,"month_label":"May","changed_lines":3471},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-06-01","month_end":"2026-06-30","merged_prs":7,"bugfix_prs":1,"active_pr_contributors_human":2,"pr_additions":418,"pr_deletions":146,"month_label":"Jun","changed_lines":564},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","month_start":"2026-07-01","month_end":"2026-07-08","merged_prs":0,"bugfix_prs":0,"active_pr_contributors_human":0,"pr_additions":0,"pr_deletions":0,"month_label":"Jul","changed_lines":0}],"loc":[{"repo":"OpenHands/OpenHands","label":"OpenHands main","group":"OpenHands","code_files_counted":2425,"code_lines":404261,"code_nonblank_lines":350708,"skipped_files":14,"top_languages":"[{'language': 'Python', 'lines': 226695}, {'language': 'TypeScript', 'lines': 136308}, {'language': 'JSON', 'lines': 29171}, {'language': 'YAML', 'lines': 3703}, {'language': 'TMPL', 'lines': 2829}, {'language': 'TOML', 'lines': 889}, {'language': 'SVG', 'lines': 705}, {'language': 'CSS', 'lines': 679}]","tracked_text_files_counted":2505,"tracked_text_lines":413156,"tracked_text_nonblank_lines":357107},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","group":"OpenHands","code_files_counted":1738,"code_lines":246466,"code_nonblank_lines":222918,"skipped_files":10,"top_languages":"[{'language': 'TypeScript', 'lines': 196659}, {'language': 'JSON', 'lines': 34529}, {'language': 'MJS', 'lines': 7744}, {'language': 'YAML', 'lines': 2916}, {'language': 'Python', 'lines': 824}, {'language': 'CSS', 'lines': 783}, {'language': 'JavaScript', 'lines': 733}, {'language': 'SVG', 'lines': 696}]","tracked_text_files_counted":1762,"tracked_text_lines":249778,"tracked_text_nonblank_lines":225400},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","group":"OpenHands","code_files_counted":1281,"code_lines":333281,"code_nonblank_lines":274384,"skipped_files":4,"top_languages":"[{'language': 'Python', 'lines': 319709}, {'language': 'YAML', 'lines': 7364}, {'language': 'JavaScript', 'lines': 1558}, {'language': 'JSON', 'lines': 1078}, {'language': 'CSS', 'lines': 739}, {'language': 'Other', 'lines': 511}, {'language': 'Shell', 'lines': 457}, {'language': 'Dockerfile', 'lines': 397}]","tracked_text_files_counted":1365,"tracked_text_lines":346051,"tracked_text_nonblank_lines":284226},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","group":"OpenHands","code_files_counted":402,"code_lines":66765,"code_nonblank_lines":56014,"skipped_files":1,"top_languages":"[{'language': 'Python', 'lines': 51041}, {'language': 'SVG', 'lines': 12762}, {'language': 'YAML', 'lines': 1662}, {'language': 'TCSS', 'lines': 441}, {'language': 'Other', 'lines': 218}, {'language': 'TOML', 'lines': 154}, {'language': 'Shell', 'lines': 150}, {'language': 'Makefile', 'lines': 124}]","tracked_text_files_counted":415,"tracked_text_lines":68503,"tracked_text_nonblank_lines":57327},{"repo":"openai/codex","label":"OpenAI Codex","group":"Comparison","code_files_counted":4696,"code_lines":1324542,"code_nonblank_lines":1219349,"skipped_files":77,"top_languages":"[{'language': 'Rust', 'lines': 1119613}, {'language': 'JSON', 'lines': 120315}, {'language': 'Python', 'lines': 35405}, {'language': 'TypeScript', 'lines': 9174}, {'language': 'SNAP', 'lines': 8723}, {'language': 'YAML', 'lines': 8168}, {'language': 'TOML', 'lines': 5898}, {'language': 'Shell', 'lines': 3654}]","tracked_text_files_counted":5307,"tracked_text_lines":1358160,"tracked_text_nonblank_lines":1248451},{"repo":"anomalyco/opencode","label":"OpenCode","group":"Comparison","code_files_counted":5022,"code_lines":1047601,"code_nonblank_lines":989604,"skipped_files":381,"top_languages":"[{'language': 'TypeScript', 'lines': 584661}, {'language': 'JSON', 'lines': 393810}, {'language': 'CSS', 'lines': 40284}, {'language': 'SVG', 'lines': 16403}, {'language': 'YAML', 'lines': 2891}, {'language': 'PATCH', 'lines': 1621}, {'language': 'Other', 'lines': 1356}, {'language': 'ASTRO', 'lines': 1299}]","tracked_text_files_counted":5842,"tracked_text_lines":1284379,"tracked_text_nonblank_lines":1158765},{"repo":"NousResearch/hermes-agent","label":"Hermes","group":"Comparison","code_files_counted":4659,"code_lines":1746187,"code_nonblank_lines":1485429,"skipped_files":104,"top_languages":"[{'language': 'Python', 'lines': 1370357}, {'language': 'TypeScript', 'lines': 283683}, {'language': 'XSD', 'lines': 19730}, {'language': 'YAML', 'lines': 11055}, {'language': 'BST', 'lines': 7756}, {'language': 'STY', 'lines': 6846}, {'language': 'Shell', 'lines': 6723}, {'language': 'MJS', 'lines': 6601}]","tracked_text_files_counted":6087,"tracked_text_lines":2190088,"tracked_text_nonblank_lines":1815668}],"openHandsTotals":{"merged_prs_12":5679,"bugfix_prs_12":1778,"changed_lines_12":2388178,"code_lines":1050773,"code_files":5846,"contributors_12":252,"merged_prs_3":2007,"contributors_3":87,"repo_count":4},"repoCards":[{"repo":"OpenHands/OpenHands","label":"OpenHands main","group":"OpenHands","repo_url":"https://github.com/OpenHands/OpenHands","merged_prs":2600,"bugfix_prs":866,"bugfix_share":0.3331,"contributors":179,"commits":2341,"changed_lines":1250284,"code_lines":404261,"open_issues":356},{"repo":"OpenHands/agent-canvas","label":"Agent Canvas","group":"OpenHands","repo_url":"https://github.com/OpenHands/agent-canvas","merged_prs":719,"bugfix_prs":270,"bugfix_share":0.3755,"contributors":31,"commits":733,"changed_lines":444700,"code_lines":246466,"open_issues":288},{"repo":"OpenHands/software-agent-sdk","label":"Software Agent SDK","group":"OpenHands","repo_url":"https://github.com/OpenHands/software-agent-sdk","merged_prs":2036,"bugfix_prs":573,"bugfix_share":0.2814,"contributors":90,"commits":2026,"changed_lines":568625,"code_lines":333281,"open_issues":255},{"repo":"OpenHands/OpenHands-CLI","label":"OpenHands CLI","group":"OpenHands","repo_url":"https://github.com/OpenHands/OpenHands-CLI","merged_prs":324,"bugfix_prs":69,"bugfix_share":0.213,"contributors":31,"commits":353,"changed_lines":124569,"code_lines":66765,"open_issues":37},{"repo":"openai/codex","label":"OpenAI Codex","group":"Comparison","repo_url":"https://github.com/openai/codex","merged_prs":7688,"bugfix_prs":1202,"bugfix_share":0.1563,"contributors":398,"commits":7579,"changed_lines":3808808,"code_lines":1324542,"open_issues":8485},{"repo":"anomalyco/opencode","label":"OpenCode","group":"Comparison","repo_url":"https://github.com/anomalyco/opencode","merged_prs":5700,"bugfix_prs":2304,"bugfix_share":0.4042,"contributors":892,"commits":13631,"changed_lines":2859338,"code_lines":1047601,"open_issues":4689},{"repo":"NousResearch/hermes-agent","label":"Hermes","group":"Comparison","repo_url":"https://github.com/NousResearch/hermes-agent","merged_prs":7736,"bugfix_prs":5288,"bugfix_share":0.6836,"contributors":314,"commits":14936,"changed_lines":2993392,"code_lines":1746187,"open_issues":26951}],"ecosystemLabels":["OpenHands main","Agent Canvas","Software Agent SDK","OpenHands CLI"]};
+
+const colors = {
+  "OpenHands main": "#16856f",
+  "Agent Canvas": "#2f6fd6",
+  "Software Agent SDK": "#0f9fbd",
+  "OpenHands CLI": "#7b6b43",
+  "OpenAI Codex": "#6d59d3",
+  "OpenCode": "#d4871f",
+  "Hermes": "#c9463d",
+  bug: "#d44842",
+  other: "#8fb7a8"
+};
+
+let selectedWindow = "12mo";
+
+function fmt(value) {
+  return Math.round(value).toLocaleString("en-US");
+}
+
+function shortFmt(value) {
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(value >= 10_000_000 ? 1 : 2)}M`;
+  if (value >= 1_000) return `${(value / 1_000).toFixed(value >= 10_000 ? 0 : 1)}K`;
+  return `${Math.round(value)}`;
+}
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function rowsForWindow() {
+  return DATA.activity.filter(row => row.window === selectedWindow);
+}
+
+function xTicks(maxValue, count = 4) {
+  const ticks = [];
+  for (let i = 0; i <= count; i += 1) ticks.push((maxValue / count) * i);
+  return ticks;
+}
+
+function horizontalBarChart(target, rows, metric, options = {}) {
+  const sorted = [...rows].sort((a, b) => b[metric] - a[metric]);
+  const width = 980;
+  const left = 190;
+  const right = 118;
+  const top = 26;
+  const rowH = 48;
+  const height = top + sorted.length * rowH + 42;
+  const maxValue = Math.max(...sorted.map(row => row[metric]), 1);
+  const plotW = width - left - right;
+  const tickMarkup = xTicks(maxValue).map(tick => {
+    const x = left + (tick / maxValue) * plotW;
+    return `<line class="grid-line" x1="${x}" x2="${x}" y1="${top - 10}" y2="${height - 36}"></line>
+      <text class="axis-small" x="${x}" y="${height - 12}" text-anchor="middle">${shortFmt(tick)}</text>`;
+  }).join("");
+
+  const bars = sorted.map((row, index) => {
+    const y = top + index * rowH;
+    const barW = (row[metric] / maxValue) * plotW;
+    const color = colors[row.label] || "#64748b";
+    return `<g>
+      <text class="bar-label" x="0" y="${y + 25}">${escapeXml(row.label)}</text>
+      <rect x="${left}" y="${y + 7}" width="${Math.max(barW, 2)}" height="26" rx="5" fill="${color}"></rect>
+      <text class="bar-value" x="${left + barW + 10}" y="${y + 26}">${fmt(row[metric])}</text>
+    </g>`;
+  }).join("");
+
+  target.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(options.label || "Horizontal bar chart")}">
+    ${tickMarkup}
+    ${bars}
+  </svg>`;
+}
+
+function stackedBugChart(target, rows) {
+  const sorted = [...rows].sort((a, b) => b.merged_prs - a.merged_prs);
+  const width = 980;
+  const left = 190;
+  const right = 150;
+  const top = 26;
+  const rowH = 52;
+  const height = top + sorted.length * rowH + 44;
+  const maxValue = Math.max(...sorted.map(row => row.merged_prs), 1);
+  const plotW = width - left - right;
+  const tickMarkup = xTicks(maxValue).map(tick => {
+    const x = left + (tick / maxValue) * plotW;
+    return `<line class="grid-line" x1="${x}" x2="${x}" y1="${top - 10}" y2="${height - 38}"></line>
+      <text class="axis-small" x="${x}" y="${height - 12}" text-anchor="middle">${shortFmt(tick)}</text>`;
+  }).join("");
+  const bars = sorted.map((row, index) => {
+    const y = top + index * rowH;
+    const bugW = (row.bugfix_prs / maxValue) * plotW;
+    const other = row.merged_prs - row.bugfix_prs;
+    const otherW = (other / maxValue) * plotW;
+    const pct = Math.round(row.bugfix_pr_share * 100);
+    return `<g>
+      <text class="bar-label" x="0" y="${y + 25}">${escapeXml(row.label)}</text>
+      <rect x="${left}" y="${y + 7}" width="${Math.max(bugW, 2)}" height="26" rx="5" fill="${colors.bug}"></rect>
+      <rect x="${left + bugW}" y="${y + 7}" width="${Math.max(otherW, 2)}" height="26" rx="5" fill="${colors.other}"></rect>
+      <text class="bar-value" x="${left + bugW + otherW + 10}" y="${y + 26}">${fmt(row.bugfix_prs)} fixes (${pct}%)</text>
+    </g>`;
+  }).join("");
+  target.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Bug fix pull requests stacked against other pull requests">
+    ${tickMarkup}
+    ${bars}
+  </svg>
+  <div class="legend">
+    <span class="legend-item" style="color:${colors.bug}"><span class="swatch"></span>Bug-fix PRs</span>
+    <span class="legend-item" style="color:${colors.other}"><span class="swatch"></span>Other merged PRs</span>
+  </div>`;
+}
+
+function monthlyOpenHandsChart(target) {
+  const rows = DATA.monthlyOpenHands;
+  const repoLabels = DATA.ecosystemLabels;
+  const months = [...new Set(rows.map(row => row.month_start))];
+  const byMonth = months.map(month => {
+    const monthRows = rows.filter(row => row.month_start === month);
+    const values = repoLabels.map(label => monthRows.find(row => row.label === label)?.merged_prs || 0);
+    return {
+      month,
+      label: monthRows[0]?.month_label || "",
+      values,
+      total: values.reduce((sum, value) => sum + value, 0)
+    };
+  });
+  const width = 1050;
+  const height = 390;
+  const left = 58;
+  const right = 22;
+  const top = 20;
+  const bottom = 54;
+  const plotW = width - left - right;
+  const plotH = height - top - bottom;
+  const maxValue = Math.max(...byMonth.map(row => row.total), 1);
+  const gap = 10;
+  const barW = Math.max(12, (plotW - gap * (byMonth.length - 1)) / byMonth.length);
+  const grid = xTicks(maxValue).map(tick => {
+    const y = top + plotH - (tick / maxValue) * plotH;
+    return `<line class="grid-line" x1="${left}" x2="${width - right}" y1="${y}" y2="${y}"></line>
+      <text class="axis-small" x="${left - 10}" y="${y + 4}" text-anchor="end">${shortFmt(tick)}</text>`;
+  }).join("");
+  const bars = byMonth.map((row, index) => {
+    const x = left + index * (barW + gap);
+    let yCursor = top + plotH;
+    const segments = row.values.map((value, valueIndex) => {
+      const segmentH = (value / maxValue) * plotH;
+      yCursor -= segmentH;
+      const label = repoLabels[valueIndex];
+      return `<rect x="${x}" y="${yCursor}" width="${barW}" height="${segmentH}" rx="3" fill="${colors[label] || "#64748b"}"></rect>`;
+    }).join("");
+    return `<g>
+      ${segments}
+      <text class="axis-small" x="${x + barW / 2}" y="${height - 26}" text-anchor="middle">${escapeXml(row.label)}</text>
+      <text class="axis-small" x="${x + barW / 2}" y="${height - 10}" text-anchor="middle">${new Date(row.month).getFullYear() === 2026 && row.label === "Jan" ? "2026" : ""}</text>
+    </g>`;
+  }).join("");
+  target.innerHTML = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Monthly merged pull requests for OpenHands repositories">
+    ${grid}
+    ${bars}
+  </svg>
+  <div class="legend">
+    ${repoLabels.map(label => `<span class="legend-item" style="color:${colors[label] || "#64748b"}"><span class="swatch"></span>${escapeXml(label)}</span>`).join("")}
+  </div>`;
+}
+
+function changedLinesChart(target, rows) {
+  const enriched = rows.map(row => ({ ...row, changed: row.pr_additions + row.pr_deletions }));
+  horizontalBarChart(target, enriched, "changed", { label: "Changed lines by repository" });
+}
+
+function renderCharts() {
+  const windowRows = rowsForWindow();
+  horizontalBarChart(document.querySelector("[data-chart='merged-prs']"), windowRows, "merged_prs", { label: "Merged PRs by repository" });
+  stackedBugChart(document.querySelector("[data-chart='bugfix-share']"), windowRows);
+  horizontalBarChart(document.querySelector("[data-chart='contributors']"), windowRows, "active_pr_contributors_human", { label: "Human contributors by repository" });
+  changedLinesChart(document.querySelector("[data-chart='changed-lines']"), windowRows);
+  horizontalBarChart(document.querySelector("[data-chart='loc']"), DATA.activity.filter(row => row.window === "12mo"), "current_code_lines", { label: "Current code lines by repository" });
+  monthlyOpenHandsChart(document.querySelector("[data-chart='monthly-openhands']"));
+  document.querySelectorAll("[data-window-label]").forEach(node => {
+    node.textContent = selectedWindow;
+  });
+}
+
+document.querySelectorAll(".segmented button").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedWindow = button.dataset.window;
+    document.querySelectorAll(".segmented button").forEach(item => {
+      item.setAttribute("aria-pressed", String(item === button));
+    });
+    renderCharts();
+  });
+});
+
+renderCharts();
+</script>
+</body>
+</html>

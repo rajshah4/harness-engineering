@@ -1,0 +1,92 @@
+repo,label,month_start,month_end,merged_prs,bugfix_prs,active_pr_contributors_human,pr_additions,pr_deletions
+OpenHands/OpenHands,OpenHands main,2025-07-08,2025-07-31,213,61,34,38036,12991
+OpenHands/OpenHands,OpenHands main,2025-08-01,2025-08-31,332,84,40,73078,37862
+OpenHands/OpenHands,OpenHands main,2025-09-01,2025-09-30,219,46,32,134974,30554
+OpenHands/OpenHands,OpenHands main,2025-10-01,2025-10-31,195,72,38,57462,30358
+OpenHands/OpenHands,OpenHands main,2025-11-01,2025-11-30,137,45,26,37488,26825
+OpenHands/OpenHands,OpenHands main,2025-12-01,2025-12-31,208,70,35,37058,15309
+OpenHands/OpenHands,OpenHands main,2026-01-01,2026-01-31,193,71,26,70928,44253
+OpenHands/OpenHands,OpenHands main,2026-02-01,2026-02-28,174,64,28,41877,67242
+OpenHands/OpenHands,OpenHands main,2026-03-01,2026-03-31,287,115,41,82538,19666
+OpenHands/OpenHands,OpenHands main,2026-04-01,2026-04-30,275,86,26,64143,178909
+OpenHands/OpenHands,OpenHands main,2026-05-01,2026-05-31,142,45,24,47178,13401
+OpenHands/OpenHands,OpenHands main,2026-06-01,2026-06-30,180,93,29,51275,13352
+OpenHands/OpenHands,OpenHands main,2026-07-01,2026-07-08,45,14,15,20155,3372
+OpenHands/agent-canvas,Agent Canvas,2025-07-08,2025-07-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2025-08-01,2025-08-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2025-09-01,2025-09-30,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2025-10-01,2025-10-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2025-11-01,2025-11-30,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2025-12-01,2025-12-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2026-01-01,2026-01-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2026-02-01,2026-02-28,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2026-03-01,2026-03-31,0,0,0,0,0
+OpenHands/agent-canvas,Agent Canvas,2026-04-01,2026-04-30,33,3,2,24718,104448
+OpenHands/agent-canvas,Agent Canvas,2026-05-01,2026-05-31,429,176,18,147721,59448
+OpenHands/agent-canvas,Agent Canvas,2026-06-01,2026-06-30,231,84,29,64407,22184
+OpenHands/agent-canvas,Agent Canvas,2026-07-01,2026-07-08,26,7,8,16771,5003
+OpenHands/software-agent-sdk,Software Agent SDK,2025-07-08,2025-07-31,0,0,0,0,0
+OpenHands/software-agent-sdk,Software Agent SDK,2025-08-01,2025-08-31,29,1,1,15784,3247
+OpenHands/software-agent-sdk,Software Agent SDK,2025-09-01,2025-09-30,281,53,12,90669,28140
+OpenHands/software-agent-sdk,Software Agent SDK,2025-10-01,2025-10-31,186,46,19,42483,13405
+OpenHands/software-agent-sdk,Software Agent SDK,2025-11-01,2025-11-30,145,41,24,26427,7239
+OpenHands/software-agent-sdk,Software Agent SDK,2025-12-01,2025-12-31,142,37,30,26617,2254
+OpenHands/software-agent-sdk,Software Agent SDK,2026-01-01,2026-01-31,163,43,20,30735,5979
+OpenHands/software-agent-sdk,Software Agent SDK,2026-02-01,2026-02-28,186,61,21,35710,5388
+OpenHands/software-agent-sdk,Software Agent SDK,2026-03-01,2026-03-31,205,58,24,30204,7933
+OpenHands/software-agent-sdk,Software Agent SDK,2026-04-01,2026-04-30,185,58,24,41918,9365
+OpenHands/software-agent-sdk,Software Agent SDK,2026-05-01,2026-05-31,225,83,23,49222,7612
+OpenHands/software-agent-sdk,Software Agent SDK,2026-06-01,2026-06-30,239,73,28,57762,11860
+OpenHands/software-agent-sdk,Software Agent SDK,2026-07-01,2026-07-08,50,19,14,14222,4450
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-07-08,2025-07-31,0,0,0,0,0
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-08-01,2025-08-31,0,0,0,0,0
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-09-01,2025-09-30,27,1,2,6181,1343
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-10-01,2025-10-31,0,0,0,0,0
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-11-01,2025-11-30,23,4,6,14927,2596
+OpenHands/OpenHands-CLI,OpenHands CLI,2025-12-01,2025-12-31,61,14,8,25717,8597
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-01-01,2026-01-31,77,13,11,27717,6095
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-02-01,2026-02-28,54,14,12,17147,4162
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-03-01,2026-03-31,23,9,7,1971,1040
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-04-01,2026-04-30,29,6,10,2466,575
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-05-01,2026-05-31,23,7,10,2898,573
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-06-01,2026-06-30,7,1,2,418,146
+OpenHands/OpenHands-CLI,OpenHands CLI,2026-07-01,2026-07-08,0,0,0,0,0
+openai/codex,OpenAI Codex,2025-07-08,2025-07-31,124,24,14,18460,6853
+openai/codex,OpenAI Codex,2025-08-01,2025-08-31,431,106,37,89730,62159
+openai/codex,OpenAI Codex,2025-09-01,2025-09-30,399,68,43,95135,36325
+openai/codex,OpenAI Codex,2025-10-01,2025-10-31,397,67,48,79090,30200
+openai/codex,OpenAI Codex,2025-11-01,2025-11-30,382,78,69,59939,46671
+openai/codex,OpenAI Codex,2025-12-01,2025-12-31,427,103,65,129503,22634
+openai/codex,OpenAI Codex,2026-01-01,2026-01-31,643,128,72,131652,115388
+openai/codex,OpenAI Codex,2026-02-01,2026-02-28,892,140,69,339330,120074
+openai/codex,OpenAI Codex,2026-03-01,2026-03-31,861,150,73,597753,367516
+openai/codex,OpenAI Codex,2026-04-01,2026-04-30,1098,166,87,408863,166564
+openai/codex,OpenAI Codex,2026-05-01,2026-05-31,960,107,84,335370,158308
+openai/codex,OpenAI Codex,2026-06-01,2026-06-30,950,52,98,270895,84513
+openai/codex,OpenAI Codex,2026-07-01,2026-07-08,124,13,40,26789,9094
+anomalyco/opencode,OpenCode,2025-07-08,2025-07-31,153,68,62,23658,15968
+anomalyco/opencode,OpenCode,2025-08-01,2025-08-31,201,97,54,8675,2451
+anomalyco/opencode,OpenCode,2025-09-01,2025-09-30,104,50,38,33109,7839
+anomalyco/opencode,OpenCode,2025-10-01,2025-10-31,159,54,68,46818,5252
+anomalyco/opencode,OpenCode,2025-11-01,2025-11-30,228,87,116,21151,8056
+anomalyco/opencode,OpenCode,2025-12-01,2025-12-31,390,118,181,48907,14906
+anomalyco/opencode,OpenCode,2026-01-01,2026-01-31,630,321,243,83755,30886
+anomalyco/opencode,OpenCode,2026-02-01,2026-02-28,557,250,160,301717,47555
+anomalyco/opencode,OpenCode,2026-03-01,2026-03-31,485,213,87,180082,90961
+anomalyco/opencode,OpenCode,2026-04-01,2026-04-30,884,263,76,161949,305606
+anomalyco/opencode,OpenCode,2026-05-01,2026-05-31,986,334,74,387390,254199
+anomalyco/opencode,OpenCode,2026-06-01,2026-06-30,651,322,64,245948,155071
+anomalyco/opencode,OpenCode,2026-07-01,2026-07-08,272,127,18,277111,100318
+NousResearch/hermes-agent,Hermes,2025-07-08,2025-07-31,1,0,1,374,19
+NousResearch/hermes-agent,Hermes,2025-08-01,2025-08-31,0,0,0,0,0
+NousResearch/hermes-agent,Hermes,2025-09-01,2025-09-30,0,0,0,0,0
+NousResearch/hermes-agent,Hermes,2025-10-01,2025-10-31,0,0,0,0,0
+NousResearch/hermes-agent,Hermes,2025-11-01,2025-11-30,6,2,2,1712,248
+NousResearch/hermes-agent,Hermes,2025-12-01,2025-12-31,0,0,0,0,0
+NousResearch/hermes-agent,Hermes,2026-01-01,2026-01-31,3,0,3,653,134
+NousResearch/hermes-agent,Hermes,2026-02-01,2026-02-28,45,29,23,17743,1843
+NousResearch/hermes-agent,Hermes,2026-03-01,2026-03-31,1127,727,77,287927,36407
+NousResearch/hermes-agent,Hermes,2026-04-01,2026-04-30,1947,1295,102,686741,91770
+NousResearch/hermes-agent,Hermes,2026-05-01,2026-05-31,2060,1371,92,805842,114292
+NousResearch/hermes-agent,Hermes,2026-06-01,2026-06-30,1981,1449,86,593673,185584
+NousResearch/hermes-agent,Hermes,2026-07-01,2026-07-08,566,415,21,142735,25695
