@@ -1,6 +1,6 @@
-# Claude System Prompt Evolution (May 2025 – Jun 2026)
+# Claude System Prompt Evolution (May 2025 – Jul 2026)
 
-A visual study of how Anthropic's Claude system prompts changed from Opus 4 through Opus 4.8 and Fable 5, with a separate Claude Code prompt-surface summary.
+A visual study of how Anthropic's Claude system prompts changed from Opus 4 through Opus 5 and Fable 5, with a separate Claude Code prompt-surface summary.
 
 ## The Question
 
@@ -33,13 +33,14 @@ python3 -m http.server 8080  # then visit http://localhost:8080
 | Claude 4.5 | Nov 2025 | Soul document moved into training |
 | Claude 4.6 | Feb 2026 | Extended thinking, 1M context |
 | Claude Opus 4.7 | Apr 16 2026 | New tokenizer, tool_search, XML safety blocks |
-| Claude Opus 4.8 | May 28 2026 | Latest Opus row; extracted from Anthropic's published prompt page |
+| Claude Opus 4.8 | May 28 2026 | Official-page row; re-extracted from Anthropic's published prompt page |
 | Claude Fable 5 | Jun 9 2026 | New Claude 5 / Mythos-class row; extracted from Anthropic's published prompt page |
+| Claude Opus 5 | Jul 24 2026 | Latest Opus row; extracted from Anthropic's published prompt page |
 | Claude Code v2.1.198 | Jul 1 2026 | Separate token-counted prompt surface from Piebald, not included in the word chart |
 
 ## Main Findings
 
-1. **Prompts do not shrink monotonically.** The Opus series grows from 1,714 words in May 2025 to 3,686 words by April 2026, then the latest official-page Opus/Fable bodies fall back to roughly 2.9k words.
+1. **Prompts do not shrink monotonically.** The Opus series grows from 1,714 words in May 2025 to 3,686 words by April 2026, then the latest official-page Opus/Fable bodies settle in the low 3k range.
 
 2. **Behavioral patches get retired into training.** Explicit workarounds for letter-counting, puzzle constraints, and verbose reassurances were removed as training absorbed those behaviors. This supports the theory for that category.
 
@@ -49,12 +50,12 @@ python3 -m http.server 8080  # then visit http://localhost:8080
 
 5. **Claude Code is not one prompt.** Piebald's Claude Code v2.1.198 snapshot tracks 540 fragments totaling 581k tokens; the system/reminder bucket alone is 46k tokens before agent prompts, tool descriptions, skills, or reference data.
 
-6. **Tool discovery became explicit.** Opus 4.8 adds dedicated guidance for deferred tool lookup and SKILL.md discovery before claiming a capability or personal context is unavailable.
+6. **Tool discovery shifted again.** Opus 4.8 adds dedicated guidance for deferred tool lookup and SKILL.md discovery before claiming a capability or personal context is unavailable. Opus 5 keeps product tools visible, but does not carry the same explicit deferred-tool block in the extracted public prompt body.
 
 ## Sources
 
 - Simon Willison's blog: [May 2025](https://simonwillison.net/2025/May/25/claude-4-system-prompt/) · [Apr 2026](https://simonwillison.net/2026/Apr/18/opus-system-prompt/) · [git timeline](https://simonwillison.net/2026/Apr/18/extract-system-prompts/)
-- Anthropic: [Published system prompts](https://platform.claude.com/docs/en/release-notes/system-prompts) · [model overview](https://platform.claude.com/docs/en/about-claude/models/overview) · [Opus 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8)
+- Anthropic: [Published system prompts](https://platform.claude.com/docs/en/release-notes/system-prompts) · [model overview](https://platform.claude.com/docs/en/about-claude/models/overview) · [Opus 4.8](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8) · [Opus 5 prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5)
 - GitHub: [simonw/research](https://github.com/simonw/research) · [Piebald-AI/claude-code-system-prompts](https://github.com/Piebald-AI/claude-code-system-prompts)
 
 ## Extending This

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude System Prompt Evolution: May 2025 – Jun 2026</title>
+<title>Claude System Prompt Evolution: May 2025 – Jul 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -361,11 +361,11 @@
 <div class="container">
 
   <h1>Claude System Prompt Evolution</h1>
-  <p class="subtitle">Word count by category — Opus and Fable snapshots, May 2025 to June 2026</p>
+  <p class="subtitle">Word count by category — Opus and Fable snapshots, May 2025 to July 2026</p>
   <p class="credit">
     Prompts sourced from <a href="https://github.com/simonw/research/tree/main/extract-system-prompts" target="_blank">simonw/research</a>
     (mirrors of <a href="https://platform.claude.com/docs/en/release-notes/system-prompts" target="_blank">Anthropic's published system prompts</a>).
-    Latest Opus/Fable snapshots extracted from Anthropic's published system prompt page.
+    Latest official-page snapshots extracted from Anthropic's published system prompt page.
     Analysis informed by Simon Willison's
     <a href="https://simonwillison.net/2025/May/25/claude-4-system-prompt/" target="_blank">May 2025</a> and
     <a href="https://simonwillison.net/2026/Apr/18/opus-system-prompt/" target="_blank">April 2026</a> breakdowns.
@@ -374,13 +374,13 @@
   <div class="theory-box">
     <strong>The question:</strong> As models improve, do system prompts get shorter?
     The data no longer tells a simple monotonic story. Opus prompts more than doubled by April 2026,
-    then the newest official Opus/Fable prompt bodies slimmed back to about 2.9k words.
+    then the newest official-page prompt bodies settled back into the low 3k range.
     Complexity did not disappear; it shifted into safety blocks, product/tool surfaces, and Claude Code's fragmented prompt layer.
   </div>
 
   <div class="caveat">
     ⚠ These are the <strong>claude.ai published system prompts</strong>, not the full API context.
-    The Opus 4 through Opus 4.7 rows use the Simon Willison raw mirrors; Opus 4.8 and Fable 5 use
+    The Opus 4 through Opus 4.7 rows use the Simon Willison raw mirrors; Opus 4.8, Fable 5, and Opus 5 use
     extracted bodies from Anthropic's current docs payload. Claude Code is shown separately because its prompt is
     hundreds of token-counted fragments, not one comparable word-counted prompt.
   </div>
@@ -390,7 +390,7 @@
     <div class="chart-header">
       <div>
         <div class="chart-title">Words per category across Claude snapshots</div>
-        <div class="chart-subtitle">Total prompt length: 1,714 → 3,686 → 2,888 → 2,963 words</div>
+        <div class="chart-subtitle">Total prompt length: 1,714 → 3,686 → 3,342 → 3,276 → 3,221 words</div>
       </div>
       <div class="toggle-group">
         <button class="toggle-btn active" id="btn-abs" onclick="setMode('abs')">Absolute</button>
@@ -438,7 +438,7 @@
     <div class="finding-card">
       <span class="verdict v-nuanced">Nuanced</span>
       <h3>Prompts do not shrink monotonically</h3>
-      <p>Opus grew 1,714 → 3,686 words through 4.7, then the latest official-page bodies fall back to ~2.9k words for Opus 4.8 and Fable 5.</p>
+      <p>Opus grew 1,714 → 3,686 words through 4.7, then the latest official-page bodies settle in the low 3k range for Opus 4.8, Fable 5, and Opus 5.</p>
     </div>
     <div class="finding-card">
       <span class="verdict v-yes">True</span>
@@ -448,7 +448,7 @@
     <div class="finding-card">
       <span class="verdict v-yes">True</span>
       <h3>Safety dominates the newest prompts</h3>
-      <p>Fable's extracted body puts roughly 1.8k words into refusal, child safety, wellbeing, legal/financial scoping, and Anthropic reminder language.</p>
+      <p>Fable and Opus 5 both put roughly 1.7–1.8k categorized words into refusal, child safety, wellbeing, legal/financial scoping, and Anthropic reminder language.</p>
     </div>
     <div class="finding-card">
       <span class="verdict v-nuanced">Shifted</span>
@@ -461,9 +461,9 @@
       <p>Piebald tracks 540 Claude Code fragments totaling 581k tokens. The core system/reminder bucket is 46k tokens before tools, agent prompts, skills, or reference data.</p>
     </div>
     <div class="finding-card">
-      <span class="verdict v-yes">True</span>
-      <h3>Tool discovery became explicit</h3>
-      <p>Opus 4.8 adds a dedicated tool-discovery section telling Claude to search for deferred tools and context before saying a capability is unavailable.</p>
+      <span class="verdict v-nuanced">Shifted</span>
+      <h3>Tool discovery shifted again</h3>
+      <p>Opus 4.8 adds a dedicated tool-discovery section, while Opus 5 keeps product tools visible without carrying the same explicit deferred-tool block.</p>
     </div>
   </div>
 
@@ -576,14 +576,14 @@ const VERSIONS = [
     date: "May 28, 2026",
     color: "#b45309",
     source: "https://platform.claude.com/docs/en/release-notes/system-prompts#claude-opus-4-8",
-    total: 2888,
-    words: { safety: 1507, behavior: 344, identity: 147, style: 345, knowledge: 100, tools: 427 },
+    total: 3342,
+    words: { safety: 1728, behavior: 311, identity: 205, style: 430, knowledge: 268, tools: 368 },
     notes: {
-      safety: "Weapons guidance expands to conventional, chemical, biological, and nuclear uplift, with cumulative-output framing across turns and prior summaries.",
-      behavior: "Default stance favors helping unless there is concrete serious-harm risk; evenhandedness and mistake-recovery guidance remain concise.",
-      identity: "Identifies Opus 4.8 as the selected public model and positions Mythos Preview as a more restricted frontier predecessor.",
-      style: "Formatting and tone rules compress into concise prose, emoji, bullet, and disclaimer guidance.",
-      knowledge: "Product knowledge is bounded to the prompt body; model-switch and knowledge-cutoff caveats are called out explicitly.",
+      safety: "Refusal handling, child safety, wellbeing, legal/financial scoping, Anthropic reminders, and system-prompt-citation limits dominate the current body.",
+      behavior: "Evenhandedness and mistake-recovery guidance stay concise after the larger Opus 4.7 behavior spike.",
+      identity: "Identifies Opus 4.8 as the selected public model and keeps Mythos Preview in the product hierarchy.",
+      style: "Lists, bullet rules, tone, warmth, concision, and the tone preference remain substantial but below the safety block.",
+      knowledge: "Product knowledge is bounded to the prompt body; API docs, support links, prompt advice, and cutoff caveats are called out explicitly.",
       tools: "Adds a dedicated <tool_discovery> block for deferred tools, personal context, and SKILL.md discovery before claiming a capability is unavailable.",
     },
     quote: {
@@ -598,20 +598,42 @@ const VERSIONS = [
     date: "Jun 9, 2026",
     color: "#be123c",
     source: "https://platform.claude.com/docs/en/release-notes/system-prompts#claude-fable-5",
-    total: 2963,
-    words: { safety: 1784, behavior: 324, identity: 150, style: 296, knowledge: 120, tools: 271 },
+    total: 3276,
+    words: { safety: 1841, behavior: 376, identity: 211, style: 319, knowledge: 327, tools: 178 },
     notes: {
       safety: "Largest share: refusal handling, child safety, wellbeing, legal/financial scoping, and Anthropic reminder language carry most of the prompt body.",
       behavior: "Evenhandedness and mistake-recovery guidance stay present, but there is no Opus 4.8-style tool discovery block in this extracted body.",
       identity: "Introduces the Claude 5 family and Mythos-class positioning, with Fable described as the broadly available sibling of Mythos.",
-      style: "Tone-and-formatting guidance is shorter than Opus 4.7 while retaining bullets, warmth, cursing, and clarification rules.",
-      knowledge: "Product knowledge is explicitly bounded; model strings and knowledge-cutoff caveats live in product information.",
+      style: "Tone-and-formatting plus list guidance remain shorter than the safety layer while retaining warmth, cursing, clarification, and bullet rules.",
+      knowledge: "Product knowledge is explicitly bounded; prompt advice, support links, model strings, and cutoff caveats live in product information.",
       tools: "Product surface includes Claude Code, Claude Cowork, Chrome, Excel, PowerPoint, web search, deep research, Artifacts, and memory features.",
     },
     quote: {
       text: "the most capable widely released model",
       source: "Anthropic model docs, June 9 2026",
       url: "https://platform.claude.com/docs/en/about-claude/models/overview",
+    },
+  },
+  {
+    id: "opus5",
+    label: "Opus 5",
+    date: "Jul 24, 2026",
+    color: "#2563eb",
+    source: "https://platform.claude.com/docs/en/release-notes/system-prompts#claude-opus-5",
+    total: 3221,
+    words: { safety: 1692, behavior: 332, identity: 192, style: 343, knowledge: 437, tools: 197 },
+    notes: {
+      safety: "Adds Fable safeguard-routing explanation, then keeps the familiar refusal, child-safety, wellbeing, legal/financial, and Anthropic-reminder blocks.",
+      behavior: "Evenhandedness and mistake-recovery guidance remain compact; agentic behavior is mostly handled outside this public prompt body.",
+      identity: "Identifies Opus 5, lists the current Claude 5 family, and explains Mythos/Fable positioning plus the recent access restoration context.",
+      style: "Warmth, concision, bullet use, cursing, clarification, file-presence checking, and tone preference are grouped under tone and formatting.",
+      knowledge: "The knowledge layer grows because the prompt now includes Fable/Mythos access history, model-switch caveats, product-support routing, and a May 2026 cutoff.",
+      tools: "Product tools are listed, but the dedicated Opus 4.8 <tool_discovery> and <available_skills> sections are not present in this extracted body.",
+    },
+    quote: {
+      text: "Claude Opus 5 is built for complex agentic coding and enterprise work.",
+      source: "Anthropic Opus 5 prompting docs, July 24 2026",
+      url: "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5",
     },
   },
 ];
@@ -631,6 +653,10 @@ let chart = null;
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function pct(v, total) { return Math.round((v / total) * 100); }
+
+function signed(n) {
+  return n > 0 ? `+${n.toLocaleString()}` : n.toLocaleString();
+}
 
 function delta(cur, prev, cat) {
   if (!prev) return "";
@@ -810,7 +836,7 @@ function selectVersion(id) {
   }).join("");
 
   const changeText = prev
-    ? `+${(v.total - prev.total).toLocaleString()} words vs ${prev.label}`
+    ? `${signed(v.total - prev.total)} words vs ${prev.label}`
     : "Baseline version";
 
   const quoteHtml = v.quote ? `
