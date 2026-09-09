@@ -160,6 +160,7 @@ const ResultSlide = ({
   expected,
   caveat,
   source,
+  tutorial,
   color,
 }: {
   number: string;
@@ -175,6 +176,7 @@ const ResultSlide = ({
   expected: string;
   caveat: string;
   source: string;
+  tutorial: string;
   color: string;
 }) => (
   <div
@@ -254,7 +256,10 @@ const ResultSlide = ({
       <div style={{ color: muted, fontSize: 19, fontWeight: 700, lineHeight: 1.25 }}>
         <strong style={{ color: 'var(--osd-text)' }}>Caveat:</strong> {caveat}
       </div>
-      <div style={{ marginTop: 7, color: '#98978F', fontSize: 17, fontWeight: 650 }}>{source}</div>
+      <div style={{ marginTop: 7, display: 'flex', justifyContent: 'space-between', gap: 28, color: '#98978F', fontSize: 17, fontWeight: 650 }}>
+        <span>{source}</span>
+        <span><strong style={{ color }}>Build it next:</strong> {tutorial}</span>
+      </div>
     </div>
     <PhaseNav phase="result" color={color} />
     <Footer />
@@ -295,6 +300,7 @@ const Workshop1Result: Page = () => (
     expected="Compare the outcome, calls, context per call, time, cost, and evidence. The model name does not explain the run."
     caveat="One clean AWS run per cell; large differences are real observations, not estimates of normal variance."
     source="Local evidence · harness-benchmark/results/short-suite.md · Aug. 24, 2026"
+    tutorial="P01 · Canvas + Agent Trace"
     color="var(--osd-accent)"
   />
 );
@@ -322,17 +328,18 @@ const Workshop2Result: Page = () => (
   <ResultSlide
     number="2"
     claim="More tools create a super-agent"
-    evidenceStatus="trace-based preliminary result"
-    finding="An always-declared browser added fixed prompt cost, then consumed time fighting the tool when invoked."
-    metric1="14"
-    metric1Label="browser schemas on every call"
-    metric2="17"
-    metric2Label="browser actions, mostly failing"
-    metric3="335s"
-    metric3Label="about 21% of wall time"
-    expected="A capability must earn its schema, runtime, and security cost. Relevant tools can help; a broad surface can make the agent worse."
-    caveat="This is a trace study. The clean broad-MCP vs narrow-tool vs API comparison is still pending."
-    source="Local evidence · harness-benchmark/results/browser-tool-impact.md"
+    evidenceStatus="measured preliminary result"
+    finding="One task-shaped tool produced complete evidence with a shorter path than either the terminal or a broad catalog."
+    metric1="72s"
+    metric1Label="task-shaped median wall time"
+    metric2="1"
+    metric2Label="task-shaped tool call"
+    metric3="6 / 6"
+    metric3Label="evidence score in all three trials"
+    expected="Create a higher-level tool for a recurring bounded workflow. Keep primitives for exploration and exceptions."
+    caveat="Three same-day trials per lane support a workshop demonstration, not a universal ranking. Show the generic tool contract before the reveal."
+    source="Local evidence · harness-benchmark/results/workshop2-tool-surface-preliminary.md · Sept. 5, 2026"
+    tutorial="P03 · Retrieval, then P06 and P10"
     color={orange}
   />
 );
@@ -360,17 +367,18 @@ const Workshop3Result: Page = () => (
   <ResultSlide
     number="3"
     claim="More instructions, skills, and memory make agents better"
-    evidenceStatus="signal; controlled test pending"
-    finding="All three harnesses passed the short suite while average context per call varied by almost fourfold."
-    metric1="6.7K"
-    metric1Label="Pi context tokens per call"
-    metric2="12.3K"
-    metric2Label="OpenCode context per call"
-    metric3="26.8K"
-    metric3Label="OpenHands context per call"
-    expected="Keep stable facts small, load procedures when needed, store task state outside the prompt, and delete stale material."
-    caveat="Harness differences confound this signal. The no-guidance vs bloated vs curated-context trial has not run yet."
-    source="Local signal · harness-benchmark/results/short-suite.md · proposed isolation in facilitator-notes/02-place-context.md"
+    evidenceStatus="measured preliminary result"
+    finding="The overfilled agent built a green test suite around a stale file-placement rule, then failed the independent contract in every trial."
+    metric1="3 / 3"
+    metric1Label="no-guidance verifier passes"
+    metric2="0 / 3"
+    metric2Label="save-everything verifier passes"
+    metric3="3 / 3"
+    metric3Label="curated-context verifier passes"
+    expected="Start blank. Save only verified, stable guidance that beats rediscovery, and verify important contracts outside the agent's own tests."
+    caveat="The stale instruction was deliberately planted. Three same-day trials show a repeated mechanism, not a general failure-rate estimate."
+    source="Local evidence · harness-benchmark/results/workshop3-context-placement-preliminary.md · Sept. 5, 2026"
+    tutorial="P05 · Memory + Compaction, then P10"
     color={purple}
   />
 );
@@ -409,6 +417,7 @@ const Workshop4Result: Page = () => (
     expected="Route by risk and verifiability. Start cheaper when failure is visible, then escalate when the evidence shows the model is the constraint."
     caveat="This is a model and harness interaction signal, not a clean strongest-for-all versus verify-then-escalate comparison."
     source="Local evidence · harness-benchmark/results/browser-tool-impact.md · routing design in facilitator-notes/03-model-routing.md"
+    tutorial="P02 · Model Routing, then P09"
     color={brown}
   />
 );
@@ -447,6 +456,7 @@ const Workshop5Result: Page = () => (
     expected="A durable goal needs an external completion gate, fresh evidence, budgets, and explicit stop states. More time alone is not a completion strategy."
     caveat="One campaign per cell. The harder freight task improved at 11.4× Pi single-agent tokens and 3.9× wall time."
     source="Local evidence · harness-benchmark/results/completion-loop-sonnet46.md · freight-control-tower-sonnet46.md"
+    tutorial="P12 · Goal Scaffolding, supported by P06 and P07"
     color={green}
   />
 );
@@ -485,6 +495,7 @@ const Workshop6Result: Page = () => (
     expected="Another agent earns its cost only when work or judgment is genuinely separable. Count every child, handoff, synthesis step, and merge risk."
     caveat="Systems took 87 to 99 minutes versus 21 to 26 minutes for singles; exploratory result, not a repeated uplift estimate."
     source="Local evidence · harness-benchmark/BENCHMARK_RESULTS.md · results/freight-control-tower-sonnet46.md"
+    tutorial="P11 · Subagents, then P04, P07, and P08"
     color={purple}
   />
 );

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#FAF2DB"/>
+  <style>
+    text { font-family: Inter, Arial, sans-serif; fill: #202322; }
+    .title { font-size: 64px; font-weight: 700; }
+    .kicker { font-size: 22px; font-weight: 700; letter-spacing: 2px; }
+    .head { font-size: 37px; font-weight: 700; }
+    .body { font-size: 28px; }
+    .note { font-size: 26px; font-weight: 600; }
+  </style>
+  <text class="title" x="110" y="128">The same task needs information at different lifetimes</text>
+  <path d="M110 172H1810" stroke="#202322" stroke-width="4"/>
+  <text class="kicker" x="110" y="220" fill="#A55725">ILLUSTRATIVE: PAGINATION BUG</text>
+
+  <rect x="110" y="250" width="520" height="520" rx="28" fill="#E2F0EC" stroke="#167D76" stroke-width="5"/>
+  <text class="kicker" x="155" y="310" fill="#167D76">NOW</text>
+  <text class="head" x="155" y="370">Active context</text>
+  <text class="body" x="155" y="445">Goal: return an empty page</text>
+  <text class="body" x="155" y="493">past the last item</text>
+  <text class="body" x="155" y="565">Latest: boundary test fails</text>
+
+  <rect x="700" y="250" width="520" height="520" rx="28" fill="#FFF4E6" stroke="#D97933" stroke-width="5"/>
+  <text class="kicker" x="745" y="310" fill="#D97933">CURRENT TASK</text>
+  <text class="head" x="745" y="370">Working state</text>
+  <text class="body" x="745" y="445">Checkpoint: adjusted end index</text>
+  <text class="body" x="745" y="517">pagination.py</text>
+  <text class="body" x="745" y="565">boundary test</text>
+
+  <rect x="1290" y="250" width="520" height="520" rx="28" fill="#F7E8D5" stroke="#202322" stroke-width="5"/>
+  <text class="kicker" x="1335" y="310">FUTURE TASK</text>
+  <text class="head" x="1335" y="370">Durable guidance</text>
+  <text class="body" x="1335" y="445">python -m pytest</text>
+  <text class="body" x="1335" y="493">tests/test_pagination.py</text>
+
+  <path d="M1510 790C1510 910 535 930 390 785" fill="none" stroke="#167D76" stroke-width="5" stroke-dasharray="13 12"/>
+  <path d="M408 783L383 774L387 801" fill="none" stroke="#167D76" stroke-width="5"/>
+  <rect x="495" y="855" width="930" height="105" rx="52" fill="#E2F0EC" stroke="#167D76" stroke-width="4"/>
+  <text class="note" x="960" y="920" text-anchor="middle">Saved information enters active context when loaded.</text>
+</svg>

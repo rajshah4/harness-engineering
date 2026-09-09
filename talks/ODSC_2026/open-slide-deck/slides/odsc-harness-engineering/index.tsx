@@ -1,6 +1,8 @@
 import { type DesignSystem, type Page, type SlideMeta, useSlidePageNumber } from '@open-slide/core';
 import { RajisticsWordmark } from '../shared/rajistics-wordmark';
 import { workshopClaimPages } from '../workshop-claim-placeholders';
+import screenshot20260831At83356PM from './assets/Screenshot 2026-08-31 at 8.33.56 PM.png';
+
 
 export const design: DesignSystem = {
   palette: { bg: '#F9F1D9', text: '#03030C', accent: '#2E70FF' },
@@ -655,9 +657,7 @@ const Page018: Page = () => (
     <div style={{ color: 'var(--osd-accent)', fontSize: 22, fontWeight: 850, letterSpacing: '0.13em', textTransform: 'uppercase' }}>
       Terminal-Bench 2.0 · official leaderboard · filtered view
     </div>
-    <h1 style={contentTitleStyle}>
-      Same model. Five harnesses. An 18-point spread.
-    </h1>
+    <h1 style={contentTitleStyle}>{'Same model, but 18 point spread between 5 harnesses.\n'}</h1>
 
     <div style={{ position: 'absolute', left: 136, right: 136, top: 215, height: 592, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #D7D7D7', boxShadow: '0 18px 48px rgba(25, 20, 10, 0.14)' }}>
       <img
@@ -696,16 +696,14 @@ const Page020: Page = () => (
     <div style={{ color: 'var(--osd-accent)', fontSize: 22, fontWeight: 850, letterSpacing: '0.13em', textTransform: 'uppercase' }}>
       Harness-Bench · 106 tasks · 5,194 trajectories
     </div>
-    <h1 style={contentTitleStyle}>
-      Harness choice changes the whole operating profile.
-    </h1>
+    <h1 style={contentTitleStyle}>Harnesses vary in completion, process quality, efficiency, and failure behavior</h1>
     <p style={{ margin: '17px 0 0', color: muted, fontSize: 30, fontWeight: 650, lineHeight: 1.25 }}>
       Completion, process quality, token use, and turns all move together.
     </p>
 
     <div style={{ position: 'absolute', left: 90, top: 276, width: 1340, height: 574, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #D7D7D7', boxShadow: '0 18px 48px rgba(25, 20, 10, 0.12)' }}>
       <img
-        src={new URL('./assets/harness-bench-paper-table.png', import.meta.url).href}
+        src={screenshot20260831At83356PM}
         alt="Harness-Bench paper table comparing completion, process quality, tokens, and turns across six configurable harnesses and Codex"
         style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
       />
@@ -717,11 +715,6 @@ const Page020: Page = () => (
         <div style={{ marginTop: 9, color: 'var(--osd-accent)', fontSize: 82, fontWeight: 900, lineHeight: 0.96, letterSpacing: '-0.055em' }}>23.8</div>
         <div style={{ marginTop: 11, fontSize: 28, fontWeight: 760, lineHeight: 1.22 }}>point score spread</div>
         <div style={{ marginTop: 8, color: muted, fontSize: 22, fontWeight: 650, lineHeight: 1.3 }}>NanoBot 76.2<br />OpenClaw 52.4</div>
-      </div>
-      <div style={{ marginTop: 58, borderTop: '2px solid #C9C1AA', paddingTop: 20 }}>
-        <div style={{ fontSize: 30, fontWeight: 830, lineHeight: 1.18 }}>Measure the pair:</div>
-        <div style={{ marginTop: 7, color: 'var(--osd-accent)', fontSize: 31, fontWeight: 850, lineHeight: 1.18 }}>model + harness</div>
-        <div style={{ marginTop: 12, color: muted, fontSize: 20, fontWeight: 650, lineHeight: 1.35 }}>Codex is reported separately because it is model-bound.</div>
       </div>
     </div>
     <div style={{ position: 'absolute', left: 100, bottom: 88, color: muted, fontSize: 19, fontWeight: 650 }}>
@@ -739,9 +732,7 @@ const Page021: Page = () => (
     <div style={{ color: 'var(--osd-accent)', fontSize: 22, fontWeight: 850, letterSpacing: '0.13em', textTransform: 'uppercase' }}>
       Snowflake data-eng-bench · 103 repository-level tasks
     </div>
-    <h1 style={contentTitleStyle}>
-      A data-native harness moves the frontier.
-    </h1>
+    <h1 style={contentTitleStyle}>Snowflake's CoCo Harness</h1>
     <p style={{ margin: '17px 0 0', color: muted, fontSize: 32, fontWeight: 650, lineHeight: 1.25 }}>
       Same models, same tasks—higher quality at lower cost.
     </p>
@@ -800,9 +791,7 @@ const Page024: Page = () => (
     <div style={{ color: 'var(--osd-accent)', fontSize: 22, fontWeight: 850, letterSpacing: '0.13em', textTransform: 'uppercase' }}>
       OpenBench · GPT-5.6 · 42 common task/trials
     </div>
-    <h1 style={{ ...contentTitleStyle, whiteSpace: 'nowrap' }}>
-      Same model. Seven harnesses. Seven profiles.
-    </h1>
+    <h1 style={{ ...contentTitleStyle, whiteSpace: 'nowrap' }}>Same model across seven harnesses</h1>
     <div style={{ marginTop: 13, color: muted, fontSize: 25, fontWeight: 700 }}>11.9-point solve-rate spread · 21× fresh-token spread</div>
 
     <div style={{ position: 'absolute', left: 92, right: 92, top: 250, bottom: 76, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #D7D7D7', boxShadow: '0 18px 48px rgba(25, 20, 10, 0.14)' }}>
@@ -825,21 +814,21 @@ const Page025: Page = () => (
       ARC-AGI-3 public set · same GPT-5.6 Sol model
     </div>
     <h1 style={contentTitleStyle}>
-      Two harness settings raised the score from <span style={{ color: 'var(--osd-accent)' }}>13% to 38%.</span>
+      Modifying the harness can improve results.
     </h1>
     <p style={{ margin: '17px 0 0', color: muted, fontSize: 29, fontWeight: 680, lineHeight: 1.25 }}>
-      OpenAI kept GPT-5.6 Sol and the public ARC-AGI-3 tasks fixed.
+      OpenAI changed two settings and moved the same GPT-5.6 Sol model from 13.3% to 38.3% on ARC-AGI-3.
     </p>
 
     <div style={{ position: 'absolute', left: 118, right: 118, top: 320, display: 'grid', gridTemplateColumns: '1fr 390px 1fr', alignItems: 'center', gap: 48 }}>
       <div>
-        <div style={{ color: orange, fontSize: 24, fontWeight: 900, letterSpacing: '0.11em' }}>GENERIC HARNESS</div>
+        <div style={{ color: orange, fontSize: 24, fontWeight: 900, letterSpacing: '0.11em' }}>BASELINE HARNESS</div>
         <div style={{ marginTop: 18, fontSize: 150, fontWeight: 940, lineHeight: 0.88, letterSpacing: '-0.075em' }}>13.3%</div>
-        <div style={{ marginTop: 26, color: muted, fontSize: 31, fontWeight: 740 }}>Forgets earlier reasoning</div>
+        <div style={{ marginTop: 26, color: muted, fontSize: 31, fontWeight: 740 }}>Truncates earlier reasoning</div>
       </div>
 
       <div style={{ textAlign: 'center' }}>
-        <div style={{ color: purple, fontSize: 21, fontWeight: 900, letterSpacing: '0.1em' }}>CHANGE THE HARNESS</div>
+        <div style={{ color: purple, fontSize: 21, fontWeight: 900, letterSpacing: '0.1em' }}>TWO HARNESS CHANGES</div>
         <div style={{ marginTop: 2, color: purple, fontSize: 122, fontWeight: 700, lineHeight: 0.95 }}>→</div>
         <div style={{ marginTop: 16, borderTop: `4px solid ${purple}`, paddingTop: 19, fontSize: 28, fontWeight: 820, lineHeight: 1.45 }}>
           Keep private reasoning<br />Compact, don’t truncate
@@ -847,9 +836,9 @@ const Page025: Page = () => (
       </div>
 
       <div style={{ textAlign: 'right' }}>
-        <div style={{ color: 'var(--osd-accent)', fontSize: 24, fontWeight: 900, letterSpacing: '0.11em' }}>CUSTOM HARNESS</div>
+        <div style={{ color: 'var(--osd-accent)', fontSize: 24, fontWeight: 900, letterSpacing: '0.11em' }}>MODIFIED HARNESS</div>
         <div style={{ marginTop: 18, color: 'var(--osd-accent)', fontSize: 150, fontWeight: 940, lineHeight: 0.88, letterSpacing: '-0.075em' }}>38.3%</div>
-        <div style={{ marginTop: 26, color: 'var(--osd-text)', fontSize: 31, fontWeight: 820 }}>Keeps learning across turns</div>
+        <div style={{ marginTop: 26, color: 'var(--osd-text)', fontSize: 31, fontWeight: 820 }}>Carries useful state across turns</div>
       </div>
     </div>
 
@@ -872,13 +861,13 @@ const Page026: Page = () => (
     style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', background: 'var(--osd-bg)', color: 'var(--osd-text)', padding: '54px 100px', fontFamily: 'var(--osd-font-body)' }}
   >
     <div style={{ color: '#568900', fontSize: 22, fontWeight: 900, letterSpacing: '0.13em', textTransform: 'uppercase' }}>
-      NVIDIA AVO · seven-day autonomous optimization run
+      NVIDIA AVO · custom harness for kernel optimization
     </div>
     <h1 style={{ ...contentTitleStyle, whiteSpace: 'nowrap' }}>
-      NVIDIA's harness kept improving kernels for <span style={{ color: '#568900' }}>seven days.</span>
+      NVIDIA built a custom harness to find faster kernels.
     </h1>
     <p style={{ margin: '17px 0 0', color: muted, fontSize: 29, fontWeight: 680, lineHeight: 1.25 }}>
-      It explored more than 500 directions and beat FlashAttention-4 by up to 10.5%.
+      AVO searched the attention-kernel space for seven days and found kernels up to 10.5% faster than FlashAttention-4.
     </p>
 
     <div style={{ position: 'absolute', left: 86, top: 250, width: 1268, height: 656, overflow: 'hidden', background: '#FFFFFF', border: '1px solid #D6D6D0', boxShadow: '0 18px 48px rgba(25, 20, 10, 0.14)' }}>
@@ -908,7 +897,7 @@ const Page026: Page = () => (
 
     <div style={{ position: 'absolute', left: 100, right: 100, bottom: 76, display: 'grid', gridTemplateColumns: '1fr 470px', gap: 46, alignItems: 'center', borderTop: '3px solid #C9C1AA', paddingTop: 17 }}>
       <div style={{ fontSize: 27, fontWeight: 800, lineHeight: 1.28 }}>
-        Persistent memory preserved the search. <span style={{ color: '#568900' }}>The supervisor redirected it when progress stalled.</span>
+        Persistent memory kept the experiment history. <span style={{ color: '#568900' }}>A supervisor redirected the search when progress stalled.</span>
       </div>
       <div style={{ color: muted, fontSize: 18, fontWeight: 650, lineHeight: 1.35 }}>
         DGX B200 attention-kernel study · vendor-authored result<br />Reported improvement is “up to,” not an across-the-board average.
@@ -3167,6 +3156,8 @@ const basePages = [
   Page008,
   Page014,
   Page015,
+  // Kept in the source index so legacy notes remain aligned; omitted from the
+  // visible route below and explicitly retired before appendix assembly.
   Page016,
   Page021,
   Page018,
@@ -3336,6 +3327,7 @@ const basePages = [
 ] satisfies Page[];
 
 const evidenceNotes = new Map<Page, string>([
+  [Page015, "Speaker note: Use this question to frame why the workshop goes beyond the default provider harnesses. We want to test three practical reasons to study harness engineering: better accuracy on the work we care about; fewer tokens and a better cost/latency profile; and access to design ideas that provider defaults may not prioritize. Preview the alternative design bets without turning them into a list on screen: Hermes explores accumulated skills and memory, Pi explores a deliberately small and extensible loop, Prime Agent explores self-modifying state, and DeepSeek Harness explores swappable, traceable components. The benchmark and custom-harness sequence that follows supplies the evidence for these claims.",],
   [PageHarnessBenchSensitivity, "Speaker note: This is the model-first evidence, and it is useful precisely because it does not say harnesses are irrelevant. Harness-Bench held the task suite fixed and measured each model backend across configurable harnesses. Stronger backends tended to have higher mean scores and lower cross-harness variance. Say this plainly: a strong model can absorb more harness variation, while weaker models need more careful scaffolding. The variance is across harness-level averages, not repeated-run stochastic variance.\n\n[Refresh before presenting]\n- Check for a revised Harness-Bench version and preserve the model versions, task count, and variance definition.\n- Keep Figure 3 paired with the aggregate harness table later in the section.\n\n[Sources]\n- https://arxiv.org/html/2605.27922v1#S4.F3\n[/Sources]"],
   [PageAnthropicToolSearch, "Speaker note: Anthropic's five-server example loaded 58 tool definitions and consumed about 55,000 tokens before the task began. Tool Search deferred most definitions and reduced initial context consumption from about 77,000 to 8,700 tokens, an 85% reduction. Anthropic also reports MCP-eval accuracy rising from 49% to 74% for Opus 4 and from 79.5% to 88.1% for Opus 4.5. The general lesson is not that more tools are free. The harness needs a discovery layer that keeps irrelevant tools out of active context. These are Anthropic internal evaluations, not an independent benchmark.\n\n[Refresh before presenting]\n- Recheck whether Tool Search has left beta and whether Anthropic has published updated evaluations.\n- Preserve the internal-evaluation caveat and model versions.\n\n[Sources]\n- https://www.anthropic.com/engineering/advanced-tool-use\n[/Sources]"],
   [PageSkillsBenchCurrent, "Speaker note: SkillsBench now contains 87 tasks across eight domains and evaluates 18 model-harness configurations under paired no-skill and curated-skill conditions. Curated skills raised average pass rate from 33.9% to 50.5%, a 16.6-point lift. Every tested configuration improved, but the gain ranged from 4.1 to 25.7 points. Focused skills with at most three modules outperformed larger bundles. This is the strongest evidence for why the claim sounds reasonable before we reverse it.\n\n[Refresh before presenting]\n- Use the latest SkillsBench version and record the inventory size, configuration count, and paired-condition definition.\n- If the benchmark adds configurations, replace the figure rather than redrawing it.\n\n[Sources]\n- https://arxiv.org/html/2602.12670\n[/Sources]"],
@@ -3390,25 +3382,22 @@ const assembleWorkshopDeck = () => {
     Page008,
     Page014,
     Page015,
-    Page016,
 
     // Workshop 1 · Harnesses do not matter.
     // The opening has made the model-first case. The benchmark sequence now reverses it.
-    PageHarnessBenchSensitivity,
-    Workshop1Claim,
     Page021,
     Page018,
     Page024,
     Page020,
     Page025,
     Page026,
-    Page027,
     PageOpenSourceEcosystem,
     PageHarnessDesignBets,
     Page028,
     Page029,
     Page030,
     PageTechnicalDebtScale,
+    Workshop1Claim,
     Workshop1Activity,
     Workshop1Result,
 
@@ -3600,15 +3589,18 @@ const assembleWorkshopDeck = () => {
   ] satisfies Page[];
 
   const retiredWorkshopPages = new Set<Page>([
+    Page016,
     PageWorkshopHarnessComparison,
     PageWorkshopShortSuiteResults,
     PageWorkshopIncidentResults,
   ]);
+  // Keep useful but currently unplaced material at the very end of the deck.
+  const parkedEndPages = new Set<Page>([Page027]);
   const usedPages = new Set<Page>(coursePages);
   const appendixPages = basePages.filter(
-    (page) => !usedPages.has(page) && !retiredWorkshopPages.has(page),
+    (page) => !usedPages.has(page) && !retiredWorkshopPages.has(page) && !parkedEndPages.has(page),
   );
-  const pages = [...coursePages, ...appendixPages] satisfies Page[];
+  const pages = [...coursePages, ...appendixPages, ...parkedEndPages] satisfies Page[];
 
   const noteByPage = new Map<Page, string | undefined>();
   basePages.forEach((page, index) => noteByPage.set(page, baseNotes[index]));

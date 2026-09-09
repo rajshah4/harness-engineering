@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#FAF2DB"/>
+  <style>
+    text { font-family: Inter, Arial, sans-serif; fill: #202322; }
+    .tag { font-size: 22px; font-weight: 700; letter-spacing: 2px; fill: #A55725; }
+    .title { font-size: 64px; font-weight: 700; }
+    .head { font-size: 37px; font-weight: 700; }
+    .body { font-size: 27px; }
+    .small { font-size: 23px; font-weight: 600; }
+  </style>
+  <text class="tag" x="110" y="87">ILLUSTRATIVE WORKED EXAMPLE • NOT A RECORDED RUN OR MEASURED RESULT</text>
+  <text class="title" x="110" y="178">Compaction makes a continuation record</text>
+  <path d="M110 220H1810" stroke="#202322" stroke-width="4"/>
+
+  <rect x="110" y="300" width="500" height="525" rx="28" fill="#F7E8D5" stroke="#202322" stroke-width="5"/>
+  <text class="head" x="155" y="370">Verbose history</text>
+  <text class="body" x="155" y="452">Read pagination.py</text>
+  <text class="body" x="155" y="510">Ran boundary test</text>
+  <text class="body" x="155" y="568">Changed end index</text>
+  <text class="body" x="155" y="616">Same test failed</text>
+  <path d="M155 665H565" stroke="#D97933" stroke-width="4" stroke-dasharray="12 10"/>
+  <text class="small" x="155" y="715">Raw trace kept separately</text>
+
+  <path d="M660 560H900" stroke="#167D76" stroke-width="10"/>
+  <path d="M875 525L930 560L875 595" fill="none" stroke="#167D76" stroke-width="10"/>
+  <text class="small" x="795" y="515" text-anchor="middle" fill="#167D76">COMPACT</text>
+
+  <rect x="980" y="300" width="830" height="525" rx="28" fill="#E2F0EC" stroke="#167D76" stroke-width="5"/>
+  <text class="head" x="1030" y="370">Compact continuation record</text>
+  <circle cx="1050" cy="449" r="8" fill="#D97933"/>
+  <text class="body" x="1080" y="459">Goal: empty page past the last item</text>
+  <circle cx="1050" cy="517" r="8" fill="#D97933"/>
+  <text class="body" x="1080" y="527">Evidence: page 3 returned [7, 8]</text>
+  <circle cx="1050" cy="585" r="8" fill="#D97933"/>
+  <text class="body" x="1080" y="595">Unresolved: boundary test still fails</text>
+  <circle cx="1050" cy="653" r="8" fill="#D97933"/>
+  <text class="body" x="1080" y="663">Next: inspect start/end index calculation</text>
+</svg>

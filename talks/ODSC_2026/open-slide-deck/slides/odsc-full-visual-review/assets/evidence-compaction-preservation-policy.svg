@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="640" viewBox="0 0 1720 640" font-family="Arial, sans-serif">
+  <title>Compaction separates the next model call from stored evidence and omitted history</title>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#2E70FF"/></marker></defs>
+  <g id="next-model-call">
+    <rect x="0" y="0" width="1720" height="318" rx="12" fill="#FFFFFF"/>
+    <text x="28" y="43" font-size="26" font-weight="700" fill="#555C64">IN THE NEXT MODEL CALL</text>
+    <g id="anchors">
+      <rect x="28" y="68" width="492" height="220" rx="8" fill="#202B35"/>
+      <text x="56" y="109" font-size="23" fill="#FFFFFF">KEEP EXACT</text>
+      <text x="56" y="160" font-size="40" font-weight="700" fill="#FFFFFF">Anchors</text>
+      <text x="56" y="210" font-size="30" fill="#FFFFFF">Goal and constraints</text>
+    </g>
+    <g id="checkpoint">
+      <rect x="544" y="68" width="632" height="220" rx="8" fill="#E6EEFF" stroke="#2E70FF" stroke-width="2"/>
+      <text x="572" y="109" font-size="23" fill="#2250A0">SUMMARIZE + KEEP REFERENCES</text>
+      <text x="572" y="160" font-size="40" font-weight="700" fill="#20201E">Checkpoint</text>
+      <text x="572" y="210" font-size="30" fill="#20201E">Decisions and progress</text>
+      <text x="572" y="257" font-size="28" fill="#2250A0">3 failures · full log: /tmp/ci.log</text>
+    </g>
+    <g id="recent-tail">
+      <rect x="1200" y="68" width="492" height="220" rx="8" fill="#245AA5"/>
+      <text x="1228" y="109" font-size="23" fill="#FFFFFF">KEEP EXACT</text>
+      <text x="1228" y="160" font-size="40" font-weight="700" fill="#FFFFFF">Recent tail</text>
+      <text x="1228" y="210" font-size="30" fill="#FFFFFF">Latest actions and results</text>
+    </g>
+  </g>
+  <g id="evidence-connection">
+    <path d="M860 289V446" stroke="#2E70FF" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+    <text x="885" y="375" font-size="27" fill="#2250A0">Reference to the full evidence</text>
+  </g>
+  <g id="evidence-store">
+    <text x="28" y="426" font-size="26" font-weight="700" fill="#555C64">OUTSIDE THE CONTEXT WINDOW</text>
+    <rect x="28" y="460" width="1148" height="164" rx="8" fill="#FFFFFF" stroke="#2E70FF" stroke-width="2"/>
+    <text x="56" y="507" font-size="36" font-weight="700" fill="#20201E">Evidence store</text>
+    <text x="56" y="551" font-size="30" fill="#20201E">The full 24K-line log stays in /tmp/ci.log</text>
+    <text x="56" y="596" font-size="27" fill="#555C64">Read relevant details back through a tool when needed.</text>
+  </g>
+  <g id="omitted-history">
+    <rect x="1200" y="460" width="492" height="164" rx="8" fill="#EEECE5"/>
+    <text x="1228" y="501" font-size="24" font-weight="700" fill="#555C64">OMIT FROM THE NEXT CALL</text>
+    <text x="1228" y="551" font-size="30" fill="#20201E">Duplicates and</text>
+    <text x="1228" y="592" font-size="30" fill="#20201E">superseded attempts</text>
+  </g>
+</svg>
