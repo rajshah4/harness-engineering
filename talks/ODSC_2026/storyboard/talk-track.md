@@ -1024,11 +1024,17 @@ The parent still has to decide what to delegate, describe it clearly, pass the r
 
 Parallel execution helps only when the independent work is larger than the assignment and synthesis work it creates.
 
-## 160 — Where have multiple agents helped or hurt your coding work?
+## 160 — What failed here: subagents or the handoff?
 
-Ask for one example where multiple agents made the work faster or more thorough. Then ask for one example where they duplicated work, conflicted, or made the result harder to trust.
+Boris Tane says Polylane replaced a role-based workflow of triage and investigation subagents with one agent. He reports lower latency and cost with better quality. Treat this as a production account, not a controlled comparison.
 
-Listen for task structure. Did the workers have separate scopes, or did they share files and depend on one another's unfinished work?
+Ask the room to diagnose the failure before revealing the replies. Was the problem the number of agents, repeated context, the role boundaries, or the summaries passed between them?
+
+The replies sharpen the question. One practitioner says the parent was reading a report about the work instead of the raw work. Another says agents over-delegate unless the harness makes delegation explicit. A third asks how much of the gain came from fewer model calls rather than simpler orchestration. Boris acknowledges that their production data cannot separate those causes.
+
+Use the disagreement to set up the workshop choice. The question is whether a particular boundary earns its assignment, context, latency, and verification cost.
+
+Source: [Boris Tane on X, September 14, 2026](https://x.com/boristane/status/2099559571195080975).
 
 ## 155 — Which task would you delegate?
 

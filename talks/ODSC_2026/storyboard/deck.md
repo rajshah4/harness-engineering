@@ -1337,8 +1337,12 @@ Parallel work can finish sooner. The parent still pays to assign the work, pass 
 
 ---
 <!-- source-slide: 160 -->
-<!-- review-layout: text -->
-## Where have multiple agents helped or hurt your coding work?
+<!-- review-layout: figure-full -->
+## What failed here: subagents or the handoff?
+
+![Boris Tane describes replacing role-based subagents with one agent, followed by replies about lossy handoffs and orchestration overhead](review-additions/social-posts/boris-subagents-thread-stage.jpg)
+
+Source: [Boris Tane on X, September 14, 2026](https://x.com/boristane/status/2099559571195080975)
 
 ---
 <!-- source-slide: 155 -->

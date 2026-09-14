@@ -151,7 +151,7 @@
 
 127. **Workshop 6: Multi-agent systems** (`workshop-6-section`)
 128. **Another agent adds capacity and a coordination bill** (`154`)
-129. **Where have multiple agents helped or hurt your coding work?** (`160`)
+129. **What failed here: subagents or the handoff?** (`160`)
 130. **Which task would you delegate?** (`155`)
 131. **Parallelize independent investigations; keep shared edits with one owner** (`157`)
 132. **Parallel research improved 90.2% when the searches were independent** (`167`)
