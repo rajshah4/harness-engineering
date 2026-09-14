@@ -1133,6 +1133,15 @@ Source: [Claude Code `/loop`](https://code.claude.com/docs/en/scheduled-tasks) Â
 The outcome stays stable. State and evidence change after each bounded attempt.
 
 ---
+<!-- new-slide: goal-plan-thread -->
+<!-- review-layout: figure-full -->
+## Should goal, plan, and approval survive stronger models?
+
+![A live debate over removing plan, approval prompts, and goal from Codex](review-additions/social-posts/goal-plan-thread-stage.jpg)
+
+Source: [Vaibhav Srivastav on X, September 14, 2026](https://x.com/reach_vb/status/2099397110164488259)
+
+---
 <!-- source-slide: 140 -->
 <!-- review-layout: figure -->
 ## AutoResearch keeps a change only when the metric improves

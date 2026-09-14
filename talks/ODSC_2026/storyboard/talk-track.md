@@ -861,6 +861,16 @@ The outcome stays stable while the state and evidence change. That gives every n
 
 Ask the room: which field is missing in most agent prompts they have written?
 
+## goal-plan-thread — Should goal, plan, and approval survive stronger models?
+
+Flash the thread, then ask for a show of hands: remove goal, remove plan, remove approval prompts, or keep all three? Let two people defend opposite answers.
+
+The thread is useful because it collapses three different harness functions into one product debate. A goal preserves the durable outcome and stopping condition. A plan is the current hypothesis about how to get there, so it should be revisable. Approval defines the authority boundary: what the agent may do without asking a person.
+
+The section is not an argument for keeping three commands forever. Stronger models may internalize more planning. The harness still needs to represent the durable objective, observable progress, external authority, and a verifiable stop.
+
+Source: [Vaibhav Srivastav on X, September 14, 2026](https://x.com/reach_vb/status/2099397110164488259). The replies shown on the slide argue both for removing plan and for keeping goal as an orchestration primitive.
+
 ## 115 — Does this request need a code change?
 
 Two repository variants receive the same request to fix `slugify`. One already meets the behavior and one fails a boundary case.

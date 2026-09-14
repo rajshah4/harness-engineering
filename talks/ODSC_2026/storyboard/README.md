@@ -11,9 +11,9 @@ The former `harness-engineering-deck/latest_sept4-markdown` path is a symbolic
 link to this directory. Edit here; no second copy needs refreshing.
 See [the talk entry page](../README.md) for current review and archive links.
 
-The current 244-page workshop draft is in
+The current 245-page workshop draft is in
 [`../open-slide-deck/slides/odsc-full-visual-review`](../open-slide-deck/slides/odsc-full-visual-review).
-Pages 1–145 follow the current headline story. Pages 146–244 contain reserves. See [the headline plan](headline-story-plan.md) for the narrative structure.
+Pages 1–146 follow the current headline story. Pages 147–245 contain reserves. See [the headline plan](headline-story-plan.md) for the narrative structure.
 Source verification and remaining layout decisions are recorded in the inventory;
 this is not a final source-verified presentation.
 

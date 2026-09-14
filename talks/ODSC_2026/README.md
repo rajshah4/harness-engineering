@@ -12,7 +12,7 @@ This is the single working source as of September 14, 2026. The saved checkpoint
 - [OpenSlides preview](http://127.0.0.1:5173/s/odsc-full-visual-review?p=1): generated from the canonical deck.
 - `build_full_visual_review.cjs`: regenerates the OpenSlides version.
 
-The current preview contains 244 pages. Pages 1–145 form the talk and workshop. Pages 146–244 are reserves.
+The current preview contains 245 pages. Pages 1–146 form the talk and workshop. Pages 147–245 are reserves.
 
 ## Review options
 
