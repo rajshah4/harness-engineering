@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="skillsbench-bars-title skillsbench-bars-desc">
+  <title id="skillsbench-bars-title">SkillsBench average pass rate with and without curated skills</title>
+  <desc id="skillsbench-bars-desc">The average pass rate increased from 33.9 percent without skills to 50.5 percent with curated skills, a gain of 16.6 percentage points.</desc>
+  <line x1="180" y1="548" x2="1480" y2="548" stroke="#8B877B" stroke-width="3"/>
+  <line x1="180" y1="92" x2="180" y2="548" stroke="#8B877B" stroke-width="3"/>
+  <g font-family="Arial, sans-serif" font-size="21" fill="#676358" text-anchor="end">
+    <text x="156" y="556">0%</text><text x="156" y="480">10%</text><text x="156" y="404">20%</text><text x="156" y="328">30%</text><text x="156" y="252">40%</text><text x="156" y="176">50%</text><text x="156" y="100">60%</text>
+  </g>
+  <g stroke="#DDD7C7" stroke-width="2">
+    <line x1="180" y1="472" x2="1480" y2="472"/><line x1="180" y1="396" x2="1480" y2="396"/><line x1="180" y1="320" x2="1480" y2="320"/><line x1="180" y1="244" x2="1480" y2="244"/><line x1="180" y1="168" x2="1480" y2="168"/><line x1="180" y1="92" x2="1480" y2="92"/>
+  </g>
+  <rect x="380" y="290" width="360" height="258" fill="#E5E0D2" stroke="#8B877B" stroke-width="3"/>
+  <rect x="920" y="164" width="360" height="384" fill="#DDE7FF" stroke="#2E70FF" stroke-width="4"/>
+  <text x="560" y="258" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#676358">33.9%</text>
+  <text x="1100" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#2E70FF">50.5%</text>
+  <text x="560" y="604" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#20201E">No skill</text>
+  <text x="1100" y="604" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#20201E">Curated skill</text>
+  <rect x="1280" y="204" width="244" height="84" rx="8" fill="#2E70FF"/>
+  <text x="1402" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">+16.6 points</text>
+  <text x="1402" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#FFFFFF">average gain</text>
+  <text x="1480" y="652" text-anchor="end" font-family="Arial, sans-serif" font-size="22" fill="#676358">87 tasks · 18 model-harness configurations</text>
+</svg>

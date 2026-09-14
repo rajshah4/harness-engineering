@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="520" viewBox="0 0 1660 520">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#746F63"/>
+    </marker>
+    <style>
+      .card{fill:#FFFDF6;stroke:#CFC9B9;stroke-width:2}.title{font:700 28px Arial,sans-serif;fill:#171816}.sub{font:20px Arial,sans-serif;fill:#6B675E}.label{font:18px Arial,sans-serif;fill:#171816}.small{font:16px Arial,sans-serif;fill:#6B675E}.box{fill:#F1EFE7;stroke:#BDB7A8;stroke-width:1.5}.blue{fill:#DCEAF7;stroke:#5B8DB8;stroke-width:2}.orange{fill:#FFF0E5;stroke:#E9692C;stroke-width:2}.line{stroke:#746F63;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.edge{stroke:#9C978B;stroke-width:2;fill:none}.hit{fill:#F7CFAF}.dot{fill:#5B8DB8}.accent{fill:#E9692C}
+    </style>
+  </defs>
+
+  <!-- BM25 -->
+  <g transform="translate(20 18)">
+    <rect class="card" width="520" height="225" rx="16"/>
+    <text class="title" x="24" y="42">BM25</text><text class="sub" x="24" y="70">Text search</text>
+    <rect class="orange" x="24" y="96" width="146" height="43" rx="8"/><text class="label" x="42" y="123">timeout retry</text>
+    <path class="line" d="M178 117 H224"/>
+    <rect class="box" x="235" y="90" width="255" height="112" rx="8"/>
+    <text class="small" x="253" y="119">connection closed</text>
+    <rect class="hit" x="250" y="132" width="178" height="24" rx="4"/><text class="label" x="255" y="150">timeout → retry</text>
+    <text class="small" x="253" y="181">socket restored</text>
+  </g>
+
+  <!-- Embeddings -->
+  <g transform="translate(570 18)">
+    <rect class="card" width="520" height="225" rx="16"/>
+    <text class="title" x="24" y="42">Embeddings</text><text class="sub" x="24" y="70">Semantic search</text>
+    <rect class="orange" x="24" y="96" width="126" height="43" rx="8"/><text class="label" x="41" y="123">slow request</text>
+    <path class="line" d="M158 117 H200"/>
+    <circle class="dot" cx="225" cy="102" r="6"/><circle class="dot" cx="243" cy="120" r="6"/><circle class="dot" cx="218" cy="138" r="6"/>
+    <path class="line" d="M258 120 H300"/>
+    <rect class="blue" x="310" y="90" width="180" height="90" rx="8"/>
+    <text class="small" x="326" y="120">latency limit</text><text class="small" x="326" y="148">request exceeded</text>
+    <text class="small" x="24" y="190">Different words, similar meaning</text>
+  </g>
+
+  <!-- RAG -->
+  <g transform="translate(1120 18)">
+    <rect class="card" width="520" height="225" rx="16"/>
+    <text class="title" x="24" y="42">RAG</text><text class="sub" x="24" y="70">Chunked retrieval</text>
+    <rect class="box" x="24" y="96" width="72" height="86" rx="7"/><text class="small" x="36" y="126">docs</text><path class="edge" d="M38 142 H81 M38 155 H81 M38 168 H67"/>
+    <path class="line" d="M103 139 H140"/>
+    <rect class="box" x="150" y="95" width="88" height="28" rx="5"/><rect class="blue" x="150" y="130" width="88" height="28" rx="5"/><rect class="box" x="150" y="165" width="88" height="28" rx="5"/>
+    <text class="small" x="161" y="115">chunks</text><text class="small" x="163" y="150">selected</text>
+    <path class="line" d="M247 144 H288"/>
+    <rect class="blue" x="298" y="108" width="102" height="72" rx="8"/><text class="label" x="317" y="139">context</text><text class="small" x="326" y="163">evidence</text>
+    <path class="line" d="M408 144 H442"/>
+    <rect class="orange" x="450" y="116" width="48" height="56" rx="10"/><text class="small" x="458" y="149">LLM</text>
+  </g>
+
+  <!-- GraphRAG -->
+  <g transform="translate(292 270)">
+    <rect class="card" width="520" height="225" rx="16"/>
+    <text class="title" x="24" y="42">GraphRAG</text><text class="sub" x="24" y="70">Relationship search</text>
+    <path class="edge" d="M116 137 L230 105 L344 137 L230 174 Z M230 105 L230 174"/>
+    <circle class="orange" cx="116" cy="137" r="35"/><circle class="blue" cx="230" cy="105" r="35"/><circle class="blue" cx="344" cy="137" r="35"/>
+    <circle class="blue" cx="230" cy="174" r="35"/>
+    <text class="small" x="89" y="142">auth.ts</text><text class="small" x="204" y="110">verify()</text><text class="small" x="322" y="142">token</text><text class="small" x="207" y="179">tests</text>
+    <text class="small" x="390" y="118">calls</text><text class="small" x="390" y="143">imports</text><text class="small" x="390" y="168">depends on</text>
+  </g>
+
+  <!-- Agentic Search -->
+  <g transform="translate(842 270)">
+    <rect class="card" width="520" height="225" rx="16"/>
+    <text class="title" x="24" y="42">Agentic search</text><text class="sub" x="24" y="70">Iterative search</text>
+    <rect class="orange" x="26" y="105" width="86" height="46" rx="8"/><text class="label" x="46" y="134">plan</text>
+    <path class="line" d="M120 128 H151"/>
+    <rect class="blue" x="160" y="105" width="90" height="46" rx="8"/><text class="label" x="178" y="134">search</text>
+    <path class="line" d="M258 128 H289"/>
+    <rect class="box" x="298" y="105" width="92" height="46" rx="8"/><text class="label" x="314" y="134">inspect</text>
+    <path class="line" d="M398 128 H429"/>
+    <rect class="orange" x="438" y="105" width="58" height="46" rx="8"/><text class="label" x="448" y="134">revise</text>
+    <path class="line" d="M467 159 C467 201 69 201 69 159"/>
+    <text class="small" x="105" y="192">choose a method, inspect results, search again</text>
+  </g>
+</svg>

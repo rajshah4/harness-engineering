@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="guidance-gates-title guidance-gates-desc">
+  <title id="guidance-gates-title">Three checks before saving guidance</title>
+  <desc id="guidance-gates-desc">An instruction should be saved only if evidence verifies it, it will remain stable, and it will help future tasks.</desc>
+  <path d="M488 288 H572" stroke="#8B877B" stroke-width="4"/>
+  <path d="M556 272 L572 288 L556 304" fill="none" stroke="#8B877B" stroke-width="4"/>
+  <path d="M1008 288 H1092" stroke="#8B877B" stroke-width="4"/>
+  <path d="M1076 272 L1092 288 L1076 304" fill="none" stroke="#8B877B" stroke-width="4"/>
+  <rect x="48" y="132" width="440" height="312" rx="12" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="188" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">1 · VERIFIED</text>
+  <text x="84" y="264" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">What evidence says</text>
+  <text x="84" y="304" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">this is true?</text>
+  <text x="84" y="380" font-family="Arial, sans-serif" font-size="24" fill="#676358">Current design record</text>
+  <text x="84" y="414" font-family="Arial, sans-serif" font-size="24" fill="#676358">and external verifier</text>
+  <rect x="572" y="132" width="436" height="312" rx="12" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="608" y="188" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">2 · STABLE</text>
+  <text x="608" y="264" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">Will it survive the</text>
+  <text x="608" y="304" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">next code change?</text>
+  <text x="608" y="380" font-family="Arial, sans-serif" font-size="24" fill="#676358">Repository contract,</text>
+  <text x="608" y="414" font-family="Arial, sans-serif" font-size="24" fill="#676358">not temporary progress</text>
+  <rect x="1092" y="132" width="520" height="312" rx="12" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="1128" y="188" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2E70FF">3 · REUSABLE</text>
+  <text x="1128" y="264" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">Will a future task make</text>
+  <text x="1128" y="304" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#20201E">a better decision?</text>
+  <text x="1128" y="380" font-family="Arial, sans-serif" font-size="24" fill="#676358">If yes, save it.</text>
+  <text x="1128" y="414" font-family="Arial, sans-serif" font-size="24" fill="#676358">If no, keep it with the task.</text>
+  <rect x="1092" y="492" width="520" height="84" rx="8" fill="#2E70FF"/>
+  <text x="1352" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#FFFFFF">Only then: durable guidance</text>
+</svg>

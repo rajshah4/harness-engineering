@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="rule-correction-title rule-correction-desc">
+  <title id="rule-correction-title">Replace stale pagination guidance with the verified contract</title>
+  <desc id="rule-correction-desc">The stale rule placed cursor pagination in toyapp cursor and failed all three external checks. The verified contract places the public API in toyapp pagination and passed all three checks.</desc>
+  <rect x="48" y="80" width="728" height="456" rx="12" fill="#F4EFE0" stroke="#AF3E36" stroke-width="3"/>
+  <text x="84" y="132" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#AF3E36">STALE SAVED RULE</text>
+  <text x="84" y="214" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#20201E">Put cursor pagination in</text>
+  <rect x="84" y="244" width="608" height="72" rx="8" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="2"/>
+  <text x="112" y="290" font-family="Menlo, monospace" font-size="28" fill="#20201E">toyapp/cursor.py</text>
+  <text x="84" y="380" font-family="Arial, sans-serif" font-size="26" fill="#676358">The agent wrote extra tests that approved</text>
+  <text x="84" y="416" font-family="Arial, sans-serif" font-size="26" fill="#676358">its own interpretation.</text>
+  <text x="84" y="492" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#AF3E36">External verifier: 0 / 3</text>
+  <path d="M796 308 H864" stroke="#8B877B" stroke-width="4"/>
+  <path d="M848 292 L864 308 L848 324" fill="none" stroke="#8B877B" stroke-width="4"/>
+  <rect x="884" y="80" width="728" height="456" rx="12" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="920" y="132" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2E70FF">VERIFIED CONTRACT</text>
+  <text x="920" y="214" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#20201E">Keep the public API in</text>
+  <rect x="920" y="244" width="608" height="72" rx="8" fill="#FFFFFF" stroke="#AABBDD" stroke-width="2"/>
+  <text x="948" y="290" font-family="Menlo, monospace" font-size="28" fill="#20201E">toyapp.pagination</text>
+  <text x="920" y="380" font-family="Arial, sans-serif" font-size="26" fill="#676358">The current design record and independent</text>
+  <text x="920" y="416" font-family="Arial, sans-serif" font-size="26" fill="#676358">verifier agree on the public location.</text>
+  <text x="920" y="492" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#2E70FF">External verifier: 3 / 3</text>
+  <text x="48" y="616" font-family="Arial, sans-serif" font-size="25" fill="#676358">The fix is not “save less.” It is “save the verified rule.”</text>
+</svg>

@@ -1,3 +1,6 @@
+> Historical migration plan. For the current working source and full visual review,
+> use [README.md](README.md). The imported deck described below is retained as reference.
+
 # Open Slide workflow for the ODSC deck
 
 We are using [Open Slide](https://github.com/1weiho/open-slide) as the working format for the ODSC harness-engineering deck. The original Google Slides deck remains a useful source and visual reference, but future design and content work should happen in the code-native deck:

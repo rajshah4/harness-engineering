@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="cache-title cache-desc">
+  <title id="cache-title">Model switching can require rebuilding cached context</title>
+  <desc id="cache-desc">The same-model path reuses one hundred thousand cached tokens, while the switched-model path reprocesses the history before handling the new question.</desc>
+  <rect width="1660" height="680" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif">
+    <text x="64" y="92" font-size="30" font-weight="700" fill="#20201E">Stay with Opus</text>
+    <text x="64" y="140" font-size="26" fill="#676358">Reuse the existing model-specific cache</text>
+    <rect x="404" y="60" width="900" height="112" fill="#E5E3DD"/>
+    <rect x="1304" y="60" width="152" height="112" fill="#2E70FF"/>
+    <text x="854" y="128" text-anchor="middle" font-size="32" font-weight="700" fill="#20201E">100K cached history</text>
+    <text x="1380" y="128" text-anchor="middle" font-size="28" font-weight="700" fill="#FFFFFF">new</text>
+    <rect x="1476" y="76" width="120" height="80" rx="8" fill="#187263"/>
+    <text x="1536" y="124" text-anchor="middle" font-size="26" font-weight="700" fill="#FFFFFF">cache hit</text>
+
+    <line x1="64" y1="264" x2="1596" y2="264" stroke="#CCC6B6" stroke-width="3"/>
+
+    <text x="64" y="364" font-size="30" font-weight="700" fill="#20201E">Switch to Haiku</text>
+    <text x="64" y="412" font-size="26" fill="#676358">Build a new cache for the new model</text>
+    <rect x="404" y="332" width="900" height="112" fill="#F4D7D4" stroke="#AF3E36" stroke-width="3"/>
+    <rect x="1304" y="332" width="152" height="112" fill="#2E70FF"/>
+    <text x="854" y="400" text-anchor="middle" font-size="32" font-weight="700" fill="#AF3E36">100K history reprocessed</text>
+    <text x="1380" y="400" text-anchor="middle" font-size="28" font-weight="700" fill="#FFFFFF">new</text>
+    <rect x="1476" y="348" width="120" height="80" rx="8" fill="#AF3E36"/>
+    <text x="1536" y="380" text-anchor="middle" font-size="24" font-weight="700" fill="#FFFFFF">cache</text>
+    <text x="1536" y="412" text-anchor="middle" font-size="24" font-weight="700" fill="#FFFFFF">miss</text>
+
+    <text x="404" y="540" font-size="30" font-weight="700" fill="#AF3E36">Anthropic’s example: after 100K tokens, switching to Haiku</text>
+    <text x="404" y="580" font-size="30" font-weight="700" fill="#AF3E36">can cost more than asking Opus to answer the easy question.</text>
+    <text x="404" y="636" font-size="28" fill="#676358">A bounded subagent handoff can avoid sending the full history to the second model.</text>
+  </g>
+</svg>

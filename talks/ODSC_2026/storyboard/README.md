@@ -1,17 +1,24 @@
-# ODSC deck — September 9 visual-review snapshot
+# ODSC deck — canonical working source
 
 Start with [deck.md](deck.md), [headline-spine.md](headline-spine.md), and the
 [visual-pass inventory](review-additions/visual-pass.md).
 
-This is a versioned snapshot of the working Markdown, not a second live authoring
-copy. The existing working copy remains in `harness-engineering-deck/latest_sept4-markdown`.
-Refresh this snapshot deliberately when saving subsequent work.
+Speaker notes are in [talk-track.md](talk-track.md), grouped by stable slide ID.
+Keep speaking detail there so the deck stays easy to scroll.
 
-The complete 220-page visual draft is in
+This is the single working Markdown source after the September 14 cleanup.
+The former `harness-engineering-deck/latest_sept4-markdown` path is a symbolic
+link to this directory. Edit here; no second copy needs refreshing.
+See [the talk entry page](../README.md) for current review and archive links.
+
+The current 244-page workshop draft is in
 [`../open-slide-deck/slides/odsc-full-visual-review`](../open-slide-deck/slides/odsc-full-visual-review).
-It includes reserves, editable diagrams, source figures, and speaker notes.
+Pages 1–145 follow the current headline story. Pages 146–244 contain reserves. See [the headline plan](headline-story-plan.md) for the narrative structure.
 Source verification and remaining layout decisions are recorded in the inventory;
 this is not a final source-verified presentation.
+
+See the [reusable visual-authoring guide](../VISUAL_AUTHORING_GUIDE.md) for the
+approved design, editable layers, figure extraction and build workflow.
 
 ## Open the preview
 

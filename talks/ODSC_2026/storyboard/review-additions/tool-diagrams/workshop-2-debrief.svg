@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <g fill="#20201E"><text x="40" y="90" font-size="38" font-weight="700">Bundle a task-shaped tool</text><text x="880" y="90" font-size="38" font-weight="700">Keep primitive tools</text></g>
+  <g stroke="#2E70FF" stroke-width="3"><path d="M40 125H780M880 125H1620"/></g>
+  <g fill="#20201E" font-size="34"><text x="40" y="210">The trace repeats</text><text x="40" y="305">The output can be bounded</text><text x="40" y="400">A verifier can check it</text><text x="880" y="210">The next question is unknown</text><text x="880" y="305">Exploration matters</text><text x="880" y="400">Exceptions are common</text></g>
+  <text x="40" y="620" fill="#676358" font-size="27">Start with primitives. Bundle the path only after the repeated work is visible.</text>
+</svg>

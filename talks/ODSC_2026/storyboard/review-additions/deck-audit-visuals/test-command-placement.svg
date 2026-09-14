@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <rect x="510" y="45" width="640" height="100" rx="8" fill="#20201E"/><text x="830" y="108" text-anchor="middle" fill="#FFFFFF" font-size="31" font-weight="700">pytest tests/test_pagination.py</text>
+  <path d="M830 145V220M265 220H1395M265 220V275M830 220V275M1395 220V275" fill="none" stroke="#B8B2A5" stroke-width="4"/>
+  <g fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"><rect x="45" y="275" width="440" height="255" rx="10"/><rect x="610" y="275" width="440" height="255" rx="10"/><rect x="1175" y="275" width="440" height="255" rx="10"/></g>
+  <g text-anchor="middle"><text x="265" y="340" fill="#2E70FF" font-size="27" font-weight="700">CURRENT INPUT</text><text x="830" y="340" fill="#2E70FF" font-size="27" font-weight="700">TASK CHECKPOINT</text><text x="1395" y="340" fill="#2E70FF" font-size="27" font-weight="700">REPOSITORY GUIDANCE</text>
+  <g fill="#20201E" font-size="29"><text x="265" y="415">Use it now</text><text x="830" y="415">Resume this job</text><text x="1395" y="415">Reuse in future jobs</text></g>
+  <g fill="#676358" font-size="23"><text x="265" y="476">Expires after this call</text><text x="830" y="476">Expires when work ends</text><text x="1395" y="476">Keep only if verified</text></g></g>
+  <text x="830" y="610" text-anchor="middle" fill="#20201E" font-size="30" font-weight="700">The same fact belongs in a different place depending on when it must survive.</text>
+</svg>

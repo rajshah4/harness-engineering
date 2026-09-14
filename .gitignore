@@ -1,6 +1,9 @@
 # Talk materials (slides, script, workshop companion) kept local, not published
 talk/
 
+# Local historical exports and large deck-working archives
+talks/ODSC_2026/archive/
+
 # Python
 __pycache__/
 *.pyc

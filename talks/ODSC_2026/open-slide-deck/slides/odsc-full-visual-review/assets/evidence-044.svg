@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <text x="40" y="95" fill="#20201E" font-size="34" font-weight="700">One context window</text>
+  <g>
+    <rect x="40" y="145" width="170" height="150" fill="#20201E"/>
+    <rect x="210" y="145" width="140" height="150" fill="#676358"/>
+    <rect x="350" y="145" width="160" height="150" fill="#AF3E36"/>
+    <rect x="510" y="145" width="270" height="150" fill="#2E70FF"/>
+    <rect x="780" y="145" width="250" height="150" fill="#187263"/>
+    <rect x="1030" y="145" width="210" height="150" fill="#7A5AF8"/>
+    <rect x="1240" y="145" width="210" height="150" fill="#E78D2D"/>
+    <rect x="1450" y="145" width="170" height="150" fill="#E9E1CA"/>
+  </g>
+  <g font-size="28" fill="#20201E">
+    <rect x="40" y="365" width="24" height="24" fill="#20201E"/><text x="80" y="387">System instructions</text>
+    <rect x="435" y="365" width="24" height="24" fill="#676358"/><text x="475" y="387">Project guidance</text>
+    <rect x="830" y="365" width="24" height="24" fill="#AF3E36"/><text x="870" y="387">Current request</text>
+    <rect x="1225" y="365" width="24" height="24" fill="#2E70FF"/><text x="1265" y="387">Tool definitions</text>
+    <rect x="40" y="455" width="24" height="24" fill="#187263"/><text x="80" y="477">Retrieved files</text>
+    <rect x="435" y="455" width="24" height="24" fill="#7A5AF8"/><text x="475" y="477">Recent messages</text>
+    <rect x="830" y="455" width="24" height="24" fill="#E78D2D"/><text x="870" y="477">Tool results</text>
+    <rect x="1225" y="455" width="24" height="24" fill="#E9E1CA"/><text x="1265" y="477">Space left</text>
+  </g>
+  <text x="40" y="620" fill="#676358" font-size="27">Illustrative proportions. Only loaded information occupies this model call.</text>
+</svg>

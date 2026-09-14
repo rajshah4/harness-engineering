@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <text x="830" y="78" text-anchor="middle" fill="#676358" font-size="25" font-weight="700">ONE PR REVIEW · THREE WAYS TO ASK FOR THE WORK</text>
+  <g fill="#FFFFFF" stroke="#B8B2A5" stroke-width="2"><rect x="40" y="145" width="485" height="370" rx="10"/><rect x="588" y="145" width="485" height="370" rx="10"/><rect x="1135" y="145" width="485" height="370" rx="10"/></g>
+  <g text-anchor="middle"><text x="282" y="214" fill="#2E70FF" font-size="30" font-weight="700">Terminal + API</text><text x="830" y="214" fill="#2E70FF" font-size="30" font-weight="700">12 GitHub tools</text><text x="1378" y="214" fill="#FF4A00" font-size="30" font-weight="700">One PR-review tool</text>
+  <g fill="#20201E" font-size="27"><text x="282" y="304">Flexible primitives</text><text x="282" y="354">More steps to assemble</text><text x="830" y="304">Broad catalog</text><text x="830" y="354">More definitions to choose</text><text x="1378" y="304">Task-shaped workflow</text><text x="1378" y="354">Bounded evidence returned</text></g>
+  <g fill="#676358" font-size="23"><text x="282" y="445">Can handle unfamiliar work</text><text x="830" y="445">Can call focused operations</text><text x="1378" y="445">Can be checked in one pass</text></g></g>
+  <text x="830" y="600" text-anchor="middle" fill="#20201E" font-size="31" font-weight="700">Which interface will produce the strongest evidence with the least work?</text>
+</svg>

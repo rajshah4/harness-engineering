@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <rect x="455" y="50" width="750" height="100" rx="8" fill="#20201E"/><text x="830" y="112" text-anchor="middle" fill="#FFFFFF" font-size="31" font-weight="700">Add cursor pagination</text>
+  <text x="830" y="190" text-anchor="middle" fill="#676358" font-size="25">Same repository · same model · same external verifier</text>
+  <g fill="#FFFFFF" stroke="#B8B2A5" stroke-width="2"><rect x="40" y="250" width="485" height="260" rx="10"/><rect x="588" y="250" width="485" height="260" rx="10"/><rect x="1135" y="250" width="485" height="260" rx="10"/></g>
+  <g text-anchor="middle"><text x="282" y="320" fill="#2E70FF" font-size="29" font-weight="700">NO GUIDANCE</text><text x="830" y="320" fill="#FF4A00" font-size="29" font-weight="700">STALE GUIDANCE</text><text x="1378" y="320" fill="#2E70FF" font-size="29" font-weight="700">CURATED GUIDANCE</text>
+  <g fill="#20201E" font-size="29"><text x="282" y="393">Start from the code</text><text x="830" y="393">620 words</text><text x="830" y="436">includes an old rule</text><text x="1378" y="393">100 current words</text><text x="1378" y="436">specific to the task</text></g></g>
+  <rect x="500" y="565" width="660" height="78" rx="8" fill="#F1EEE6" stroke="#B8B2A5"/><text x="830" y="614" text-anchor="middle" fill="#20201E" font-size="27" font-weight="700">Compare correctness, time, tokens, and code changes</text>
+</svg>

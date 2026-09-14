@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <path d="M120 350H1540" stroke="#B8B2A5" stroke-width="5"/>
+  <g fill="#2E70FF"><circle cx="250" cy="350" r="36"/><circle cx="830" cy="350" r="36"/><circle cx="1410" cy="350" r="36"/></g>
+  <g text-anchor="middle"><text x="250" y="165" fill="#2E70FF" font-size="27" font-weight="700">ACTIVE CONTEXT</text><text x="830" y="165" fill="#2E70FF" font-size="27" font-weight="700">TASK STATE</text><text x="1410" y="165" fill="#2E70FF" font-size="27" font-weight="700">REUSABLE GUIDANCE</text>
+  <g fill="#20201E" font-size="30"><text x="250" y="225">This model call</text><text x="830" y="225">This job</text><text x="1410" y="225">Future jobs</text></g>
+  <g fill="#20201E" font-size="27"><text x="250" y="455">Failing test</text><text x="250" y="497">Relevant code</text><text x="830" y="455">Changes made</text><text x="830" y="497">Checks pending</text><text x="1410" y="455">Test command</text><text x="1410" y="497">Stable convention</text></g></g>
+  <text x="830" y="610" text-anchor="middle" fill="#676358" font-size="27">Save information for the time horizon that needs it.</text>
+</svg>

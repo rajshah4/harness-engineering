@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="placement-prompt-title placement-prompt-desc">
+  <title id="placement-prompt-title">Audience exercise for placing three lessons</title>
+  <desc id="placement-prompt-desc">Participants decide whether three pieces of information belong in repository guidance, an on-demand skill, a task note, or nowhere.</desc>
+  <text x="48" y="68" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">CHOOSE A DESTINATION FOR EACH ITEM</text>
+  <rect x="48" y="108" width="1564" height="104" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="152" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#2E70FF">A</text>
+  <text x="132" y="152" font-family="Menlo, monospace" font-size="25" fill="#20201E">CursorPage belongs in toyapp.pagination</text>
+  <text x="132" y="184" font-family="Arial, sans-serif" font-size="21" fill="#676358">Verified repository contract</text>
+  <rect x="48" y="236" width="1564" height="104" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="280" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#2E70FF">B</text>
+  <text x="132" y="280" font-family="Arial, sans-serif" font-size="25" fill="#20201E">How to validate cursor traversal and malformed tokens</text>
+  <text x="132" y="312" font-family="Arial, sans-serif" font-size="21" fill="#676358">Reusable procedure for pagination work</text>
+  <rect x="48" y="364" width="1564" height="104" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="408" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#2E70FF">C</text>
+  <text x="132" y="408" font-family="Arial, sans-serif" font-size="25" fill="#20201E">I changed two files; the next step is to rerun the external verifier</text>
+  <text x="132" y="440" font-family="Arial, sans-serif" font-size="21" fill="#676358">Current task progress</text>
+  <g font-family="Arial, sans-serif" font-size="25" font-weight="700" text-anchor="middle">
+    <rect x="184" y="532" width="276" height="76" rx="8" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/><text x="322" y="580" fill="#20201E">AGENTS.md</text>
+    <rect x="520" y="532" width="276" height="76" rx="8" fill="#F4EFE0" stroke="#8B877B" stroke-width="3"/><text x="658" y="580" fill="#20201E">Skill</text>
+    <rect x="856" y="532" width="276" height="76" rx="8" fill="#F4EFE0" stroke="#8B877B" stroke-width="3"/><text x="994" y="580" fill="#20201E">Task note</text>
+    <rect x="1192" y="532" width="276" height="76" rx="8" fill="#F4EFE0" stroke="#8B877B" stroke-width="3"/><text x="1330" y="580" fill="#20201E">Delete</text>
+  </g>
+</svg>

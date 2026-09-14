@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#2E70FF"/></marker></defs>
+  <rect x="60" y="95" width="490" height="470" rx="10" fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="305" y="165" text-anchor="middle" fill="#2E70FF" font-size="31" font-weight="700">AGENTS.md</text>
+  <g fill="#20201E" font-size="28"><text x="125" y="250">✓ verified test command</text><text x="125" y="325">✓ stable convention</text><text x="125" y="400">✓ architecture requirement</text></g>
+  <text x="305" y="505" text-anchor="middle" fill="#676358" font-size="23">Repository guidance</text>
+  <path d="M550 330H760" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/>
+  <g fill="#F1EEE6" stroke="#B8B2A5" stroke-width="2"><rect x="790" y="70" width="760" height="130" rx="9"/><rect x="790" y="275" width="760" height="130" rx="9"/><rect x="790" y="480" width="760" height="130" rx="9"/></g>
+  <g fill="#20201E" font-size="29" font-weight="700"><text x="850" y="130">Future task 1</text><text x="850" y="335">Future task 2</text><text x="850" y="540">Future task 3</text></g>
+  <g fill="#676358" font-size="25"><text x="850" y="171">Starts with the right test command</text><text x="850" y="376">Follows the repository convention</text><text x="850" y="581">Respects the architecture boundary</text></g>
+  <text x="1170" y="650" text-anchor="middle" fill="#FF4A00" font-size="27" font-weight="700">One verified lesson can help many later runs</text>
+</svg>

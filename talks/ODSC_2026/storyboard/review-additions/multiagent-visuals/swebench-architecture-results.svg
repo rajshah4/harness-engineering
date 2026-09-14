@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">SWE-bench Verified mean success by agent architecture</title>
+  <desc id="desc">The single-agent baseline scored 48.8 percent. All four multi-agent architectures scored lower: hybrid 48.1, centralized 47.5, decentralized 45.6, and independent 42.5 percent.</desc>
+  <rect width="1200" height="720" rx="22" fill="#ffffff"/>
+  <text x="80" y="70" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#25231f">Mean success rate on SWE-bench Verified</text>
+  <text x="80" y="108" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#6c675e">Eight models · 20 tasks per model × architecture cell</text>
+
+  <g stroke="#d9d4ca" stroke-width="2">
+    <line x1="105" y1="570" x2="1130" y2="570"/>
+    <line x1="105" y1="426.7" x2="1130" y2="426.7"/>
+    <line x1="105" y1="283.3" x2="1130" y2="283.3"/>
+    <line x1="105" y1="140" x2="1130" y2="140"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#6c675e" text-anchor="end">
+    <text x="92" y="576">0%</text>
+    <text x="92" y="433">20%</text>
+    <text x="92" y="290">40%</text>
+    <text x="92" y="147">60%</text>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <rect x="150" y="220.3" width="150" height="349.7" rx="12" fill="#6f6b66"/>
+    <text x="225" y="203" font-size="28" font-weight="700" fill="#25231f">48.8%</text>
+    <text x="225" y="610" font-size="21" font-weight="700" fill="#25231f">Single agent</text>
+    <text x="225" y="642" font-size="18" fill="#6c675e">baseline</text>
+
+    <rect x="355" y="225.3" width="150" height="344.7" rx="12" fill="#3f79ba"/>
+    <text x="430" y="208" font-size="28" font-weight="700" fill="#25231f">48.1%</text>
+    <text x="430" y="180" font-size="20" font-weight="700" fill="#d1493f">−1.3%</text>
+    <text x="430" y="610" font-size="21" font-weight="700" fill="#25231f">Hybrid</text>
+
+    <rect x="560" y="229.6" width="150" height="340.4" rx="12" fill="#7098c8"/>
+    <text x="635" y="212" font-size="28" font-weight="700" fill="#25231f">47.5%</text>
+    <text x="635" y="184" font-size="20" font-weight="700" fill="#d1493f">−2.6%</text>
+    <text x="635" y="610" font-size="21" font-weight="700" fill="#25231f">Centralized</text>
+
+    <rect x="765" y="243.2" width="150" height="326.8" rx="12" fill="#a48bc5"/>
+    <text x="840" y="226" font-size="28" font-weight="700" fill="#25231f">45.6%</text>
+    <text x="840" y="198" font-size="20" font-weight="700" fill="#d1493f">−6.4%</text>
+    <text x="840" y="610" font-size="21" font-weight="700" fill="#25231f">Decentralized</text>
+
+    <rect x="970" y="265.4" width="150" height="304.6" rx="12" fill="#cabce0"/>
+    <text x="1045" y="248" font-size="28" font-weight="700" fill="#25231f">42.5%</text>
+    <text x="1045" y="220" font-size="20" font-weight="700" fill="#d1493f">−12.8%</text>
+    <text x="1045" y="610" font-size="21" font-weight="700" fill="#25231f">Independent</text>
+  </g>
+
+  <text x="80" y="688" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8b857a">Data redrawn from Kim et al., Nature Machine Intelligence (2026), Fig. 2</text>
+</svg>

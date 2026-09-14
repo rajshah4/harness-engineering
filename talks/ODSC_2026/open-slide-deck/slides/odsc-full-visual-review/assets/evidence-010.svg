@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#2E70FF"/></marker></defs>
+  <g fill="none" stroke="#B8B2A5" stroke-width="3"><path d="M360 338H570" marker-end="url(#a)"/><path d="M1090 338H1300" marker-end="url(#a)"/></g>
+  <rect x="40" y="205" width="320" height="266" rx="10" fill="#F1EEE6" stroke="#B8B2A5"/>
+  <text x="200" y="260" text-anchor="middle" fill="#676358" font-size="22" font-weight="700">YOUR TASK</text>
+  <g fill="#20201E" font-size="30" text-anchor="middle"><text x="200" y="326">Feature work</text><text x="200" y="374">Debugging</text><text x="200" y="422">Tests</text></g>
+  <rect x="580" y="145" width="500" height="386" rx="10" fill="#FFFFFF" stroke="#2E70FF" stroke-width="4"/>
+  <text x="830" y="215" text-anchor="middle" fill="#2E70FF" font-size="25" font-weight="700">PROVIDER HARNESS</text>
+  <g fill="#20201E" font-size="31" text-anchor="middle"><text x="830" y="292">Built-in tools</text><text x="830" y="350">Context handling</text><text x="830" y="408">Execution controls</text></g>
+  <rect x="1300" y="205" width="320" height="266" rx="10" fill="#20201E"/>
+  <text x="1460" y="260" text-anchor="middle" fill="#FFFFFF" font-size="22" font-weight="700">WORKING BASELINE</text>
+  <text x="1460" y="340" text-anchor="middle" fill="#FFFFFF" font-size="34">Ship, inspect,</text><text x="1460" y="388" text-anchor="middle" fill="#FFFFFF" font-size="34">then change</text>
+  <rect x="1225" y="506" width="470" height="110" rx="8" fill="#FFF1EA" stroke="#FF4A00" stroke-width="3"/>
+  <text x="1460" y="552" text-anchor="middle" fill="#FF4A00" font-size="23" font-weight="700">HUMAN REVIEW STAYS IN THE LOOP</text>
+  <text x="1460" y="586" text-anchor="middle" fill="#20201E" font-size="24">Check the code and the evidence</text>
+</svg>

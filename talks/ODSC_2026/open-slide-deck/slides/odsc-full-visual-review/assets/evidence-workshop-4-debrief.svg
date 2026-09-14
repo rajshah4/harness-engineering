@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="decision-title decision-desc">
+  <title id="decision-title">Audience canvas for choosing routing evidence</title>
+  <desc id="decision-desc">Four evidence signals sit above four possible routing actions so the audience can state a policy before the answer is revealed.</desc>
+  <rect width="1660" height="680" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif">
+    <text x="64" y="64" font-size="27" font-weight="700" fill="#676358">EVIDENCE FROM THE RUN</text>
+    <rect x="64" y="96" width="344" height="128" rx="8" fill="#F7F5EF" stroke="#CCC6B6" stroke-width="2"/>
+    <text x="92" y="148" font-size="30" font-weight="700" fill="#20201E">Verifier result</text>
+    <text x="92" y="192" font-size="25" fill="#676358">Which requirement failed?</text>
+    <rect x="448" y="96" width="344" height="128" rx="8" fill="#F7F5EF" stroke="#CCC6B6" stroke-width="2"/>
+    <text x="476" y="148" font-size="30" font-weight="700" fill="#20201E">Execution trace</text>
+    <text x="476" y="192" font-size="25" fill="#676358">Did the attempt make progress?</text>
+    <rect x="832" y="96" width="344" height="128" rx="8" fill="#F7F5EF" stroke="#CCC6B6" stroke-width="2"/>
+    <text x="860" y="148" font-size="30" font-weight="700" fill="#20201E">Budget left</text>
+    <text x="860" y="192" font-size="25" fill="#676358">Can another attempt finish?</text>
+    <rect x="1216" y="96" width="344" height="128" rx="8" fill="#F7F5EF" stroke="#CCC6B6" stroke-width="2"/>
+    <text x="1244" y="148" font-size="30" font-weight="700" fill="#20201E">Cache cost</text>
+    <text x="1244" y="192" font-size="25" fill="#676358">What must be reprocessed?</text>
+
+    <line x1="64" y1="284" x2="1560" y2="284" stroke="#2E70FF" stroke-width="4"/>
+    <text x="64" y="344" font-size="27" font-weight="700" fill="#676358">YOUR ROUTING POLICY</text>
+
+    <circle cx="184" cy="456" r="48" fill="#FFFFFF" stroke="#676358" stroke-width="4"/>
+    <text x="184" y="464" text-anchor="middle" font-size="32" font-weight="700" fill="#20201E">1</text>
+    <text x="184" y="544" text-anchor="middle" font-size="30" font-weight="700" fill="#20201E">Stay</text>
+
+    <circle cx="568" cy="456" r="48" fill="#FFFFFF" stroke="#2E70FF" stroke-width="4"/>
+    <text x="568" y="464" text-anchor="middle" font-size="32" font-weight="700" fill="#2E70FF">2</text>
+    <text x="568" y="544" text-anchor="middle" font-size="30" font-weight="700" fill="#20201E">Retry</text>
+
+    <circle cx="952" cy="456" r="48" fill="#FFFFFF" stroke="#AF3E36" stroke-width="4"/>
+    <text x="952" y="464" text-anchor="middle" font-size="32" font-weight="700" fill="#AF3E36">3</text>
+    <text x="952" y="544" text-anchor="middle" font-size="30" font-weight="700" fill="#20201E">Switch model</text>
+
+    <circle cx="1336" cy="456" r="48" fill="#20201E" stroke="#20201E" stroke-width="4"/>
+    <text x="1336" y="464" text-anchor="middle" font-size="32" font-weight="700" fill="#FFFFFF">4</text>
+    <text x="1336" y="544" text-anchor="middle" font-size="30" font-weight="700" fill="#20201E">Stop or ask</text>
+
+    <text x="64" y="628" font-size="28" fill="#676358">Name the signal, the threshold, and the next action. Then count the full cost of that action.</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="budget-title budget-desc">
+  <title id="budget-title">Model behavior and cost comparison</title>
+  <desc id="budget-desc">Three paired bar comparisons show first-shot success, runs writing tests, and rollout cost for Sonnet 5 and GLM-5.2.</desc>
+  <rect width="1660" height="680" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="64" y="48" width="24" height="24" fill="#2E70FF"/>
+    <text x="104" y="70" font-size="26" fill="#20201E">Sonnet 5</text>
+    <rect x="272" y="48" width="24" height="24" fill="#D9D6CC" stroke="#676358" stroke-width="2"/>
+    <text x="312" y="70" font-size="26" fill="#20201E">GLM-5.2</text>
+
+    <text x="64" y="144" font-size="30" font-weight="700" fill="#20201E">First-shot success</text>
+    <line x1="468" y1="128" x2="1536" y2="128" stroke="#E6E1D5" stroke-width="2"/>
+    <rect x="468" y="164" width="562" height="44" fill="#2E70FF"/>
+    <rect x="468" y="220" width="440" height="44" fill="#D9D6CC" stroke="#676358" stroke-width="2"/>
+    <text x="1050" y="198" font-size="28" font-weight="700" fill="#2E70FF">52.7%</text>
+    <text x="928" y="254" font-size="28" font-weight="700" fill="#20201E">41.2%</text>
+
+    <text x="64" y="336" font-size="30" font-weight="700" fill="#20201E">Runs writing tests</text>
+    <line x1="468" y1="320" x2="1536" y2="320" stroke="#E6E1D5" stroke-width="2"/>
+    <rect x="468" y="356" width="984" height="44" fill="#2E70FF"/>
+    <rect x="468" y="412" width="876" height="44" fill="#D9D6CC" stroke="#676358" stroke-width="2"/>
+    <text x="1472" y="390" font-size="28" font-weight="700" fill="#2E70FF">92%</text>
+    <text x="1364" y="446" font-size="28" font-weight="700" fill="#20201E">82%</text>
+
+    <text x="64" y="528" font-size="30" font-weight="700" fill="#20201E">Cost per rollout</text>
+    <line x1="468" y1="512" x2="1536" y2="512" stroke="#E6E1D5" stroke-width="2"/>
+    <rect x="468" y="548" width="984" height="44" fill="#AF3E36"/>
+    <rect x="468" y="604" width="152" height="44" fill="#D9D6CC" stroke="#676358" stroke-width="2"/>
+    <text x="1472" y="582" font-size="28" font-weight="700" fill="#AF3E36">$25.84</text>
+    <text x="640" y="638" font-size="28" font-weight="700" fill="#20201E">$3.95</text>
+    <text x="1352" y="638" font-size="26" font-weight="700" fill="#AF3E36">6.5× higher</text>
+  </g>
+</svg>

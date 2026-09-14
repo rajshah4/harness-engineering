@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#2E70FF"/></marker></defs>
+  <g fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"><rect x="110" y="105" width="480" height="170" rx="10"/><rect x="1070" y="105" width="480" height="170" rx="10"/></g>
+  <g text-anchor="middle"><text x="350" y="165" fill="#2E70FF" font-size="29" font-weight="700">MCP TOOL</text><text x="1310" y="165" fill="#2E70FF" font-size="29" font-weight="700">CLI COMMAND</text><text x="350" y="222" fill="#20201E" font-size="28">Structured tool call</text><text x="1310" y="222" fill="#20201E" font-size="28">Shell command + text output</text></g>
+  <path d="M350 275V372H740" fill="none" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/><path d="M1310 275V372H920" fill="none" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="675" y="320" width="310" height="150" rx="10" fill="#20201E"/><text x="830" y="382" fill="#FFFFFF" font-size="31" font-weight="700" text-anchor="middle">API</text><text x="830" y="427" fill="#FFFFFF" font-size="23" text-anchor="middle">The service underneath</text>
+  <path d="M830 470V535" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/>
+  <rect x="550" y="545" width="560" height="90" rx="8" fill="#F1EEE6" stroke="#B8B2A5"/><text x="830" y="600" fill="#20201E" font-size="28" font-weight="700" text-anchor="middle">Same backend. Different model-facing interface.</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <g fill="#676358" font-size="28" font-weight="700"><text x="40" y="60">REPRESENTATION</text><text x="430" y="60">WHAT THE MODEL RETURNS</text><text x="1080" y="60">TYPICAL RECOVERY</text></g>
+  <g stroke="#CCC6B6" stroke-width="3"><path d="M40 90H1620M40 183H1620M40 308H1620M40 433H1620"/></g>
+  <g fill="#20201E" font-size="32"><text x="40" y="150">Whole file</text><text x="430" y="150">The complete file</text><text x="1080" y="150">Rewrite and inspect the diff</text><text x="40" y="275">Search and replace</text><text x="430" y="275">Exact old text and new text</text><text x="1080" y="275">Re-read the match, then retry</text><text x="40" y="400">Patch</text><text x="430" y="400">Changed lines with context</text><text x="1080" y="400">Refresh context and reapply</text></g>
+  <text x="40" y="620" fill="#676358" font-size="27">Same edit, different failure surface. Illustrative comparison.</text>
+</svg>

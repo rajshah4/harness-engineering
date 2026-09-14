@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="routing-benefits-title routing-benefits-desc">
+  <title id="routing-benefits-title">Three benefits of model routing</title>
+  <desc id="routing-benefits-desc">Model routing can spend less on bounded work, reserve stronger models for high-consequence tasks, and improve later choices using verified evidence.</desc>
+  <rect x="48" y="88" width="480" height="448" rx="12" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="148" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">SPEND SELECTIVELY</text>
+  <text x="84" y="240" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">Use economical models</text>
+  <text x="84" y="286" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">where checks are cheap</text>
+  <line x1="84" y1="344" x2="492" y2="344" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="84" y="410" font-family="Arial, sans-serif" font-size="28" fill="#676358">Workshop result</text>
+  <text x="84" y="472" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#2E70FF">41.5% lower cost</text>
+  <text x="84" y="512" font-family="Arial, sans-serif" font-size="23" fill="#676358">with 12 / 12 verified passes</text>
+
+  <rect x="588" y="88" width="480" height="448" rx="12" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="624" y="148" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#2E70FF">MATCH CONSEQUENCE</text>
+  <text x="624" y="240" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">Reserve stronger models</text>
+  <text x="624" y="286" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">for costly omissions</text>
+  <line x1="624" y1="344" x2="1032" y2="344" stroke="#AABBDD" stroke-width="3"/>
+  <text x="624" y="410" font-family="Arial, sans-serif" font-size="28" fill="#676358">Workshop result</text>
+  <text x="624" y="472" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#2E70FF">Security: 0 / 3</text>
+  <text x="624" y="512" font-family="Arial, sans-serif" font-size="23" fill="#676358">with the economical model</text>
+
+  <rect x="1128" y="88" width="484" height="448" rx="12" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="1164" y="148" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">LEARN FROM EVIDENCE</text>
+  <text x="1164" y="240" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">Use verified outcomes</text>
+  <text x="1164" y="286" font-family="Arial, sans-serif" font-size="38" font-weight="700" fill="#20201E">in later decisions</text>
+  <line x1="1164" y1="344" x2="1576" y2="344" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="1164" y="410" font-family="Arial, sans-serif" font-size="28" fill="#676358">Agent-as-a-Router</text>
+  <text x="1164" y="472" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#2E70FF">62.5% OOD score</text>
+  <text x="1164" y="512" font-family="Arial, sans-serif" font-size="23" fill="#676358">versus 57.1% for always Opus</text>
+  <text x="48" y="624" font-family="Arial, sans-serif" font-size="25" fill="#676358">Routing is useful only when the harness has a trustworthy signal for choosing or switching.</text>
+</svg>

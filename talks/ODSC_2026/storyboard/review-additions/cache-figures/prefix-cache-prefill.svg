@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680">
+  <g font-family="Open Sans, Arial, sans-serif">
+    <text x="40" y="44" font-size="28" font-weight="700" fill="#20201E">Without prefix caching</text>
+    <text x="864" y="44" font-size="28" font-weight="700" fill="#20201E">With prefix caching</text>
+    <text x="40" y="82" font-size="18" font-weight="700" fill="#676358" letter-spacing="2">FRESH PREFILL WORK</text>
+    <text x="864" y="82" font-size="18" font-weight="700" fill="#676358" letter-spacing="2">CACHED PREFIX + NEW TAIL</text>
+
+    <line x1="40" y1="486" x2="788" y2="486" stroke="#CCC6B6" stroke-width="2"/>
+    <line x1="864" y1="486" x2="1612" y2="486" stroke="#CCC6B6" stroke-width="2"/>
+
+    <rect x="52" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="140" y="386" width="68" height="100" rx="6" fill="#2E70FF"/>
+    <rect x="228" y="338" width="68" height="148" rx="6" fill="#2E70FF"/>
+    <rect x="316" y="290" width="68" height="196" rx="6" fill="#2E70FF"/>
+    <rect x="404" y="242" width="68" height="244" rx="6" fill="#2E70FF"/>
+    <rect x="492" y="194" width="68" height="292" rx="6" fill="#2E70FF"/>
+    <rect x="580" y="146" width="68" height="340" rx="6" fill="#2E70FF"/>
+    <rect x="668" y="98" width="68" height="388" rx="6" fill="#2E70FF"/>
+
+    <rect x="876" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="964" y="386" width="68" height="48" rx="6" fill="#D8D4C8"/>
+    <rect x="964" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1052" y="338" width="68" height="96" rx="6" fill="#D8D4C8"/>
+    <rect x="1052" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1140" y="290" width="68" height="144" rx="6" fill="#D8D4C8"/>
+    <rect x="1140" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1228" y="242" width="68" height="192" rx="6" fill="#D8D4C8"/>
+    <rect x="1228" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1316" y="194" width="68" height="240" rx="6" fill="#D8D4C8"/>
+    <rect x="1316" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1404" y="146" width="68" height="288" rx="6" fill="#D8D4C8"/>
+    <rect x="1404" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+    <rect x="1492" y="98" width="68" height="336" rx="6" fill="#D8D4C8"/>
+    <rect x="1492" y="434" width="68" height="52" rx="6" fill="#2E70FF"/>
+
+    <text x="40" y="520" font-size="18" font-weight="700" fill="#676358">TURN 1</text>
+    <text x="682" y="520" font-size="18" font-weight="700" fill="#676358">TURN 8</text>
+    <text x="864" y="520" font-size="18" font-weight="700" fill="#676358">TURN 1</text>
+    <text x="1506" y="520" font-size="18" font-weight="700" fill="#676358">TURN 8</text>
+
+    <text x="40" y="570" font-size="24" font-weight="700" fill="#20201E">100 turns: 1 + 2 + … + 100 = 5,050 fresh units</text>
+    <rect x="864" y="546" width="22" height="22" rx="3" fill="#D8D4C8"/>
+    <text x="900" y="566" font-size="20" fill="#676358">cache read</text>
+    <rect x="1056" y="546" width="22" height="22" rx="3" fill="#2E70FF"/>
+    <text x="1092" y="566" font-size="20" fill="#676358">fresh tail</text>
+    <text x="864" y="602" font-size="24" font-weight="700" fill="#20201E">100 turns: 100 × 1 = 100 fresh units</text>
+
+    <rect x="40" y="614" width="748" height="52" rx="6" fill="#20201E"/>
+    <text x="414" y="648" text-anchor="middle" font-size="23" font-weight="700" fill="#F9F1D9">Fresh prefill: 5,050 → 100 units, a 50.5× ratio</text>
+  </g>
+</svg>

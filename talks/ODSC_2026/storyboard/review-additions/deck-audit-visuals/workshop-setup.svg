@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#2E70FF"/></marker></defs>
+  <path d="M430 325H610M1050 325H1230" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/>
+  <g><rect x="40" y="185" width="390" height="280" rx="10" fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"/><rect x="635" y="185" width="390" height="280" rx="10" fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"/><rect x="1230" y="185" width="390" height="280" rx="10" fill="#20201E"/></g>
+  <g font-weight="700" text-anchor="middle"><text x="235" y="245" fill="#2E70FF" font-size="23">01 · ONBOARD</text><text x="830" y="245" fill="#2E70FF" font-size="23">02 · WARM UP</text><text x="1425" y="245" fill="#FFFFFF" font-size="23">03 · BEGIN</text></g>
+  <g fill="#20201E" font-size="31" text-anchor="middle"><text x="235" y="327">Agent Canvas</text><text x="235" y="375">workspace + model</text><text x="830" y="327">Repository search</text><text x="830" y="375">one known query</text></g>
+  <g fill="#FFFFFF" font-size="31" text-anchor="middle"><text x="1425" y="327">Live run</text><text x="1425" y="375">or saved trace</text></g>
+  <rect x="585" y="520" width="490" height="85" rx="8" fill="#FFF1EA" stroke="#FF4A00" stroke-width="3"/><text x="830" y="573" text-anchor="middle" fill="#FF4A00" font-size="27" font-weight="700">Fallback: use the saved walkthrough</text>
+</svg>

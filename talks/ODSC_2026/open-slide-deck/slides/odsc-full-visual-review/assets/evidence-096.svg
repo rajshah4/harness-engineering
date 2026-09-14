@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="routing-choice-title routing-choice-desc">
+  <title id="routing-choice-title">A harness can choose different models for different tasks</title>
+  <desc id="routing-choice-desc">A pagination repair starts with an economical model and escalates after a failed verifier, while a security review starts with a stronger model and requires independent review.</desc>
+  <defs><marker id="route-arrow" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto"><path d="M0 0 L12 4 L0 8 Z" fill="#8B877B"/></marker></defs>
+  <rect x="48" y="64" width="1564" height="88" rx="10" fill="#F4EFE0" stroke="#CCC6B6" stroke-width="3"/>
+   <text x="84" y="118" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">One harness policy</text>
+  <text x="408" y="118" font-family="Arial, sans-serif" font-size="25" fill="#676358">chooses a starting model, a verifier, and one signal that can change the route</text>
+
+  <text x="48" y="220" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">BOUNDED, VERIFIABLE WORK</text>
+  <rect x="48" y="248" width="344" height="136" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="80" y="304" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#20201E">Pagination repair</text>
+  <text x="80" y="344" font-family="Arial, sans-serif" font-size="22" fill="#676358">Focused tests are cheap</text>
+  <path d="M392 316 H492" stroke="#8B877B" stroke-width="4" marker-end="url(#route-arrow)"/>
+  <rect x="512" y="248" width="300" height="136" rx="10" fill="#F4EFE0" stroke="#8B877B" stroke-width="3"/>
+  <text x="662" y="304" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">Start economical</text>
+  <text x="662" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#676358">One fair attempt</text>
+  <path d="M812 316 H912" stroke="#8B877B" stroke-width="4" marker-end="url(#route-arrow)"/>
+  <rect x="932" y="248" width="300" height="136" rx="10" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="1082" y="304" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">Run verifier</text>
+  <text x="1082" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#676358">Escalate only if it fails</text>
+  <path d="M1232 316 H1332" stroke="#8B877B" stroke-width="4" marker-end="url(#route-arrow)"/>
+  <rect x="1352" y="248" width="260" height="136" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="1482" y="304" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">Stronger model</text>
+  <text x="1482" y="344" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#676358">Only when earned</text>
+
+  <text x="48" y="460" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#676358">HIGH-CONSEQUENCE WORK</text>
+  <rect x="48" y="488" width="344" height="136" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="80" y="544" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#20201E">Security review</text>
+    <text x="80" y="584" font-family="Arial, sans-serif" font-size="22" fill="#676358">Omissions are hard to detect</text>
+  <path d="M392 556 H612" stroke="#8B877B" stroke-width="4" marker-end="url(#route-arrow)"/>
+  <rect x="632" y="488" width="400" height="136" rx="10" fill="#EEF3FF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="832" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">Start with stronger model</text>
+  <text x="832" y="584" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#676358">Route before the attempt</text>
+  <path d="M1032 556 H1232" stroke="#8B877B" stroke-width="4" marker-end="url(#route-arrow)"/>
+  <rect x="1252" y="488" width="360" height="136" rx="10" fill="#FFFFFF" stroke="#CCC6B6" stroke-width="3"/>
+  <text x="1432" y="544" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#20201E">Independent review</text>
+  <text x="1432" y="584" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#676358">The model cannot grade itself</text>
+</svg>

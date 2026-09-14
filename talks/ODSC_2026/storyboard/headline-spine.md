@@ -1,461 +1,276 @@
-# ODSC Harness Engineering: current headline story
+# Current workshop sequence
 
-Synced from the working Markdown deck. Stable IDs preserve source identity when slides move.
+244 slides: 144 in the main workshop line and 100 reserves. The sequence follows `headline-story-plan.md`.
+
 
 ## Opening
 
-1. `[001]` **Engineering the Harness: A Practical Workshop**
-
-2. `[003]` **Coding agents now complete tasks instead of suggesting code**
-
-3. `[004]` **An agent combines a model with a harness**
-
-4. `[NEW: agent-canvas-run]` **The harness supplies context and executes the model's tool requests**
-
-5. `[006]` **The harness is everything outside the model**
-
-6. `[057]` **Claude Code shows how complex a modern harness has become**
-
-7. `[008]` **Claude Code adoption rose while Cursor and Copilot fell**
-
-8. `[009]` **Model providers now ship their own harnesses**
-
-9. `[010]` **Provider harnesses are good enough for general software tasks**
-
-10. `[011]` **Why look beyond the model providers?**
-
-11. `[NEW: why-alternatives]` **Provider harnesses make the engineering choices for you**
-
-12. `[091]` **Where memory lives affects how easily you can change harnesses**
-
-13. `[NEW: existing-harness-starting-point]` **An existing harness is a starting point for testing better choices**
-
-14. `[012]` **Six harness choices organize the workshop**
+1. **Engineering the Harness: A Practical Workshop** (`001`)
+2. **We have moved beyond tab completion** (`003`)
+3. **Agent = model + harness** (`004`)
+4. **What an agent does** (`agent-canvas-run`)
+5. **What is in a harness** (`006`)
+6. **Harnesses get complicated quickly** (`057`)
+7. **Rise of Claude Code and Codex** (`008`)
+8. **Harnesses from model providers** (`009`)
+9. **Provider harnesses are a good starting point** (`010`)
+10. **What you can change in a harness** (`why-alternatives`)
+11. **Consequences of a closed harness** (`091`)
+12. **Workshop roadmap: inside the harness** (`existing-harness-starting-point`)
 
 ## Workshop 1: Harness choice
 
-15. `[013]` **What changes when the model stays fixed?**
-
-16. `[014]` **Where will the runs diverge first?**
-
-17. `[015]` **A simple harness gives the model tools, feedback, and another turn**
-
-18. `[017]` **Harness performance varied by 18 points with the same model**
-
-19. `[019]` **Harnesses changed completion, process quality, and cost**
-
-20. `[018]` **No harness led on accuracy, speed, and token use**
-
-21. `[016]` **A custom data harness improved accuracy while cutting cost**
-
-22. `[NEW: harvey-harness-result]` **A document-review harness raised average rubric pass rate by 39 points**
-
-23. `[NEW: harvey-harness-mechanism]` **The harness divided the reading and kept findings available for synthesis**
-
-24. `[NEW: model-harness-coadaptation]` **Models learn the harness they train against**
-
-25. `[058]` **Small harness changes degraded production coding quality**
-
-26. `[197]` **Identical runs changed the outcome about one time in ten**
-
-27. `[022]` **Open-source harnesses are already widely used**
-
-28. `[024]` **Two harnesses make dozens of different decisions**
-
-29. `[025]` **Trace one decision back to the harness**
-
-30. `[026]` **The harness changed cost far more than it changed quality**
-
-31. `[NEW: workshop-1-debrief]` **A useful comparison isolates the harness decision**
-
-32. `[NEW: harness-improvement-method]` **A harness change needs a repeatable comparison**
-
-33. `[NEW: pi-cache-intervention]` **Cache markers reduced fresh input in the Pi rerun**
+13. **Workshop 1: Harness choice** (`workshop-1-section`)
+14. **Workshop environment and fallback path** (`workshop-setup`)
+15. **Harness comparison: the same task across three systems** (`013`)
+16. **Trace one decision to the harness** (`025`)
+17. **Completion scores hid large differences in work** (`026`)
+18. **Provider caching cut Pi's fresh input from 3.35M to 213K tokens** (`pi-cache-intervention`)
+19. **Every agent turn resends the transcript so far** (`agentic-loop-transcript-growth`)
+20. **Prefix caching reuses the shared transcript** (`prefix-cache-prefill`)
+21. **An 18-point spread with the same model** (`017`)
+22. **Harnesses varied on accuracy, time, and token use** (`019`)
+23. **No harness led on every measure** (`018`)
+24. **DeepSeek favored a simpler harness in this comparison** (`deepseek-harness-configurations`)
+25. **Snowflake's CoCo scored higher at lower cost** (`016`)
+26. **Harvey reported 23.3% to 62.4% across two review setups** (`harvey-harness-result`)
+27. **Harvey used a Python REPL and bounded subagents** (`harvey-harness-mechanism`)
+28. **“Everyone is building a domain-specific harness”** (`domain-specific-harnesses`)
+29. **A stronger model erased the hand-built agent's advantage** (`model-improvement-retest`)
+30. **Harness changes can reduce quality** (`058`)
+31. **Open-source harnesses offer different starting points** (`022`)
+32. **Different harnesses make different engineering choices** (`024`)
+33. **Tools and feedback in SWE-agent** (`015`)
 
 ## Workshop 2: Tool design
 
-34. `[029]` **The first way people improve an agent is to add tools**
-
-35. `[030]` **Tools turn model decisions into real actions**
-
-36. `[034]` **Which tool surface earns its place?**
-
-37. `[NEW: workshop-2-prediction]` **What should the harness expose first?**
-
-38. `[NEW: workshop-2-result]` **One task-shaped tool beat both the terminal and a broad catalog**
-
-39. `[NEW: workshop-2-mechanism]` **The task-shaped tool removed a predictable retrieval loop**
-
-40. `[NEW: workshop-2-reversal]` **Specialized tools earn their place on repeated, bounded work**
-
-41. `[031]` **Growing tool catalogs forced better ways to describe tools**
-
-42. `[033]` **The same capability behaves differently through an API, MCP, or CLI**
-
-43. `[NEW: edit-format]` **The edit format changes how often the agent must retry**
-
-44. `[032]` **Tool search keeps unused definitions out of the prompt**
-
-45. `[150]` **Uber moved tool definitions out of the initial prompt**
-
-46. `[196]` **Large tool catalogs can consume the context before work begins**
-
-47. `[038]` **One program can replace thousands of tool definitions**
-
-48. `[151]` **Uber moved repetitive polling out of the model loop**
-
-49. `[205]` **The scaffold changed cost by two orders of magnitude**
-
-50. `[NEW: untrusted-tool-results]` **Tool results create a new trust boundary**
-
-51. `[035]` **Inspect the tool path in Agent Canvas**
-
-52. `[036]` **More tools added cost while most browser actions failed**
-
-53. `[NEW: tool-evaluation-levels]` **A valid tool call can still leave the task unfinished**
-
-54. `[NEW: workshop-2-debrief]` **Tool quality depends on the work compressed behind the interface**
+34. **Workshop 2: Tool design** (`workshop-2-section`)
+35. **A tool controls the action and the evidence** (`029`)
+36. **Workshop 2: Which tool interface would you give the agent?** (`workshop-2-intro`)
+37. **API, MCP, and CLI access** (`033`)
+38. **PR review across three tool interfaces** (`034`)
+39. **One task-shaped tool beat the terminal and a broad catalog** (`workshop-2-result`)
+40. **Common tools in a coding harness** (`common-agent-tools`)
+41. **Tool definitions can fill your context** (`tools-to-context`)
+42. **How to use tool search** (`tool-search-method`)
+43. **Uber kept 1,000+ MCP tools behind search and the CLI** (`150`)
+44. **Harness modes in DeepSeek for tools** (`deepseek-runtime-modes`)
+45. **Cloudflare reduced 2,600 API endpoints to two model-facing tools** (`038`)
+46. **Uber put SQL polling inside a Python loop** (`151`)
+47. **Three ways an agent can describe the same edit** (`edit-format`)
+48. **An unreliable browser created two costs in one run** (`036`)
+49. **A valid tool call can still leave the task unfinished** (`tool-evaluation-levels`)
+50. **The tool surface should match the repeated work** (`workshop-2-debrief`)
 
 ## Workshop 3: Context, working state, and memory
 
-55. `[040]` **How much context should the harness save?**
-
-56. `[NEW: workshop-3-prediction]` **Which context policy will survive the external verifier?**
-
-57. `[NEW: workshop-3-result]` **Stale context was worse than forgetting**
-
-58. `[NEW: workshop-3-mechanism]` **The stale instruction changed the architecture and the tests**
-
-59. `[NEW: workshop-3-reversal]` **Curated context improved the process, not the outcome**
-
-60. `[041]` **A saved fact still needs a loading rule**
-
-61. `[042]` **The same task needs information at different lifetimes**
-
-62. `[NEW: context-state-hierarchy]` **Agent state can live at several distances from the next call**
-
-63. `[044]` **The harness assembles the next model call**
-
-64. `[NEW: tools-to-context]` **Tool calls compete for space in the context window**
-
-65. `[046]` **Retrieval brings the next useful evidence into context**
-
-66. `[050]` **A million-token window still fills**
-
-67. `[051]` **Long contexts lose accuracy before they reach the limit**
-
-68. `[053]` **More conversation can make important facts harder to use**
-
-69. `[055]` **Stronger models were supposed to need shorter prompts**
-
-70. `[056]` **System prompts kept getting longer**
-
-71. `[NEW: context-budget-stack]` **Average context per call varied across harnesses**
-
-72. `[047]` **Every extra instruction competes with the task for attention**
-
-73. `[064]` **Working state lets a fresh session resume the task**
-
-74. `[043]` **Memory can live outside the model's working context**
-
-75. `[NEW: summarization]` **A useful summary preserves the information needed to continue**
-
-76. `[NEW: compaction-preservation-policy]` **Compaction needs a policy for what stays exact**
-
-77. `[NEW: repeated-compaction-drift]` **Repeated summaries can erase a requirement**
-
-78. `[060]` **Reset and compaction recover active context**
-
-79. `[061]` **Compaction cut the cost of long OpenHands sessions**
-
-80. `[NEW: prompt-caching]` **Compaction can save tokens while reducing cache reuse**
-
-81. `[063]` **A larger window still needs checkpoints and retrieval**
-
-82. `[065]` **Files preserve working state better than chat history**
-
-83. `[068]` **LangChain writes plans outside the model context**
-
-84. `[071]` **Durable memory carries useful guidance into future tasks**
-
-85. `[073]` **AGENTS.md became the shared instruction file for coding agents**
-
-86. `[074]` **Every line in AGENTS.md adds cost to every prompt**
-
-87. `[102]` **One repository needs one shared source of instructions**
-
-88. `[103]` **Repository facts transfer, but model-specific prompts do not**
-
-89. `[075]` **Auto-generated AGENTS.md reduced success and raised cost**
-
-90. `[076]` **Instruction files accumulate duplication and stale rules**
-
-91. `[077]` **Context files changed workflow more than correctness in 288 runs**
-
-92. `[078]` **Observed failures should determine what enters durable memory**
-
-93. `[079]` **Anthropic removed 80% of Claude Code's system prompt**
-
-94. `[059]` **LangChain cut its base prompt from 6K to 2K tokens**
-
-95. `[080]` **Codex is building memory beyond AGENTS.md**
-
-96. `[081]` **Skills load procedures only when the task needs them**
-
-97. `[082]` **Curated skills raised average pass rate by 16.6 points**
-
-98. `[084]` **One in six skills reduced performance**
-
-99. `[NEW: memory-social-scope]` **Shared memory needs a scope before the agent retrieves it**
-
-100. `[NEW: memory-writers]` **Only trusted sources should write durable memory**
-
-101. `[090]` **Skills need evaluation before they become memory**
-
-102. `[094]` **Give each fact a home and a loading rule**
-
-103. `[095]` **The safer policy starts with no saved context**
-
-104. `[NEW: workshop-3-debrief]` **Durable guidance should earn its place one line at a time**
-
-## Workshop 4: Model routing
-
-105. `[096]` **The model can change at every step**
-
-106. `[097]` **When has the cheaper route earned another attempt?**
-
-107. `[098]` **Route these two tasks**
-
-108. `[NEW: workshop-4-repeated-result]` **Routing preserved 12 passes while cutting the bill by 41.5%**
-
-109. `[NEW: workshop-4-task-risk]` **The cheap model solved the race but missed the security requirement**
-
-110. `[NEW: routing-policy-design-space]` **A router can choose before, during, or after an attempt**
-
-111. `[099]` **New evidence can change the model choice**
-
-112. `[100]` **Routing balances quality against cost for each request**
-
-113. `[108]` **Serving choices change behavior behind the same model name**
-
-114. `[109]` **Two cheap attempts beat one expensive attempt on this task**
-
-115. `[111]` **The stronger model spent more effort checking its work**
-
-116. `[106]` **Execution failures provide better routing signals than the request alone**
-
-117. `[107]` **The adaptive cascade escalated four times and still missed a requirement**
-
-118. `[112]` **Write the route before seeing the trace**
-
-119. `[113]` **The stronger model fixed one result but doubled the time**
-
-120. `[NEW: workshop-4-debrief]` **A routing policy needs a failure signal it can trust**
-
-## Workshop 5: Completion, recovery, and stopping
-
-121. `[114]` **Routing needs a loop that can produce trustworthy evidence**
-
-122. `[115]` **What evidence lets the harness declare the goal complete?**
-
-123. `[NEW: efficiency-needs-completion-evidence]` **Fewer tokens can mean less work completed**
-
-124. `[116]` **A completion contract specifies evidence and terminal states**
-
-125. `[NEW: workshop-5-ceiling]` **Independent validation added cost after the agent already passed 8/8**
-
-126. `[NEW: workshop-5-repair-cost]` **Two repair rounds improved Pi from 4/9 to 6/9 at 11.4 times the tokens**
-
-127. `[NEW: durable-goal-budget]` **The goal needs a budget that survives individual model calls**
-
-128. `[117]` **An agent loop needs a budget and an external stop rule**
-
-129. `[118]` **Long-running work needs state that survives a fresh session**
-
-130. `[123]` **A coding agent can take hundreds of actions for one request**
-
-131. `[066]` **Scratchpad use best predicted long-run survival**
-
-132. `[067]` **Every model eventually failed during a 20M-token run**
-
-133. `[127]` **Long tasks fail safely when progress survives the failure**
-
-134. `[129]` **External evidence should define when the agent is done**
-
-135. `[135]` **Evidence gates eliminated unsupported completion claims**
-
-136. `[133]` **Factory gave completion control to a separate validator**
-
-137. `[134]` **The implementer never saw the grading instrument**
-
-138. `[136]` **Blind retries repeat the failure without learning from it**
-
-139. `[137]` **Blind retries still built a C compiler**
-
-140. `[125]` **Less instruction can force the agent to inspect the evidence**
-
-141. `[NEW: hooks]` **Hooks enforce rules outside the model**
-
-142. `[142]` **Tests written after the code can repeat the agent's mistake**
-
-143. `[143]` **System constraints turn architecture rules into executable checks**
-
-144. `[146]` **Approval friction should match the blast radius**
-
-145. `[147]` **The agent can game the check you gave it**
-
-146. `[152]` **Write the continuation contract**
-
-147. `[153]` **Independent validation improved one task but not the other**
-
-148. `[NEW: workshop-5-debrief]` **The next attempt needs evidence and a stopping rule**
+51. **Workshop 3: Context, working state, and memory** (`workshop-3-section`)
+52. **What fills the next model call** (`044`)
+53. **Context, task state, and reusable guidance serve different timescales** (`042`)
+54. **Apply the distinction: where should the test command live?** (`041`)
+55. **Workshop 3: Add cursor pagination** (`040`)
+56. **Comparing the three context conditions** (`workshop-3-prediction`)
+57. **The stale-guidance condition failed all three trials** (`workshop-3-result`)
+58. **All three stale-guidance runs built the wrong module** (`workshop-3-mechanism`)
+59. **Curated context changed the process, not the pass rate** (`workshop-3-reversal`)
+60. **Providing better context gained 19 points** (`measured-persistent-context`)
+61. **What can fill a long context window** (`050`)
+62. **A long context window does not guarantee useful recall** (`051`)
+63. **Long conversations can make relevant facts harder to use** (`053`)
+64. **Retrieval for the next action** (`046`)
+65. **Five ways to retrieve context** (`retrieval-methods`)
+66. **A system prompt gives the agent standing instructions** (`055`)
+67. **New models can replace old rules with judgment** (`056`)
+68. **Anthropic removed over 80% of Claude Code's system prompt** (`079`)
+69. **LangChain cut the base input from 6K to 2K tokens** (`059`)
+70. **Workshop result: the same model saw a 4× range in context per call** (`context-budget-stack`)
+71. **Five ways to manage a full context window** (`063`)
+72. **Compaction replaces old turns with a continuation summary** (`summarization`)
+73. **What to preserve during compaction** (`compaction-preservation-policy`)
+74. **Repeated compaction can weaken an exact requirement** (`repeated-compaction-drift`)
+75. **OpenHands reported up to 2× lower per-turn API cost** (`061`)
+76. **ACON used failed runs to improve context compression** (`acon-compression`)
+77. **Claude Code compacts without abandoning the cached prefix** (`prompt-caching`)
+78. **Resuming a task from saved working state** (`064`)
+79. **Saving working state in files** (`065`)
+80. **Using planning to guide ongoing work** (`068`)
+81. **A durable scratchpad predicted success in YC-Bench** (`066`)
+82. **Saved information must be loaded before the model can use it** (`043`)
+83. **A verified task lesson can become future guidance** (`071`)
+84. **AGENTS.md: repository guidance for future tasks** (`073`)
+85. **One test-cost warning reduced wasted full-suite runs** (`078`)
+86. **The token cost of repository instructions** (`074`)
+87. **Generated AGENTS.md files lowered success and raised cost** (`075`)
+88. **91 of 100 files had duplicated, oversized, misplaced, stale, or unclear instructions** (`076`)
+89. **Pass rates barely changed after adding repository guidance in 288 runs** (`077`)
+90. **A skill loads detailed instructions only when the task needs them** (`081`)
+91. **Curated skills raised average pass rate from 33.9% to 50.5%** (`082`)
+92. **Some skills still reduced performance** (`084`)
+93. **Evaluate a skill on the work it should improve** (`090`)
+94. **Where should each lesson go?** (`workshop-3-debrief`)
+95. **Only verified, stable, reusable information should survive the task** (`095`)
+
+## Workshop 4: Flexible model choice
+
+96. **Workshop 4: Flexible model choice** (`workshop-4-section`)
+97. **A harness can choose a different model for each task or attempt** (`096`)
+98. **Routing lets the harness spend capability where it matters** (`routing-benefits`)
+99. **Static routing passed 12/12 at 41.5% lower cost** (`workshop-4-repeated-result`)
+100. **A router found a better quality-cost point than one fixed model** (`099`)
+101. **Routing can choose another attempt instead of a stronger model** (`109`)
+102. **Different models spend the harness budget differently** (`111`)
+103. **Execution feedback can improve the next routing decision** (`106`)
+104. **Escalation is useful only when the signal is trustworthy** (`107`)
+105. **Switching models can trade away cache reuse** (`routing-cache`)
+106. **Which evidence would make you change the model?** (`workshop-4-debrief`)
+
+## Workshop 5: Goals, validation, and stopping
+
+107. **Workshop 5: Goals, validation, and stopping** (`workshop-5-section`)
+108. **A useful goal loop records six things** (`goal-validation-loop`)
+109. **AutoResearch keeps a change only when the metric improves** (`140`)
+110. **Does this request need a code change?** (`115`)
+111. **Define done before the agent starts editing** (`acceptance-check-contract`)
+112. **Validation added cost when the first result already passed 8/8** (`workshop-5-ceiling`)
+113. **Validation found two repairs, but Pi still stopped at 6/9** (`workshop-5-repair-cost`)
+114. **Validation decides whether to finish, repair, escalate, or stop** (`verifier-next-action`)
+115. **One request can contain hundreds of progress decisions** (`123`)
+116. **GPT-6 Astra showed that a software factory can run without making progress** (`armin-factory`)
+117. **A goal needs quality checks and a kill switch** (`goal-quality-kill-switch`)
+118. **Long runs can lose the goal even when each step is simple** (`067`)
+119. **Durable goal workflows survive interruptions and restore state** (`118`)
+120. **An evidence gate blocks completion until the required proof passes** (`135`)
+121. **Define the validation contract before the agent writes code** (`142`)
+122. **Fresh evidence gates completion** (`fresh-evidence`)
+123. **A failed check should change the next attempt** (`134`)
+124. **A passing test is not enough to ship code** (`validation-ladder`)
+125. **The evidence and remaining budget determine the next move** (`workshop-5-debrief`)
 
 ## Workshop 6: Multi-agent systems
 
-149. `[154]` **A second agent buys another context window at a high price**
-
-150. `[155]` **Does this work separate cleanly enough for another agent?**
-
-151. `[156]` **Choose an architecture for each task**
-
-152. `[157]` **Multiple agents need work that separates cleanly**
-
-153. `[158]` **Parallel agents add context and coordination at the same time**
-
-154. `[162]` **Subagents can keep unrelated work out of the main context**
-
-155. `[167]` **A 90.2% research lift used about 15 times the tokens**
-
-156. `[169]` **With equal compute, one agent won six of eight comparisons**
-
-157. `[172]` **More agents hurt once coordination outweighed the work**
-
-158. `[170]` **Multi-agent systems work best with narrow, testable handoffs**
-
-159. `[171]` **Serial handoffs erase the benefit of parallel work**
-
-160. `[174]` **Dynamic workflows help only when the task has clean boundaries**
-
-161. `[175]` **Define the handoff before adding the agent**
-
-162. `[176]` **More agents recovered omissions, then plateaued**
-
-163. `[NEW: workshop-6-debrief]` **Delegation needs a boundary and an owner for the result**
+126. **Workshop 6: Multi-agent systems** (`workshop-6-section`)
+127. **Another agent adds capacity and a coordination bill** (`154`)
+128. **Where have multiple agents helped or hurt your coding work?** (`160`)
+129. **Which task would you delegate?** (`155`)
+130. **Parallelize independent investigations; keep shared edits with one owner** (`157`)
+131. **Parallel research improved 90.2% when the searches were independent** (`167`)
+132. **Splitting a large tool catalog helped smaller models but hurt GPT-5** (`162`)
+133. **With an equal reasoning budget, one agent usually matched or beat the group** (`169`)
+134. **Every tested multi-agent architecture made SWE-bench results worse** (`172`)
+135. **Shared code became harder to merge as more agents joined** (`170`)
+136. **Factory serializes code changes and parallelizes read-only work** (`171`)
+137. **Design the handoff around three failure surfaces** (`175`)
 
 ## Close
 
-164. `[NEW: harness-update-regression]` **A harness update needs to preserve behavior that already worked**
-
-165. `[177]` **A good harness can beat a larger model**
+138. **Six decisions shape how the agent works** (`closing-six-decisions`)
+139. **Two harness settings raised ARC-AGI-3 from 13.3% to 38.3%** (`020`)
+140. **A learned harness raised Opus 4.6 from 74.7% to 76.4%** (`177`)
+141. **Harness-R1 gained 9.3 points while the task model stayed frozen** (`179`)
+142. **The harness and runtime accumulate technical debt around the model** (`027`)
+143. **OpenHands and OpenCode each merged about 5,700 PRs in one year** (`028`)
+144. **Model changes can make harness workarounds obsolete** (`103`)
+145. **One harness change, measured against the baseline** (`closing-next-change`)
 
 ## Reserves
 
-166. `[NEW: state-independent-compute]` **Durable agent state can outlive the machine doing the work**
+146. **Safety: control what can change the harness** (`safety-section`)
+147. **Retrieved content should not rewrite future instructions** (`memory-writers`)
+148. **Permissions should match the consequence of the action** (`146`)
 
-167. `[NEW: openjarvis-system-search]` **Local-agent optimization can change several layers together**
-
-168. `[072]` **Durable memory should survive the task**
-
-169. `[002]` **Engineering the Harness: A Practical Workshop**
-
-170. `[007]` **A harness is everything outside the model**
-
-171. `[020]` **ARC-AGI-3 · SAME GPT-5.6 SOL MODEL**
-
-172. `[021]` **NVIDIA AVO · CUSTOM HARNESS FOR KERNEL OPTIMIZATION**
-
-173. `[027]` **Harnesses carry technical debt**
-
-174. `[028]` **PRODUCTION CODING AGENTS · TECHNICAL DEBT**
-
-175. `[037]` **Retrieval is another import tool**
-
-176. `[045]` **CONTEXT PLACEMENT**
-
-177. `[049]` **Coding agents struggle with long context models**
-
-178. `[052]` **Key facts disappear inside long model inputs**
-
-179. `[054]` **Are you excited about 10M Context Windows?**
-
-180. `[062]` **Layer 1: How does Codex do it???**
-
-181. `[069]` **Extreme Layer 2: Recursive Language Models (RLM)**
-
-182. `[070]` **RLMs maintain accuracy at 1M tokens.**
-
-183. `[083]` **SKILLS CAN HARM**
-
-184. `[085]` **Skills as Externalized Expertise**
-
-185. `[086]` **Skills can replace Code**
-
-186. `[087]` **Building a learning loop with skills**
-
-187. `[088]` **Continual learning outer loop with skills**
-
-188. `[089]` **Generic skills beat personalized skills.**
-
-189. `[092]` **Constant Innovation around Memory**
-
-190. `[093]` **Memory & Claude**
-
-191. `[104]` **Example: Splitting by Role**
-
-192. `[110]` **Oracle routing lifted 94.2% to 97.4%.**
-
-193. `[120]` **Engineering the Loop**
-
-194. `[121]` **We no longer rely on single-shot execution.**
-
-195. `[122]` **We no longer rely on single-shot execution.**
-
-196. `[126]` **Capability is rising faster than reliability.**
-
-197. `[128]` **95% per step becomes 60% over ten steps.**
-
-198. `[130]` **Build the benchmark before the model.**
-
-199. `[131]` **Uber Engineering, Aug. 27, 2026**
-
-200. `[132]` **FACTORY · PROGRAMBENCH**
-
-201. `[138]` **Cognitive Discipline via JSON Schema and Plan**
-
-202. `[139]` **Moving from Ralph Wiggum to AutoResearch**
-
-203. `[140]` **An Improved Loop for AutoResearch**
-
-204. `[144]` **Safety & Friction: Sandboxes**
-
-205. `[145]` **Safety & Friction: Sandboxes**
-
-206. `[148]` **The "offline" sandbox still had a route to the web.**
-
-207. `[149]` **Principles for Agentic Loop**
-
-208. `[160]` **Who’s using a multi-agent for coding?**
-
-209. `[161]` **Single agents degrade as complexity grows.**
-
-210. `[163]` **Multi-Agent is like Distributed Systems: Complex!**
-
-211. `[164]` **Many ways to orchestrate multiple agents**
-
-212. `[165]` **DYNAMIC WORKFLOWS**
-
-213. `[166]` **DYNAMIC WORKFLOWS · BUN PORT**
-
-214. `[168]` **BENCHAGENT**
-
-215. `[173]` **Multi-Agent critics using reflection**
-
-216. `[178]` **Appendix: Harnesses may eventually self-improve.**
-
-217. `[179]` **The harness can learn from failure without changing the model.**
-
-218. `[180]` **Appendix: Context may eventually tune itself.**
-
-219. `[181]` **Externalize process**
-
-220. `[183]` **Specs for software development**
+149. **Validation helped one workshop task and not the other** (`153`)
+150. **A retry needs a new hypothesis or a different action** (`136`)
+151. **Hooks can enforce checks outside the prompt** (`hooks`)
+152. **Make stable repository requirements executable** (`143`)
+153. **Repeated attempts supported a large codebase port** (`137`)
+154. **Fewer instructions can leave more room to inspect evidence** (`125`)
+155. **The inference provider is part of the configuration** (`108`)
+156. **Shared repository instructions across tools** (`102`)
+157. **Choosing what belongs in the next model input** (`047`)
+158. **Resetting context and compacting history** (`060`)
+159. **BM25 retrieves exact and unusually specific terms** (`188`)
+160. **Embeddings retrieve passages with similar meaning** (`189`)
+161. **RAG loads selected evidence before generation** (`retrieval-augmented-generation`)
+162. **Graph retrieval follows relationships across the codebase** (`graph-retrieval`)
+163. **GPT-4 query expansion made BM25 strongest on BRIGHT** (`192`)
+164. **What a tool exposes to the model** (`030`)
+165. **Tool search keeps unused definitions out of the prompt** (`032`)
+166. **Initial context use with deferred tool loading** (`196`)
+167. **Routing choices for two tasks** (`098`)
+168. **Quality and cost in model routing** (`100`)
+169. **A routing policy for one task** (`112`)
+170. **Completion and elapsed time in two model runs** (`113`)
+171. **Verification feeds the next decision** (`114`)
+172. **Budgets and stopping conditions** (`117`)
+173. **Saving progress during long tasks** (`127`)
+174. **Completion criteria and external checks** (`129`)
+175. **Factory separated implementation from completion control** (`133`)
+176. **Evaluation leakage and changes in refusal behavior** (`147`)
+177. **The continuation after a failed check** (`152`)
+178. **Single agent, validator, or parallel workers** (`156`)
+179. **Parallel agents add context and coordination at the same time** (`158`)
+180. **Pi recovered omissions, then tied the best single-agent score** (`176`)
+181. **Conditions for dynamic workflows** (`174`)
+182. **Updating a harness from previous runs** (`178`)
+183. **Harness updates need to preserve behavior that already worked** (`harness-update-regression`)
+184. **Why look beyond a provider's default harness?** (`011`)
+185. **What to inspect in the saved runs** (`014`)
+186. **What we learned from the first comparison** (`workshop-1-debrief`)
+187. **Applied Compute trained a model to use indexed code search** (`model-harness-coadaptation`)
+188. **Repeated runs changed about 9% of the outcomes** (`197`)
+189. **Two saved runs took different paths to the same evidence** (`035`)
+190. **One bundled tool handles the repeated retrieval steps** (`workshop-2-mechanism`)
+191. **Reusable tools for recurring investigations** (`workshop-2-reversal`)
+192. **From large tool catalogs to tool discovery** (`031`)
+193. **Costs differed by 139 times across complete configurations** (`205`)
+194. **Prime Agent's approach to storing context and state** (`context-state-hierarchy`)
+195. **Handling instructions inside tool results** (`untrusted-tool-results`)
+196. **Who can access shared memory** (`memory-social-scope`)
+197. **Durable state and replaceable execution environments** (`state-independent-compute`)
+198. **System components in OpenJarvis** (`openjarvis-system-search`)
+199. **Saving memory across tasks** (`072`)
+200. **Engineering the Harness: A Practical Workshop** (`002`)
+201. **Components outside the model** (`007`)
+202. **NVIDIA AVO: a kernel-optimization workflow** (`021`)
+203. **Retrieval tools** (`037`)
+204. **Context, working state, and durable knowledge** (`045`)
+205. **Long inputs in coding tasks** (`049`)
+206. **Relevant facts can be missed in long inputs** (`052`)
+207. **What would you use a 10M-token context window for?** (`054`)
+208. **Context compaction in Codex** (`062`)
+209. **Recursive Language Models and a Python REPL** (`069`)
+210. **RLM results on a million-token input task** (`070`)
+211. **Skill-related failures and efficiency regressions** (`083`)
+212. **Skills as reusable expertise** (`085`)
+213. **Skills can express procedures otherwise written as code** (`086`)
+214. **Revising a skill after a task attempt** (`087`)
+215. **Task execution and updates to reusable guidance** (`088`)
+216. **The generic skill performed best in the simulated study** (`089`)
+217. **Three places to keep information** (`092`)
+218. **Context and memory in Claude workflows** (`093`)
+219. **Assigning models by role** (`104`)
+220. **Oracle routing: 94.2% to 97.4% in a reported comparison** (`110`)
+221. **Instructions, verification, and execution controls** (`120`)
+222. **Repeated reasoning and tool use** (`121`)
+223. **Tools in the published Opus system prompt** (`122`)
+224. **Capability and reliability in agent tasks** (`126`)
+225. **Ten independent steps with 95% success each** (`128`)
+226. **Defining the evaluation before model training** (`130`)
+227. **Uber’s software-factory workflow** (`131`)
+228. **Factory: ProgramBench results** (`132`)
+229. **Plans and structured outputs** (`138`)
+230. **The AutoResearch experiment loop** (`139`)
+231. **Sandboxed execution** (`144`)
+232. **Sandboxed execution** (`145`)
+233. **Remote access through an allowed API in a sandbox test** (`148`)
+234. **Tool interfaces, feedback, and error handling** (`149`)
+235. **Distractor tools reduced single-agent performance** (`161`)
+236. **Coordination problems in multi-agent systems** (`163`)
+237. **Multi-agent orchestration patterns** (`164`)
+238. **Orchestration written during execution** (`165`)
+239. **Anthropic’s reported Bun port** (`166`)
+240. **Most tested multi-agent workflows trailed the single agent** (`168`)
+241. **An iterative critic raised pass rate from 57.9% to 73.8%** (`173`)
+242. **Optimizing prompts and memory** (`180`)
+243. **Reusable interaction protocols** (`181`)
+244. **Goals, constraints, and acceptance checks** (`183`)

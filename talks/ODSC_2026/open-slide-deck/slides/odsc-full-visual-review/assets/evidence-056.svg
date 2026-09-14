@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <text x="390" y="75" text-anchor="middle" fill="#676358" font-size="23" font-weight="700">OLDER MODEL · STRICT RULE</text>
+  <rect x="50" y="120" width="680" height="310" rx="10" fill="#FFFFFF" stroke="#B8B2A5" stroke-width="2"/>
+  <text x="390" y="225" text-anchor="middle" fill="#20201E" font-size="37">“Default to writing</text><text x="390" y="278" text-anchor="middle" fill="#20201E" font-size="37">no comments.”</text>
+  <text x="390" y="370" text-anchor="middle" fill="#676358" font-size="25">The prompt makes the choice in advance.</text>
+  <path d="M760 275H900" stroke="#2E70FF" stroke-width="5"/><path d="M885 262L910 275L885 288" fill="none" stroke="#2E70FF" stroke-width="5"/>
+  <text x="1270" y="75" text-anchor="middle" fill="#2E70FF" font-size="23" font-weight="700">NEWER MODEL · LOCAL JUDGMENT</text>
+  <rect x="930" y="120" width="680" height="310" rx="10" fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"/>
+  <text x="1270" y="210" text-anchor="middle" fill="#20201E" font-size="34">“Match the surrounding code:</text><text x="1270" y="260" text-anchor="middle" fill="#20201E" font-size="34">comment density, naming,</text><text x="1270" y="310" text-anchor="middle" fill="#20201E" font-size="34">and idiom.”</text>
+  <text x="1270" y="380" text-anchor="middle" fill="#676358" font-size="25">The model reads the code before deciding.</text>
+  <rect x="455" y="500" width="750" height="100" rx="8" fill="#20201E"/><text x="830" y="560" text-anchor="middle" fill="#FFFFFF" font-size="30" font-weight="700">Better judgment can replace brittle prompt rules</text>
+</svg>

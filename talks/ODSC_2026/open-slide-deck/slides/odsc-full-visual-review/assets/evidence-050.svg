@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <text x="70" y="110" fill="#676358" font-size="23" font-weight="700">ONE LONG CONTEXT WINDOW</text>
+  <rect x="70" y="155" width="1520" height="190" rx="10" fill="#FFFFFF" stroke="#20201E" stroke-width="3"/>
+  <rect x="72" y="157" width="505" height="186" fill="#D9D4C9"/><rect x="577" y="157" width="455" height="186" fill="#B8CFFF"/><rect x="1032" y="157" width="360" height="186" fill="#FFD4C2"/><rect x="1392" y="157" width="196" height="186" fill="#20201E"/>
+  <g text-anchor="middle" font-size="28" font-weight="700"><text x="324" y="245" fill="#20201E">Repository</text><text x="324" y="285" fill="#20201E">files</text><text x="804" y="245" fill="#20201E">PDFs +</text><text x="804" y="285" fill="#20201E">datasets</text><text x="1212" y="245" fill="#20201E">History +</text><text x="1212" y="285" fill="#20201E">tool results</text><text x="1490" y="245" fill="#FFFFFF">Next</text><text x="1490" y="285" fill="#FFFFFF">action</text></g>
+  <path d="M1490 345V440" stroke="#FF4A00" stroke-width="5"/>
+  <rect x="1160" y="440" width="430" height="120" rx="8" fill="#FFF1EA" stroke="#FF4A00" stroke-width="3"/><text x="1375" y="488" text-anchor="middle" fill="#FF4A00" font-size="24" font-weight="700">THE SCARCE PART</text><text x="1375" y="530" text-anchor="middle" fill="#20201E" font-size="27">Space for the decision now</text>
+  <text x="70" y="610" fill="#20201E" font-size="30" font-weight="700">Load the evidence the task needs. Capacity alone does not choose it.</text>
+</svg>

@@ -3,7 +3,7 @@
 const fs = require('fs'), path = require('path');
 // Install sharp in your tooling environment, or point SHARP_MODULE at its module path.
 const sharp = require(process.env.SHARP_MODULE || 'sharp');
-// The checked-in snapshot is the portable default; an explicit argument can use a working copy.
+// Read the canonical Markdown. Explicit layout metadata keeps every visible paragraph on the slide.
 const root=path.resolve(process.argv[2] || path.join(__dirname,'storyboard'));
 const dest=path.join(__dirname,'open-slide-deck/slides/odsc-full-visual-review');
 const assets=path.join(dest,'assets');
@@ -15,12 +15,31 @@ const specs={};
 function table(id,heads,rows,caption,widths){specs[id]={kind:'table',heads,rows,caption,widths};}
 function flow(id,steps,caption){specs[id]={kind:'flow',steps,caption};}
 function compare(id,left,right,caption){specs[id]={kind:'compare',left,right,caption};}
+function stack(id,segments,caption){specs[id]={kind:'stack',segments,caption};}
+table('deepseek-harness-configurations',['Harness configuration','DeepSWE v1.1 · resolved %','Terminal-Bench 2.1 · pass@1 %'],[
+ ['Claude Code','69.8','88.0'],['Codex','65.6','84.1'],['OpenCode','65.5','85.0'],['Pi','66.2','86.1'],['mini-SWE','74.2','90.3'],['DSH Minimal','72.6','90.6'],['DSH Standard','70.5','85.8'],['DSH PTC','67.6','85.8']],
+ 'Reported V4.1 Flash results, transcribed from the supplied screenshot. Primary report and settings pending verification.',[530,510,540]);
+specs['deepseek-harness-configurations'].rowHeight=52;
+specs['deepseek-harness-configurations'].dividerOffset=10;
+table('deepseek-runtime-modes',['DeepSeek Harness mode','What the model can use'],[
+ ['Minimal','Shell and file editor'],['Standard','Broader built-in workflow tools'],['Code','Tools through a TypeScript SDK'],['Creator','Runtime and plugin development']],
+ 'An extensible platform can expose a small tool surface. Official developer-preview descriptions, September 10, 2026.',[490,1090]);
 table('workshop-2-result',['Tool surface','Evidence / 6','Time','Tool calls'],[
  ['Broad GitHub catalog','6 / 6','123 s','12'],['Terminal + API','4 / 6','101 s','6'],['Task-shaped tool','6 / 6','72 s','1']],
  'Medians of 3 trials per condition. Tool calls can contain different amounts of work.',[600,370,310,300]);
+table('common-agent-tools',['Tool area','Common operations'],[
+ ['Files','Find paths, search text, read files'],['Editing','Write files, replace text, apply patches'],['Execution','Run shell commands, tests, builds, and background jobs'],['Git and reviews','Inspect commits, issues, pull requests, and review evidence'],['Web and interfaces','Search, fetch, browse, click, and inspect images'],['Services and data','Call APIs, databases, cloud services, and observability systems'],['Agent support','Search tools, load skills, delegate, and ask the user']],
+ 'A harness exposes the subset needed for its environment and permission policy.',[470,1110]);
+specs['common-agent-tools'].rowHeight=61;
+specs['common-agent-tools'].dividerOffset=38;
+specs['common-agent-tools'].cellFont=28;
+specs['common-agent-tools'].firstCellFont=27;
 table('workshop-3-result',['Saved guidance','Verifier passes','Time','Processed tokens'],[
  ['None','3 / 3','141 s','283K'],['Save everything','0 / 3','196 s','414K'],['Curated','3 / 3','126 s','291K']],
  '3 trials per condition. Stale guidance deliberately planted. Time and token figures are medians.',[510,380,290,400]);
+table('workshop-3-reversal',['Condition','External passes','Median time','Processed tokens','Full suite'],[
+ ['No guidance','3 / 3','141 s','283K','0 / 3'],['Curated context','3 / 3','126 s','291K','3 / 3']],
+ 'Elapsed-time ranges overlapped. Curated context used 3% more processed tokens and followed the requested full-suite check.',[390,300,260,340,290]);
 table('workshop-4-repeated-result',['Routing policy','Verifier passes','Cost / trial','Time / trial'],[
  ['Strongest everywhere','12 / 12','$0.883','116 s'],['Economical everywhere','9 / 12','$0.247','252 s'],['Risk-aware static','12 / 12','$0.517','206 s']],
  '4 tasks × 3 trials. Passes cover all 12 runs; cost and time are medians for one 4-task trial.',[560,350,350,320]);
@@ -36,6 +55,43 @@ table('workshop-5-ceiling',['Incident task','Checks','Wall time','Provider token
 table('workshop-5-repair-cost',['Freight task','Checks','Wall time','Provider tokens'],[
  ['Pi single','4 / 9','25m 36s','1.96M'],['Pi completion system','6 / 9','99m 10s','22.44M']],
  'Separate trajectories. Corrected external scoring. Two repair rounds still left 3 requirements unmet.',[550,290,350,390]);
+table('154',['What another agent adds','What the parent still pays for'],[
+ ['A separate context window','Selecting and describing the assignment'],
+ ['Parallel tool use','Passing the relevant context'],
+ ['An independent investigation','Combining returned results'],
+ ['A second attempt or perspective','Verifying the complete outcome']],
+ 'Parallel work helps only when the independent work exceeds the coordination cost.',[760,820]);
+specs['154'].rowHeight=102;
+table('closing-six-decisions',['Workshop','Harness decision'],[
+ ['Harness choice','Which behavior and defaults do we inherit?'],
+ ['Tools','Which actions and evidence can the model request?'],
+ ['Context','What enters the next model call, and what persists?'],
+ ['Model choice','Which model or attempt gets the remaining budget?'],
+ ['Goals and validation','Which evidence permits another attempt or completion?'],
+ ['Multiple agents','Which work separates cleanly, and who owns synthesis?']],
+ 'Measure each change against the same task, environment, and acceptance checks.',[520,1060]);
+specs['closing-six-decisions'].rowHeight=69;
+specs['closing-six-decisions'].cellFont=30;
+specs['closing-six-decisions'].firstCellFont=29;
+table('177',['TerminalBench 2.0 harness','Pass rate'],[
+ ['Claude Code','58.0%'],
+ ['Terminus-KIRA','74.7%'],
+ ['Meta-Harness','76.4%']],
+ 'Claude Opus 4.6 · 89 tasks · five independent trials per task. Source: Meta-Harness project page.',[1110,470]);
+specs['177'].rowHeight=112;
+specs['177'].cellFont=34;
+specs['177'].firstCellFont=34;
+table('179',['Frozen Qwen3.5-9B condition','Success'],[
+ ['Vanilla task harness','44.3%'],
+ ['Harness-R1 runtime patches','53.6%']],
+ 'Aggregate result across WebShop, ALFWorld, and DBBench · +9.3 percentage points. Source: Harness-R1 preprint.',[1110,470]);
+specs['179'].rowHeight=132;
+specs['179'].cellFont=34;
+specs['179'].firstCellFont=34;
+table('armin-factory',['Reported run measure','Result'],[
+ ['Wall-clock time','35 hours'],['Token use','About 1 billion'],['Raw API cost','About $1,200'],['Repository activity','79 commits, 75K net lines'],['Armin\'s assessment','“Absolutely nothing of value”']],
+ 'Armin stopped the unattended run himself. The figures and assessment come from his September 7 account.',[850,730]);
+specs['armin-factory'].rowHeight=88;
 table('176',['Freight condition','Final checks','Provider tokens'],[
  ['OpenHands single','6 / 9','3.31M'],['OpenHands system','6 / 9','≥21.48M'],['Pi system','6 / 9','22.44M']],
  'Exploratory campaigns. OpenHands system token count is a lower bound due to one incomplete receipt.',[720,400,460]);
@@ -56,11 +112,25 @@ flow('workshop-2-mechanism',[
  ['Request evidence','PR metadata, files and patches'],['Bounded tool','Applies one evidence recipe'],['Answer','Cites the returned sources']],
  'The bundle replaces repeated retrieval decisions. It does not remove the underlying API work.');
 compare('workshop-2-reversal', ['Repeated workflow','Known evidence recipe','Bounded output','Task-shaped tool'], ['Unfamiliar investigation','Unknown next question','Exploration and exceptions','Primitives or terminal'], 'The experiment tests a recurring PR-inspection task, not every kind of repository work.');
+flow('029',[
+ ['Model sees schema','Name, description, and arguments'],['Model requests action','Structured arguments'],['Harness executes','API, CLI, or MCP-backed operation'],['Result enters context','Evidence for the next decision']],
+ 'A tool interface controls both the request the model can make and the evidence it receives.');
+flow('tool-search-method',[
+ ['Keep common tools visible','Expose the small set used on most turns'],['Defer the long tail','Store names, descriptions, and full schemas outside the prompt'],['Search the catalog','Match the needed capability with BM25 or regex'],['Expand, then call','Load the matching definition and return its result']],
+ 'Search changes when a definition enters context. It does not remove authorization, validation, or result handling.');
+flow('038',[
+ ['API catalog','2,600 endpoint definitions'],['Search','Find the needed operations'],['Generated program','Compose calls and filter results'],['Sandboxed execution','Return the selected result']],
+ 'Cloudflare exposes search() and execute() instead of one model-facing schema per endpoint.');
+flow('036',[
+ ['Prompt cost','14 browser schemas on every call'],['Launch','30-second cold-start timeout'],['Retries','State and content extraction failed'],['Fallback','Use node and jsdom']],
+ '17 browser actions consumed about 335 seconds, roughly 21% of wall time, in one saved OpenHands run.');
+compare('workshop-2-debrief',['Bundle a task-shaped tool','The trace repeats','The output can be bounded','A verifier can check it'],['Keep primitive tools','The next question is unknown','Exploration matters','Exceptions are common'], 'Start with primitives. Bundle the path only after the repeated work is visible.');
 flow('workshop-3-mechanism',[
- ['Stale guidance','Use toyapp/cursor.py'],['Agent implementation','Creates that module'],['Agent-written tests','Green suite'],['External verifier','Wrong public module']],
- 'The current contract required CursorPage in toyapp.pagination. All 3 save-everything trials failed.');
-compare('workshop-3-reversal',['No guidance','3 / 3 external passes','Rediscovered repository design','Skipped the full suite'],['Curated guidance','3 / 3 external passes','Followed current design','Focused tests, then full suite'], 'Correctness tied. Time ranges overlapped. The observed advantage was verification process.');
-flow('044', [['Instructions','Goal and constraints'],['Selected evidence','Files and tool results'],['Recent history','Current actions and observations'],['Next model call','One assembled input']], 'The harness controls which information enters this call. This is a schematic, not a token breakdown.');
+ ['Stale guidance','620 words pointed to toyapp/cursor.py'],['Agent implementation','3 / 3 runs created that module'],['Agent-written tests','25 to 32 tests passed'],['External verifier','0 / 3 passed the public contract']],
+ 'Median cost versus no guidance: 39% more time and 46% more processed tokens.');
+stack('044',[
+ ['System instructions',170,'#20201E'],['Project guidance',140,'#676358'],['Current request',160,'#AF3E36'],['Tool definitions',270,'#2E70FF'],['Retrieved files',250,'#187263'],['Recent messages',210,'#7A5AF8'],['Tool results',210,'#E78D2D'],['Space left',170,'#E9E1CA']],
+ 'Illustrative proportions. Only loaded information occupies this model call.');
 compare('tools-to-context',['Available outside context','Repository and documents','Tool catalog','Stored execution history'],['Loaded into this call','Selected file excerpts','Relevant tool definitions','Recent results and instructions'], 'Availability and inclusion in the prompt are separate decisions.');
 flow('046',[['Failing test','Locate the boundary case'],['Implementation','Read the boundary calculation'],['Caller','Check the expected interface'],['Next action','Edit or retrieve more evidence']], 'Illustrative pagination walkthrough. Each result guides the next retrieval.');
 flow('064',[['Before interruption','Save objective and progress'],['Checkpoint','Files, result, next action'],['Fresh session','Check current workspace'],['Resume','Reverify and continue']], 'A checkpoint records evidence; it does not guarantee that the evidence is still current.');
@@ -72,51 +142,46 @@ flow('memory-writers',[['Tool return','Untrusted external content'],['Review bou
 flow('untrusted-tool-results',[['External content','Page or tool response'],['Model context','Evidence, not authority'],['Action boundary','Validate before execution']], 'Illustrative trust boundary. A real prompt-injection example remains a research follow-up.');
 flow('routing-policy-design-space',[['Before work','Risk and task requirements'],['During work','Errors and remaining budget'],['After an attempt','External verification']], 'Define the starting model, escalation signal, fallback and final verifier.');
 flow('096',[['Model A','First attempt'],['Evidence','Tool result or failed check'],['Routing policy','Keep or change the model'],['Model A or B','Next attempt']], 'A model switch is a harness decision. Include repeated work in the total cost.');
-flow('116',[['Check the request','Already satisfied?'],['Run and verify','Fresh evidence after edits'],['Evaluate state','Passed, blocked or budget used'],['Record outcome','Honest terminal status']], 'No code change can be the correct outcome when the requested behavior already exists.');
-flow('117',[['Attempt','Work within the budget'],['External check','Compare with requirements'],['Decision','Continue, escalate or stop'],['Checkpoint','Failure evidence and next step']], 'Continue only with a reason and remaining budget. An exhausted budget is not success.');
-flow('118',[['Initialize','Feature list and setup'],['Work','One feature this session'],['Verify + save','Test, progress file, commit'],['Resume','Load state into fresh context']], 'Adapted from the long-running-agent pattern described in the working deck.');
-flow('hooks',[['Before a tool','Check permitted action'],['After a tool','Inspect execution result'],['Before stopping','Require fresh evidence']], 'Illustrative hook locations. Hook names and guarantees differ across harnesses.');
+table('goal-validation-loop',['Part','What the harness records'],[
+ ['Outcome','The observable result that must be true'],
+ ['Current state','Verified facts and unfinished work'],
+ ['Next action','One bounded attempt'],
+ ['Check','How the harness measures progress and records evidence'],
+ ['Limits','Maximum time, spend, attempts, and permissions'],
+ ['Terminal states','Complete, blocked, needs help, or out of budget']],
+ 'The outcome stays stable. State and evidence change after each bounded attempt.',[470,1110]);
+specs['goal-validation-loop'].rowHeight=76;
+compare('115',['Repository A','The requested behavior already works','Checks pass before any edit','Correct action: explain and stop'],['Repository B','A boundary case fails','Make the smallest repair','Rerun the same checks'], 'The request is identical. The current evidence determines whether the next action is edit or stop.');
+flow('acceptance-check-contract',[['Outcome','What must be true'],['Check','How the harness measures it'],['Evidence','What result and time to record'],['Terminal states','Complete, satisfied, blocked or out of budget']], 'Define the contract before the agent starts editing.');
+flow('verifier-next-action',[['Pass','Stop and cite the fresh evidence'],['Fail + diagnosis','Repair, then rerun the check'],['Fail + no path','Escalate or ask for help'],['Budget ends','Stop incomplete and preserve the failure']], 'A failed check is useful only when it changes the next action.');
+flow('123',[['Model call','Choose the next action'],['Tool call','Change or inspect the environment'],['Observation','Return evidence'],['Progress decision','Continue, repair or stop']], 'A single user request can contain hundreds of these work-check decisions.');
+compare('067',['Simple work','Order stock','Set prices','Pay fees'],['Long-run outcome','Activity declined over time','Agents stagnated on average','Every model eventually stopped selling'], 'Vending-Bench exposes failures that do not appear in one short task.');
+compare('066',['Weak run state','Relies on conversation history','Loses decisions across turns','Repeats old mistakes'],['Durable scratchpad','Records facts and decisions','Carries plans across turns','Correlated with higher success'], 'YC-Bench found scratchpad use was the strongest predictor of success. This is correlation, not proof of causation.');
+compare('goal-quality-kill-switch',['Activity that can hide drift','Hours elapsed','Tokens consumed','Commits and lines added'],['Controls that measure progress','Behavior and quality checks','Readable diff review','Budget cap and kill switch'], 'The harness should continue only when current evidence supports another bounded attempt.');
+flow('118',[['Persist','Goal, progress, last evidence and next action'],['Interrupt','Crash, timeout, context reset or human pause'],['Restore','Load the checkpoint into a fresh session'],['Recheck','Confirm the workspace, then continue']], 'A checkpoint restores the decision state. Fresh evidence still must follow the restart.');
+flow('fresh-evidence',[['Latest edit','Makes older evidence stale'],['Enforced check','A hook runs the required validator'],['Recorded evidence','Save the result against the current state'],['Stop decision','Accept completion or return to repair']], 'The harness accepts completion only from evidence produced after the latest relevant edit.');
+flow('validation-ladder',[['Behavior checks','Requested outcome and known edge cases'],['Repository checks','Lint, APIs and architecture rules'],['Review gate','Readable, maintainable and accepted diff']], 'A passing agent-written test is only the first gate.');
 compare('157',['Independent investigations','Separate repository questions','Read-only evidence gathering','Root combines the findings'],['Shared implementation','Same changing files','Edits depend on each other','Keep one implementation owner'], 'Compare setup, handoffs and synthesis with one agent using the same total budget.');
 flow('175',[['Assign','Question and allowed files'],['Worker','Bounded work and budget'],['Return','Evidence and uncertainty'],['Owner','Synthesize and verify']], 'Every child needs a stopping rule. The parent remains accountable for the combined result.');
-flow('143',[['Architecture rule','Explicit allowed structure'],['Executable check','Lint or CI validation'],['Failure evidence','Actionable error message'],['Agent repair','Edit and rerun the check']], 'Illustrative enforcement pattern. Checks cover specified rules, not all software quality.');
 flow('why-alternatives',[['Choose a harness','Inherit its defaults'],['Inspect a run','Find a task-specific failure'],['Change one choice','Tool, context or completion'],['Compare again','Outcome and total cost']], 'The workshop starts with existing harnesses. Build only the behavior the task needs.');
 table('076',['Instruction-file issue','Repositories affected'],[['Duplicated lint rules','62%'],['Context bloat','42%'],['Skill leakage','35%']], 'Reported audit of 100 repositories. Categories can overlap; recheck the paper before presenting.',[900,680]);
-table('082',['Skills condition','Average pass rate'],[['Without curated skills','33.9%'],['With curated skills','50.5%']], 'Working-deck figures: +16.6 percentage points across tested configurations. Source recheck pending.',[1000,580]);
+table('082',['Skills condition','Average pass rate'],[['Without curated skills','33.9%'],['With curated skills','50.5%']], 'SkillsBench v4: +16.6 percentage points on average. Matched conditions; gains vary by configuration.',[1000,580]);
 table('109',['Attempt policy','Reported success','Reported cost'],[['Two GLM-5.2 attempts','57.8% best-of-two','$7.90'],['One Sonnet 5 attempt','52.7%','$25.84']], 'Source reports unequal attempt counts. Best-of-two requires a way to identify the successful output.',[700,540,340]);
 table('111',['Reported measure','Sonnet 5','GLM-5.2'],[['First-shot success','52.7%','41.2%'],['Runs writing tests','92%','82%'],['Lines changed','1,650','1,081']], '452 rollouts per model in the cited comparison. More tests do not by themselves establish correctness.',[760,410,410]);
 table('135',['Completion policy','Unsupported stops'],[['Matched baseline','40 / 66'],['Certificate-gated control','0 / 66']], 'Reported evidence-contract result. A certificate is not proof of external truth or safety.',[1000,580]);
-flow('134',[['Validator','Owns the hidden checks'],['Orchestrator','Translates findings into directives'],['Implementer','Repairs without seeing the checks']], 'Role separation from the working Factory example. Keep the hidden instrument outside implementer context.');
+flow('134',[['Implementer','Produces a candidate change'],['Independent validator','Finds the failed requirement'],['Failure evidence','Supports a new hypothesis'],['Changed action','Repair differently, escalate or stop']], 'A failed check earns another attempt only when it changes what happens next.');
+compare('workshop-5-debrief',
+ ['Continue with a changed plan','Name the failed requirement','Form a new, testable hypothesis','Use the remaining budget to repair, retrieve, or change model'],
+ ['Escalate or stop incomplete','No credible next hypothesis','The same failure keeps repeating','Budget or authority has ended'],
+ 'Ask the room: which current evidence makes another attempt worth its cost?');
 flow('178',[['Candidate change','Prompt, tool or context policy'],['Evaluation','New tasks and old tasks'],['Accept or reject','Check gains and regressions'],['Versioned harness','Keep a rollback path']], 'Illustrative self-improvement loop. A proposal is not an accepted harness update.');
 table('149',['Interface principle','What to inspect'],[['Simple actions','Can the model choose the right operation?'],['Compact actions','How much recurring work does one call handle?'],['Informative feedback','Does the result support the next decision?'],['Guardrails','Which failures can the harness contain?']], 'Check the action interface, feedback and error handling separately.',[610,970]);
 table('073',['AGENTS.md example','Reason to keep it'],[['Test command','Reproducible repository verification'],['Architecture constraint','A stable requirement to check'],['Local convention','Guidance that changes the work']], 'Illustrative contents. Keep task-specific logs and stale instructions out of shared guidance.',[650,930]);
-compare('edit-format',['Edit representations','Whole-file rewrite','Search and replace','Structured patch'],['Failure to inspect','Unintended unrelated changes','Missing or ambiguous match','Patch no longer applies'], 'Illustrative failure modes. A controlled same-model benchmark remains a source follow-up.');
-const overrides={
- '012':['1. Harness choice','2. Tool design','3. Context, working state and memory','4. Model routing','5. Completion, recovery and stopping','6. Multi-agent systems'],
- '040':['No saved guidance: rediscover the repository design.','Save everything: 620 words, including a plausible stale rule.','Curated context: 100 words of current guidance.','Same pagination task, model, starter repository and external verifier. Three trials per condition.'],
- '014':['Where does the first useful repository evidence appear?','How do model calls and context per call differ?','Which requirements pass the final verifier?','Hold the task, model, repository, environment and verifier fixed.'],
- '010': ['Compare the model and harness together.','The saved figures use a minimal evaluation harness, not a direct test of the branded products.','The benchmark labels and model versions need rechecking before this becomes a product comparison.'],
- '031': ['Instructions can describe how to use a tool.','Structured definitions make the callable interface explicit.','MCP makes integrations reusable. Tool search defers which definitions enter the prompt.'],
- '050': ['Long documents, data tables and repositories can fill even a large context window.','Window capacity and useful retrieval are different constraints.'],
- '196': ['In the reported five-server example, initial tool context fell from about 77K to 8.7K tokens.','The useful test is whether the agent can still find and use the relevant tool.'],
- '059': ['Base input fell from about 6K to 2K tokens per default-agent turn.','Planning and the todo tool became optional after testing.'],
- '082': ['Average pass rate rose from 33.9% to 50.5% across tested configurations.','The improvement varied by configuration and skill.'],
- '106': ['CodeRescue used execution feedback to choose recovery or escalation.','The reported policy used 35% of always-escalate recovery cost.'],
- '113': ['Verifier result: 7/8 versus 8/8.','Wall time: 12.4 versus 26.7 minutes.','These runs do not isolate a routing policy.'],
- '135': ['Baseline: 40 of 66 stops lacked sufficient trace support.','Certificate-gated control: 0 of 66.','The certificate checks an evidence contract, not external truth or safety.'],
- '133': ['Factory assigned completion control to a validator and orchestrator.','The reported system reached 90.3% behavioral parity.','The conditions were not compute-matched.'],
- '134': ['The validator owns the grading instrument.','The orchestrator turns findings into directives.','The implementer repairs the system without seeing the hidden instrument.'],
- '167': ['Anthropic reported a 90.2% lift on its internal research evaluation.','It also reported about 15× the tokens of chat interactions.','These are different comparison baselines. This is not a measured 90.2%-for-15× exchange.'],
- '169': ['One agent was best or tied in 6 of 8 model–dataset cells.','The comparison held the global thinking-token budget fixed.'],
- '174': ['The work separates into independently checkable tasks.','Ownership and merge rules stay explicit.','Budgets, checkpoints and verification remain outside individual agents.'],
- '036': ['14 browser schemas appeared on every call.','17 mostly failing browser actions consumed 335 seconds, about 21% of wall time.'],
- '045': ['Active context: what the model sees now.','Working state: what lets this task resume.','Durable guidance: what should help a future task.'],
- '132': ['Factory compared a single agent with a validator and orchestrator.','The Fable 5 system condition reached a median hidden-suite score of 89.3.','The system had a much larger wall-clock budget.'],
- '165': ['The model writes orchestration scripts and decomposes work at runtime.','Parallel workers report to checkpoints outside the conversation.','Ownership, merge rules and stop conditions still need explicit design.'],
- '166': ['Anthropic reported porting 750K lines of Rust with agents and repair loops.','The port was not yet in production in the cited report.'],
- '168': ['The best reported workflow improved the average by 1.44 points.','Five other workflows trailed the single-agent baseline.'],
- '122': ['A single user request can trigger many model calls.','Each call can request a tool, receive feedback and choose what to do next.'],
- '197': ['Even temperature-0 runs flipped about 9% of instance outcomes.','Repeat small benchmark gains before treating them as improvements.'],
-};
+table('edit-format',['Representation','What the model returns','Typical recovery'],[
+ ['Whole file','The complete file','Rewrite and inspect the diff'],['Search and replace','Exact old text and new text','Re-read the match, then retry'],['Patch','Changed lines with surrounding context','Refresh context and reapply']],
+ 'Same edit, different failure surface. Illustrative comparison.',[390,650,540]);
+specs['edit-format'].rowHeight=145;
+specs['edit-format'].dividerOffset=110;
 function wrap(s,max){const out=[];for(const paragraph of String(s).split('\n')){let line='';for(const word of paragraph.split(/\s+/)){if((line+' '+word).trim().length>max&&line){out.push(line);line=word;}else line=(line+' '+word).trim();}if(line)out.push(line);}return out;}
 function txt(x,y,s,size=34,color=C.ink,weight=400,width=1580){return wrap(s,Math.floor(width/(size*.53))).map((t,i)=>({type:'text',x,y:y+i*size*1.3,text:t,size,color,weight}));}
 const rect=(x,y,w,h,fill)=>({type:'rect',x,y,w,h,fill});
@@ -124,68 +189,134 @@ const line=(x,y,x2,y2,color=C.line)=>({type:'line',x,y,x2,y2,color});
 function primitives(s){let e=[];if(s.kind==='table'){
  const widths=s.widths||s.heads.map(()=>1580/s.heads.length);let x=40;
  s.heads.forEach((h,i)=>{e.push(...txt(x,60,h,28,C.muted,700,widths[i]-20));x+=widths[i];});e.push(line(40,90,1620,90));
- const rh=s.rows.length>4?87:125;
- s.rows.forEach((row,r)=>{let x=40;row.forEach((v,i)=>{e.push(...txt(x,150+r*rh,v,i===0?32:38,(String(v).startsWith('0 /')?C.red:i===1?C.blue:C.ink),i===1?700:400,widths[i]-20));x+=widths[i];});e.push(line(40,183+r*rh,1620,183+r*rh));});
+ const rh=s.rowHeight||(s.rows.length>4?87:125);
+ s.rows.forEach((row,r)=>{let x=40;row.forEach((v,i)=>{const font=i===0?(s.firstCellFont||32):(s.cellFont||38);e.push(...txt(x,150+r*rh,v,font,(String(v).startsWith('0 /')?C.red:i===1?C.blue:C.ink),i===1?700:400,widths[i]-20));x+=widths[i];});const divider=150+(s.dividerOffset??33)+r*rh;e.push(line(40,divider,1620,divider));});
  }else if(s.kind==='flow'){
  const width=1580/s.steps.length;
  s.steps.forEach(([head,body],i)=>{const x=40+i*width;e.push(...txt(x,110,String(i+1).padStart(2,'0'),40,C.blue,700,width-55),line(x,140,x+width-60,140,C.blue),...txt(x,213,head,36,C.ink,700,width-70),...txt(x,325,body,32,C.ink,400,width-70));if(i<s.steps.length-1){const a=x+width-50;e.push(line(a,237,a+30,237,C.blue),line(a+20,229,a+30,237,C.blue),line(a+20,245,a+30,237,C.blue));}});
+ }else if(s.kind==='stack'){
+  e.push(...txt(40,95,'One context window',34,C.ink,700,1580));let x=40;
+  s.segments.forEach(([label,width,color],i)=>{e.push(rect(x,145,width,150,color));const lx=40+(i%4)*395,ly=365+Math.floor(i/4)*90;e.push(rect(lx,ly,24,24,color),...txt(lx+40,ly+22,label,28,C.ink,400,330));x+=width;});
  }else{[s.left,s.right].forEach((items,i)=>{const x=40+i*840;e.push(...txt(x,90,items[0],38,C.ink,700,740),line(x,125,x+740,125,C.blue));items.slice(1).forEach((t,j)=>e.push(...txt(x,210+j*95,t,34,C.ink,400,740)));});}
  e.push(...txt(40,590,s.caption,27,C.muted,400,1580));return e;}
 function svg(e,width=1660,height=680){return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" font-family="Arial, sans-serif">`+e.map((o,i)=>`<g id="part-${i}">`+(o.type==='text'?`<text x="${o.x}" y="${o.y}" font-size="${o.size}" fill="${o.color}" font-weight="${o.weight}">${esc(o.text)}</text>`:o.type==='rect'?`<rect x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" fill="${o.fill}"/>`:`<path d="M${o.x},${o.y} L${o.x2},${o.y2}" stroke="${o.color}" stroke-width="3" fill="none"/>`)+'</g>').join('')+'</svg>';}
-function parse(md){let section='Opening';const chunks=md.split(/(?=<!-- (?:source-slide|new-slide):)/);const out=[];for(const chunk of chunks.slice(1)){const id=chunk.match(/<!-- (source-slide|new-slide): ([^ ]+) -->/);const title=chunk.match(/^## (.+)/m);if(!title)continue;const nextsection=chunk.match(/^# ([^\n]+)/m);let content=chunk.split(/^# /m)[0];out.push({id:id[2],kind:id[1],title:title[1],section,content});if(nextsection)section=nextsection[1];}return out;}
-function cleanBody(s){return s.replace(/<!--[\s\S]*?-->/g,'').replace(/^## .+\n/m,'').replace(/!\[[^\]]*\]\([^)]+\)/g,'').split('\n').map(x=>x.trim()).filter(x=>x&&!/^(@@|Source:|Candidate teaching|TO |Add one|Add a trace|Insert the |Editable reconstruction|N\d+$|---|\[Open |\d+\.5$)/.test(x)).map(plain).filter(x=>!/^https?:/.test(x));}
-async function main(){fs.mkdirSync(assets,{recursive:true});fs.mkdirSync(qa,{recursive:true});const md=fs.readFileSync(path.join(root,'deck.md'),'utf8'),slides=parse(md);const imports=[],pages=[],notes=[],audit=[];let assetCount=0;
- const j=JSON.stringify;
- let code=`import approvedHarvey from '../harvey-visual-review';\nimport approvedTools from '../tools-context-visual-review';\nimport { Steps, Step, type Page, type DesignSystem, type SlideMeta } from '@open-slide/core';\nexport const design: DesignSystem = {palette:{bg:'#F9F1D9',text:'#20201E',accent:'#2E70FF'},fonts:{display:'Arial, sans-serif',body:'Arial, sans-serif'},typeScale:{hero:62,body:36},radius:0};\n`;
- const patch=[];
- for(let n=0;n<slides.length;n++){
- const s=slides[n],spec=specs[s.id];let es=[],imgs=[];
- for(const m of s.content.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)){const file=path.resolve(root,m[2]);if(fs.existsSync(file)){imgs.push({file,alt:m[1]});}else audit.push({id:s.id,issue:'Missing image: '+file});}
- let mode=spec?spec.kind:imgs.length?'source-figure':'text';let body=overrides[s.id]||cleanBody(s.content);const issues=[];
- if(/TO FILL|TO VERIFY|recheck the underlying source|pending/i.test(s.content))issues.push('Source / content follow-up remains in Markdown');
- if(/^@@/m.test(s.content))issues.push('Author comment needs a decision');
- if(s.id==='010')issues.push('Benchmark models/scaffolds do not establish branded-product performance; do not use as a ranking');
- if(['008','009','022'].includes(s.id))issues.push('Refresh dated adoption or repository statistics');
- if(s.id==='167')issues.push('Quality and token multipliers use different baselines');
- if(!imgs.length&&!spec&&body.join(' ').length>550)issues.push('Dense prose condensed for preview; full text retained in notes and Markdown');
- let header=txt(100,116,s.title,62,C.ink,700,1720);if(header.length>3)throw Error('Heading too long '+s.id);
- es.push(rect(0,0,1920,1080,C.bg),...header);
- const jsx=[];
- if(spec){const e=primitives(spec);es.push(...e.map(o=>({...o,x:o.x+100,y:o.y+240,...(o.type==='line'?{x2:o.x2+100,y2:o.y2+240}:{})})));fs.writeFileSync(path.join(assets,s.id+'.svg'),svg(e));
- for(const o of e){if(o.type==='text')jsx.push(`<text x={${o.x}} y={${o.y}} fontSize={${o.size}} fill=${j(o.color)} fontWeight={${o.weight}}>${esc(o.text)}</text>`);else if(o.type==='line')jsx.push(`<path d="M${o.x},${o.y} L${o.x2},${o.y2}" stroke=${j(o.color)} strokeWidth={3} fill="none"/>`);}
- const old=s.content;let updated=old;
- if(!updated.includes(`/assets/${s.id}.svg`))updated=updated.replace(/(^## .+\n)/m,`$1\n![${s.title.replaceAll(']','')}](${path.join(assets,s.id+'.svg')})\n`);
- updated=updated.replace(/^TO BUILD:.*\n/gm,'');
- if(updated!==old)patch.push({old,new:updated});
- }else if(imgs.length){const im=imgs[0],ext=path.extname(im.file),name=`evidence-${s.id}${ext}`,target=path.join(assets,name);if(im.file!==target)fs.copyFileSync(im.file,target);const v='image'+assetCount++;imports.push(`import ${v} from './assets/${name}';`);const meta=await sharp(im.file).metadata();const scale=Math.min(1720/meta.width,680/meta.height);let w=meta.width*scale,h=meta.height*scale,x=100+(1720-w)/2,y=260+(680-h)/2;
- jsx.push(`<img src={${v}} alt={${j(im.alt)}} style={{position:'absolute',left:${x},top:${y},width:${w},height:${h},objectFit:'contain'}}/>`);
- const mime=ext==='.svg'?'image/svg+xml':ext==='.jpg'||ext==='.jpeg'?'image/jpeg':'image/png';es.push({type:'image',x,y,w,h,href:`data:${mime};base64,${fs.readFileSync(im.file).toString('base64')}`});
- if(meta.width<1000)issues.push(`Source image only ${meta.width}px wide; obtain higher resolution`);
- if(imgs.length>1)issues.push('Additional images retained in Markdown; preview uses the first');
- }else{body=body.filter(t=>t!==s.title);let lines=[];const selected=body.slice(0,6);for(const t of selected){lines.push(...wrap(t,83), '');}while(lines.at(-1)==='')lines.pop();if(lines.length>13){lines=[];for(const t of selected.slice(0,2))lines.push(...wrap(t,83),'');issues.push('Additional prose remains in speaker notes');}const y=lines.length<5?370:280;lines.forEach((t,i)=>{if(t){const e=txt(100,y+i*47,t,36,C.ink,400,1720)[0];es.push(e);jsx.push(`<div style={{position:'absolute',left:100,top:${e.y-36},width:1720,fontSize:36,lineHeight:1.3}}>${esc(t)}</div>`);}});}
- const sourceline=s.content.match(/^(?:Source:|Candidate teaching example:)(.+)$/m)?.[1]||'';
- const links=[...sourceline.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)];const sourceURL=links.find(m=>/^https?:/.test(m[2]))?.[2];
- const label=sourceURL?new URL(sourceURL).hostname.replace(/^www\./,''):(sourceline?'Workshop evidence in speaker notes':'');
- const caveat=issues.some(i=>/source|statistics|benchmark|baselines/i.test(i))?'Source check pending':s.section==='Reserves'?'Reserve slide':'';
- if(caveat)es.push(...txt(100,992,caveat,22,C.muted,400,1650));es.push(...txt(100,1040,label,23,C.muted),...txt(1680,1040,'@rajistics',25,'#999386'));
- const base=`<div style={{position:'relative',width:'100%',height:'100%',background:'var(--osd-bg)',color:'var(--osd-text)',fontFamily:'var(--osd-font-body)'}}><h1 style={{position:'absolute',left:100,top:65,width:1720,fontSize:62,fontWeight:700,lineHeight:1.13,margin:0}}>${esc(s.title)}</h1>`;
-const svgLayer=(parts)=>`<svg viewBox="0 0 1660 680" style={{position:'absolute',left:100,top:240,width:1660,height:680,fontFamily:'Arial, sans-serif'}}>${parts.join('\n')}</svg>`;
-let content=spec?svgLayer(jsx):jsx.join('\n');
-if(spec?.kind==='table'&&['workshop-2-result','workshop-3-result','workshop-4-repeated-result','workshop-5-ceiling','workshop-5-repair-cost'].includes(s.id)){
-const split=40+spec.widths[0]+spec.widths[1];const later=jsx.filter(t=>Number(t.match(/<text x=\{(\d+)/)?.[1]||0)>=split);const initial=jsx.filter(t=>!later.includes(t));
-content=svgLayer(initial)+`<Steps><Step>${svgLayer(later)}</Step></Steps>`;
-}
- pages.push(`const Slide${n}: Page = () => ${base}${content}${caveat?`<div style={{position:'absolute',left:100,top:966,width:1650,fontSize:22,color:'#676358'}}>${esc(caveat)}</div>`:''}${sourceURL?`<a href=${j(sourceURL)} target="_blank" rel="noreferrer" style={{position:'absolute',left:100,bottom:30,fontSize:23,color:'#676358'}}>${esc(label)}</a>`:''}<div style={{position:'absolute',right:100,bottom:30,fontSize:25,color:'#999386'}}>@rajistics</div></div>;`);
- const approved={'harvey-harness-result':'approvedHarvey[0]','harvey-harness-mechanism':'approvedHarvey[1]','150':'approvedTools[0]','151':'approvedTools[1]','tool-evaluation-levels':'approvedTools[2]','compaction-preservation-policy':'approvedTools[3]','repeated-compaction-drift':'approvedTools[4]'}[s.id]; if(approved)pages[pages.length-1]=`const Slide${n}: Page = ${approved};`;
- notes.push(`[${s.id}] ${s.section}\n\n${s.content}\n\nVISUAL REVIEW: ${issues.join('; ')||'Layout draft; source figure preserved where present.'}`);
- audit.push({id:s.id,page:n+1,title:s.title,section:s.section,layout:mode,issues});
- const render=svg(es.filter(o=>o.type!=='image'),1920,1080).replace('</svg>',es.filter(o=>o.type==='image').map(o=>`<image x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" href="${o.href}"/>`).join('')+'</svg>');
- await sharp(Buffer.from(render)).resize(960,540).png().toFile(path.join(qa,`${String(n+1).padStart(3,'0')}.png`));
+function parse(md) {
+ let section='Opening'; const out=[];
+ for (const block of md.split(/\n---\s*\n/)) {
+  const visible=block.replace(/<!--[\s\S]*?-->/g,'');
+  const heading=visible.match(/^# (.+)$/m); if(heading)section=heading[1];
+  const id=block.match(/<!-- (source-slide|new-slide): ([^ ]+) -->/);
+  if(!id)continue;
+  const title=visible.match(/^## (.+)$/m); if(!title)throw Error('Missing heading: '+id[2]);
+  const layout=block.match(/<!-- review-layout: ([^ ]+) -->/)?.[1];
+  if(!layout)throw Error('Explicit review-layout required: '+id[2]);
+  out.push({id:id[2],kind:id[1],title:title[1],section,content:block,layout});
  }
- code=imports.join('\n')+'\n'+code+pages.join('\n\n')+`\nexport const notes = ${j(notes)};\nexport const meta: SlideMeta = {title:'ODSC full-deck visual review',createdAt:${j(new Date().toISOString())}};\nexport default [${slides.map((_,i)=>'Slide'+i).join(',')}] satisfies Page[];\n`;
- fs.writeFileSync(path.join(dest,'index.tsx'),code);
- fs.writeFileSync(path.join(qa,'audit.json'),JSON.stringify(audit,null,2));fs.writeFileSync(path.join(qa,'markdown-edits.json'),JSON.stringify(patch));
- for(let start=0;start<slides.length;start+=20){let inputs=[];for(let i=start;i<Math.min(start+20,slides.length);i++){const png=await sharp(path.join(qa,`${String(i+1).padStart(3,'0')}.png`)).resize(480,270).toBuffer();inputs.push({input:png,left:((i-start)%4)*480,top:Math.floor((i-start)/4)*300});const label=Buffer.from(`<svg width="480" height="30"><text x="10" y="22" font-family="Arial" font-size="18">${i+1} [${esc(slides[i].id)}]</text></svg>`);inputs.push({input:label,left:((i-start)%4)*480,top:Math.floor((i-start)/4)*300+270});}await sharp({create:{width:1920,height:1500,channels:4,background:'#ddd'}}).composite(inputs).png().toFile(path.join(qa,`sheet-${start+1}.png`));}
- console.log(JSON.stringify({slides:slides.length,newVisuals:Object.keys(specs).length,sourceFigures:assetCount,review:qa}));
+ return out;
+}
+function bodyParagraphs(content) {
+ return content.replace(/<!--[\s\S]*?-->/g,'').replace(/^#{1,2} .+$/gm,'')
+  .replace(/!\[[^\]]*\]\([^)]+\)/g,'').replace(/^Source:.*$/gm,'').trim()
+  .split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+}
+function rich(s, resolveLink = target => JSON.stringify(target)) {
+ return s.split(/(\[[^\]]+\]\([^)]+\)|`[^`]+`|\*\*[^*]+\*\*)/g).map(t=>{
+  const m=t.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+  if(m)return `<a href=${resolveLink(m[2])} target="_blank" rel="noreferrer" style={{color:'inherit',textDecoration:'underline'}}>${esc(m[1])}</a>`;
+  if(t.startsWith('`'))return `<code style={{fontSize:'0.92em'}}>${esc(t.slice(1,-1))}</code>`;
+  if(t.startsWith('**'))return `<strong>${esc(t.slice(2,-2))}</strong>`;
+  return esc(t);
+ }).join('');
+}
+async function main() {
+ fs.mkdirSync(assets,{recursive:true});fs.mkdirSync(qa,{recursive:true});
+ const slides=parse(fs.readFileSync(path.join(root,'deck.md'),'utf8'));
+ const imports=["import type { Page, DesignSystem, SlideMeta } from '@open-slide/core';"];
+ const components=[],notes=[],audit=[];let imageIndex=0;
+ for(let n=0;n<slides.length;n++){
+  const s=slides[n],paragraphs=bodyParagraphs(s.content),items=[],es=[];
+  const visible=s.content.replace(/<!--[\s\S]*?-->/g,'');
+  const review=s.content.match(/<!-- review-note: ([\s\S]*?) -->/)?.[1]||'';
+  const headerLines=wrap(s.title,55); if(headerLines.length>2)throw Error('Heading exceeds two lines: '+s.id);
+  const top=headerLines.length===2?258:214;
+  const heading=`<h1 style={{position:'absolute',left:100,top:65,width:1720,fontSize:62,fontWeight:700,lineHeight:1.13,margin:0}}>${esc(s.title)}</h1>`;
+  es.push(rect(0,0,1920,1080,C.bg),...txt(100,116,s.title,62,C.ink,700,1720));
+  function prose(x,y,width,font,paras,maxY=948){
+   let cursor=y;
+   for(const p of paras){
+    // Conservative line count used by both the QA output and the browser layout.
+    const lines=wrap(plain(p),Math.floor(width/(font*.56)));
+    const height=lines.length*font*1.42;
+    if(cursor+height>maxY)throw Error(`Body overflow ${s.id}: ${cursor+height} > ${maxY}; shorten copy or change layout`);
+    items.push(`<p data-slide-body style={{position:'absolute',left:${x},top:${cursor},width:${width},fontSize:${font},lineHeight:1.42,margin:0}}>${rich(p)}</p>`);
+    lines.forEach((t,k)=>es.push(...txt(x,cursor+font+k*font*1.42,t,font,C.ink,400,width)));
+    cursor+=height+24;
+   }
+  }
+  async function figure(box){
+   const match=[...visible.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)][0];
+   if(!match)throw Error('Missing figure reference: '+s.id);
+   const file=path.resolve(root,match[2]); if(!fs.existsSync(file))throw Error('Missing figure file: '+file);
+   const meta=await sharp(file).metadata();const scale=Math.min(box.w/meta.width,box.h/meta.height);
+   const w=meta.width*scale,h=meta.height*scale,x=box.x+(box.w-w)/2,y=box.y+(box.h-h)/2;
+   const name='evidence-'+s.id+path.extname(file),target=path.join(assets,name);
+   if(file!==target)fs.copyFileSync(file,target);
+   const binding='figure'+imageIndex++;imports.push(`import ${binding} from './assets/${name}';`);
+   if(specs[s.id] && path.basename(file)===s.id+'.svg') {
+    const nodes=primitives(specs[s.id]).map(o=>o.type==='text'?`<text x={${o.x}} y={${o.y}} fontSize={${o.size}} fill=${JSON.stringify(o.color)} fontWeight={${o.weight}}>${esc(o.text)}</text>`:o.type==='line'?`<path d="M${o.x},${o.y} L${o.x2},${o.y2}" stroke=${JSON.stringify(o.color)} strokeWidth={3} fill="none"/>`:o.type==='rect'?`<rect x={${o.x}} y={${o.y}} width={${o.w}} height={${o.h}} fill=${JSON.stringify(o.fill)}/>`:'');
+    items.push(`<svg data-slide-figure aria-label={${JSON.stringify(match[1])}} viewBox="0 0 1660 680" style={{position:'absolute',left:${x},top:${y},width:${w},height:${h},fontFamily:'Arial, sans-serif'}}>${nodes.join('')}</svg>`);
+   } else items.push(`<img data-slide-figure src={${binding}} alt={${JSON.stringify(match[1])}} style={{position:'absolute',left:${x},top:${y},width:${w},height:${h},objectFit:'contain'}}/>`);
+   const png=await sharp(file).resize({width:1720,height:1000,fit:'inside'}).png().toBuffer();
+   es.push({type:'image',x,y,w,h,href:'data:image/png;base64,'+png.toString('base64')});
+  }
+  if(s.layout==='section'){
+   const workshopNumber=s.id.match(/workshop-(\d)-section/)?.[1]||'';
+   items.push(`<div style={{position:'absolute',left:100,top:285,fontSize:250,lineHeight:1,fontWeight:700,color:'#2E70FF'}}>${workshopNumber.padStart(2,'0')}</div>`);
+   items.push(`<div style={{position:'absolute',left:520,top:390,width:1200,height:4,background:'#2E70FF'}}/>`);
+   es.push(...txt(100,500,workshopNumber.padStart(2,'0'),250,C.blue,700,360),line(520,425,1720,425,C.blue));
+   prose(520,475,1190,46,paragraphs,820);
+  }
+  else if(s.layout==='text')prose(100,top+42,1670,38,paragraphs);
+  else if(s.layout==='figure-full'){
+   await figure({x:100,y:top+10,w:1720,h:710-(top-214)});
+  }else if(s.layout==='figure'){
+   await figure({x:100,y:top+20,w:990,h:710-(top-214)});
+   prose(1150,top+24,650,32,paragraphs);
+  }else if(s.layout==='figure-caption'){
+   await figure({x:100,y:top+10,w:1720,h:465});
+   prose(100,top+510,1720,32,paragraphs);
+  }else if(s.layout==='table'){
+   const spec=specs[s.id];if(!spec||spec.kind!=='table')throw Error('No table for '+s.id);
+   prose(100,top+2,1720,30,paragraphs,top+136);
+   const e=primitives(spec);const offset=top+150;
+   const elements=e.map(o=>o.type==='text'?`<text x={${o.x}} y={${o.y}} fontSize={${o.size}} fill=${JSON.stringify(o.color)} fontWeight={${o.weight}}>${esc(o.text)}</text>`:o.type==='line'?`<path d="M${o.x},${o.y} L${o.x2},${o.y2}" stroke=${JSON.stringify(o.color)} strokeWidth={3} fill="none"/>`:'');
+   items.push(`<svg data-slide-table viewBox="0 0 1660 680" style={{position:'absolute',left:100,top:${offset},width:1660,height:570,fontFamily:'Arial, sans-serif'}}>${elements.join('')}</svg>`);
+   const factor=570/680;
+   es.push(...e.map(o=>({...o,x:100+o.x,y:offset+o.y*factor,...(o.type==='text'?{size:o.size*factor}:{}),...(o.type==='line'?{x2:100+o.x2,y2:offset+o.y2*factor}:{})})));
+  }else throw Error('Unknown layout '+s.layout);
+  const source=visible.match(/^Source:\s*(.*)$/m)?.[1]||'';
+  const sourceHTML=rich(source,target=>{
+   if(/^https?:|^#/.test(target))return JSON.stringify(target);
+   const file=path.resolve(root,target);if(!fs.existsSync(file))throw Error('Missing local source: '+file);
+   const name='source-'+s.id+'-'+imports.length+path.extname(file);fs.copyFileSync(file,path.join(assets,name));
+   const binding='source'+imports.length;imports.push(`import ${binding} from './assets/${name}?url';`);return '{'+binding+'}';
+  });
+  if(source)items.push(`<p data-slide-source style={{position:'absolute',left:100,top:982,width:1450,fontSize:21,lineHeight:1.3,margin:0,color:'#676358'}}>${sourceHTML}</p>`);
+  items.push(`<div style={{position:'absolute',right:100,bottom:30,fontSize:25,color:'#999386'}}>@rajistics</div>`);
+  es.push(...txt(100,1040,plain(source).slice(0,115),20,C.muted),...txt(1680,1040,'@rajistics',25,'#999386'));
+  if(review){
+   items.push(`<p data-review-note style={{position:'absolute',left:100,top:948,width:1720,fontSize:22,lineHeight:1.2,margin:0,color:'#AF3E36',fontWeight:600}}>${esc(review)}</p>`);
+   es.push(...txt(100,967,review,22,C.red,600,1720));
+  }
+  components.push(`const Slide${n}: Page = () => <div data-workshop-slide=${JSON.stringify(s.id)} style={{position:'relative',width:'100%',height:'100%',background:'var(--osd-bg)',color:'var(--osd-text)',fontFamily:'var(--osd-font-body)'}}>${heading}${items.join('\n')}</div>;`);
+  notes.push(`[${s.id}] ${s.section}\n\n${s.content}`);
+  audit.push({id:s.id,page:n+1,title:s.title,section:s.section,layout:s.layout,bodyParagraphs:paragraphs.length});
+  const render=svg(es.filter(o=>o.type!=='image'),1920,1080).replace('</svg>',es.filter(o=>o.type==='image').map(o=>`<image x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" href="${o.href}"/>`).join('')+'</svg>');
+  await sharp(Buffer.from(render)).resize(960,540).png().toFile(path.join(qa,`${String(n+1).padStart(3,'0')}.png`));
+ }
+ const code=imports.join('\n')+`\nexport const design: DesignSystem={palette:{bg:'#F9F1D9',text:'#20201E',accent:'#2E70FF'},fonts:{display:'Arial, sans-serif',body:'Arial, sans-serif'},typeScale:{hero:62,body:36},radius:0};\n`+components.join('\n\n')+`\nexport const notes=${JSON.stringify(notes)};\nexport const meta: SlideMeta={title:'Harness engineering workshop',createdAt:'2026-09-10T12:24:25.286Z'};\nexport default [${slides.map((_,i)=>'Slide'+i).join(',')}] satisfies Page[];\n`;
+ fs.writeFileSync(path.join(dest,'index.tsx'),code);fs.writeFileSync(path.join(qa,'audit.json'),JSON.stringify(audit,null,2));
+ for(let start=0;start<slides.length;start+=20){const inputs=[];for(let i=start;i<Math.min(start+20,slides.length);i++){inputs.push({input:await sharp(path.join(qa,`${String(i+1).padStart(3,'0')}.png`)).resize(480,270).toBuffer(),left:((i-start)%4)*480,top:Math.floor((i-start)/4)*300});inputs.push({input:Buffer.from(`<svg width="480" height="30"><text x="10" y="22" font-family="Arial" font-size="18">${i+1} [${esc(slides[i].id)}]</text></svg>`),left:((i-start)%4)*480,top:Math.floor((i-start)/4)*300+270});}await sharp({create:{width:1920,height:1500,channels:4,background:'#ddd'}}).composite(inputs).png().toFile(path.join(qa,`sheet-${start+1}.png`));}
+ console.log(JSON.stringify({slides:slides.length,sourceFigures:imageIndex,review:qa}));
 }
 main().catch(e=>{console.error(e);process.exit(1)});

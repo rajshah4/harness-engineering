@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <text x="830" y="76" text-anchor="middle" fill="#676358" font-size="24" font-weight="700">FIX THE TASK AND THE RUBRIC. CHANGE ONLY THE TOOL SURFACE.</text>
+  <rect x="525" y="105" width="610" height="95" rx="8" fill="#20201E"/><text x="830" y="164" text-anchor="middle" fill="#FFFFFF" font-size="31" font-weight="700">OpenHands PR #16860</text>
+  <path d="M830 200V250M275 250H1385M275 250V300M830 250V300M1385 250V300" fill="none" stroke="#B8B2A5" stroke-width="4"/>
+  <g fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"><rect x="75" y="300" width="400" height="160" rx="10"/><rect x="630" y="300" width="400" height="160" rx="10"/><rect x="1185" y="300" width="400" height="160" rx="10"/></g>
+  <g text-anchor="middle"><g fill="#2E70FF" font-size="29" font-weight="700"><text x="275" y="365">Terminal + API</text><text x="830" y="365">GitHub catalog</text><text x="1385" y="365">Bundled tool</text></g><g fill="#20201E" font-size="24"><text x="275" y="414">Build the evidence path</text><text x="830" y="414">Choose among operations</text><text x="1385" y="414">Run one evidence workflow</text></g></g>
+  <path d="M275 460V510H1385M830 460V510M1385 460V510M830 510V548" fill="none" stroke="#B8B2A5" stroke-width="4"/>
+  <rect x="500" y="548" width="660" height="85" rx="8" fill="#FFF1EA" stroke="#FF4A00" stroke-width="3"/><text x="830" y="601" text-anchor="middle" fill="#20201E" font-size="28" font-weight="700">Same verifier: changes + validation evidence</text>
+</svg>

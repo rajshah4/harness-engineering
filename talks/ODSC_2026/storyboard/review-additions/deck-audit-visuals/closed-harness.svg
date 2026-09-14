@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0L10 4L0 8Z" fill="#2E70FF"/></marker></defs>
+  <text x="365" y="90" text-anchor="middle" fill="#676358" font-size="24" font-weight="700">LOCKED INSIDE ONE PRODUCT</text>
+  <rect x="55" y="130" width="620" height="430" rx="12" fill="#F1EEE6" stroke="#20201E" stroke-width="3"/>
+  <g fill="#FFFFFF" stroke="#B8B2A5" stroke-width="2"><rect x="115" y="205" width="210" height="100" rx="8"/><rect x="405" y="205" width="210" height="100" rx="8"/><rect x="115" y="370" width="210" height="100" rx="8"/><rect x="405" y="370" width="210" height="100" rx="8"/></g>
+  <g fill="#20201E" font-size="27" text-anchor="middle"><text x="220" y="267">Memory</text><text x="510" y="267">Workflows</text><text x="220" y="432">Traces</text><text x="510" y="432">Rules</text></g>
+  <rect x="314" y="85" width="102" height="92" rx="10" fill="#20201E"/><path d="M338 88V65a27 27 0 0154 0v23" fill="none" stroke="#20201E" stroke-width="13"/>
+  <path d="M700 345H930" fill="none" stroke="#2E70FF" stroke-width="4" marker-end="url(#a)"/>
+  <text x="815" y="318" text-anchor="middle" fill="#2E70FF" font-size="23" font-weight="700">EXPORT?</text>
+  <text x="1285" y="90" text-anchor="middle" fill="#676358" font-size="24" font-weight="700">PORTABLE ACROSS HARNESSES</text>
+  <g fill="#FFFFFF" stroke="#2E70FF" stroke-width="3"><rect x="960" y="205" width="210" height="100" rx="8"/><rect x="1250" y="205" width="210" height="100" rx="8"/><rect x="960" y="370" width="210" height="100" rx="8"/><rect x="1250" y="370" width="210" height="100" rx="8"/></g>
+  <g fill="#20201E" font-size="27" text-anchor="middle"><text x="1065" y="267">Memory</text><text x="1355" y="267">Workflows</text><text x="1065" y="432">Traces</text><text x="1355" y="432">Rules</text></g>
+  <text x="1285" y="545" text-anchor="middle" fill="#FF4A00" font-size="29" font-weight="700">Check before the work becomes infrastructure</text>
+</svg>

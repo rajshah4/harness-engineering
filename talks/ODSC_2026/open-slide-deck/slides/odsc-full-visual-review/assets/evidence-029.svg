@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" font-family="Arial, sans-serif">
+  <g fill="#2E70FF" font-size="40" font-weight="700"><text x="40" y="110">01</text><text x="435" y="110">02</text><text x="830" y="110">03</text><text x="1225" y="110">04</text></g>
+  <g stroke="#2E70FF" stroke-width="3"><path d="M40 140H375M435 140H770M830 140H1165M1225 140H1560"/><path d="M385 237H415M405 229L415 237 405 245M780 237H810M800 229L810 237 800 245M1175 237H1205M1195 229L1205 237 1195 245" fill="none"/></g>
+  <g fill="#20201E"><g font-size="36" font-weight="700"><text x="40" y="213">Model sees schema</text><text x="435" y="213">Model requests action</text><text x="830" y="213">Harness executes</text><text x="1225" y="213">Result enters context</text></g><g font-size="32"><text x="40" y="325">Name, description,</text><text x="40" y="367">and arguments</text><text x="435" y="325">Structured arguments</text><text x="830" y="325">API, CLI, or MCP-backed</text><text x="830" y="367">operation</text><text x="1225" y="325">Evidence for the</text><text x="1225" y="367">next decision</text></g></g>
+  <text x="40" y="620" fill="#676358" font-size="27">A tool interface controls both the request the model can make and the evidence it receives.</text>
+</svg>
