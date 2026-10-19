@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 620" role="img" aria-labelledby="w6-architecture-title w6-architecture-desc">
+<title id="w6-architecture-title">One agent versus worker and validator</title>
+<desc id="w6-architecture-desc">One agent uses repository and tests directly; in the multi-agent system the worker repairs the repository, delegates checking to a validator with a separate context, receives its evidence, and reports the result.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#666458"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#20201e}.heading{font-size:36px;font-weight:700}.node{fill:#fffaf0;stroke:#aaa597;stroke-width:2}.label{font-size:30px;font-weight:700}.sub{font-size:26px;fill:#666458}.edge{fill:none;stroke:#666458;stroke-width:3;marker-end:url(#arrow)}.accent{fill:#edf2ff;stroke:#2e70ff;stroke-width:3}</style>
+<rect width="1600" height="620" fill="#f9f1d9"/>
+<path d="M760 16V604" stroke="#cbc6b4" stroke-width="2"/>
+<text x="48" y="52" class="heading">One agent</text><text x="832" y="52" class="heading">Multiple agents: worker + validator</text>
+<path d="M292 240V344" class="edge"/>
+<rect x="324" y="268" width="300" height="44" fill="#f9f1d9"/><text x="340" y="298" class="sub">Inspect · edit · check</text>
+<path d="M1140 164H1284" class="edge"/><path d="M1284 224H1140" class="edge"/>
+<rect x="1156" y="106" width="116" height="38" fill="#f9f1d9"/><text x="1160" y="134" class="sub">Delegate</text>
+<rect x="1148" y="244" width="144" height="38" fill="#f9f1d9"/><text x="1152" y="272" class="sub">Evidence</text>
+<path d="M996 240V344" class="edge"/><path d="M1408 240V344" class="edge"/>
+<text x="1016" y="306" class="sub">Repair + check</text><text x="1432" y="306" class="sub">Check</text>
+<rect x="112" y="116" width="360" height="124" rx="12" class="node"/><text x="292" y="166" text-anchor="middle" class="label">Agent</text><text x="292" y="208" text-anchor="middle" class="sub">One conversation context</text>
+<rect x="112" y="352" width="360" height="112" rx="12" class="node"/><text x="292" y="400" text-anchor="middle" class="label">Repository + tests</text><text x="292" y="440" text-anchor="middle" class="sub">Terminal / file tools</text>
+<rect x="852" y="116" width="288" height="124" rx="12" class="node"/><text x="996" y="166" text-anchor="middle" class="label">Worker / owner</text><text x="996" y="208" text-anchor="middle" class="sub">Repairs + reports</text>
+<rect x="1292" y="116" width="252" height="124" rx="12" class="accent"/><text x="1418" y="166" text-anchor="middle" class="label">Validator</text><text x="1418" y="208" text-anchor="middle" class="sub">Separate context</text>
+<rect x="852" y="352" width="692" height="112" rx="12" class="node"/><text x="1198" y="400" text-anchor="middle" class="label">Repaired repository + tests</text><text x="1198" y="440" text-anchor="middle" class="sub">Validator checks after the worker repairs</text>
+<text x="48" y="536" class="sub">Agent produces the final report.</text>
+<text x="832" y="536" class="sub">Validator returns checks; owner produces final report.</text>
+<text x="48" y="592" class="sub">Same external checker evaluates both final candidates.</text>
+</svg>

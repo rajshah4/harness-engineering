@@ -1,0 +1,417 @@
+[
+  {
+    "conversation": "01A",
+    "slide": 16,
+    "conversation_id": "7565473ddf0346adb9d6ba32a5cee17c",
+    "capture_file": "canvas-evidence-01A.jpg",
+    "sha256": "3c9cbf5f4026d203bdc2915754bcd9ee252f4edda935523798d626d5648f8ff5",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded terminal command, horizontally scrolled to the two file reads.",
+    "boxes": [
+      [
+        210,
+        312,
+        740,
+        46
+      ]
+    ],
+    "labels": [
+      "Both file reads"
+    ]
+  },
+  {
+    "conversation": "01B",
+    "slide": 18,
+    "conversation_id": "9ab0fd3de20b47f0a664316612b40e2d",
+    "capture_file": "canvas-evidence-01B.jpg",
+    "sha256": "f8b271252f7ec82b87ce05f3d13e58b80c7739bcc246d0d6cf36413be3fa790c",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Final assistant summary of extra behavioral checks. The underlying assertion command remains in the linked full history.",
+    "boxes": [
+      [
+        218,
+        224,
+        720,
+        56
+      ]
+    ],
+    "labels": [
+      "Extra checks"
+    ]
+  },
+  {
+    "conversation": "01C",
+    "slide": 17,
+    "conversation_id": "61c63e8a31c645cab3cb4264a3f090e1",
+    "capture_file": "canvas-evidence-01C.jpg",
+    "sha256": "ef4ca0d90681c013cee786c97fa463c516222d3c3dac489e97e4e90fe2204759",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Two separate collapsed read-tool rows. This does not establish completion order.",
+    "boxes": [
+      [
+        205,
+        228,
+        440,
+        78
+      ]
+    ],
+    "labels": [
+      "Separate reads"
+    ]
+  },
+  {
+    "conversation": "02A",
+    "slide": 35,
+    "conversation_id": "6afcee2755304d2c8b441ea8e8e7564e",
+    "capture_file": "canvas-evidence-02A.jpg",
+    "sha256": "254fd0b27d8d2fe98693a0659f74cf1a17369b7f1bdfac3e56df7bf68ef41b27",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded terminal command combines curl with agent-written JSON parsing; output lists changed files.",
+    "boxes": [
+      [
+        207,
+        40,
+        745,
+        137
+      ]
+    ],
+    "labels": [
+      "Fetch + parse"
+    ]
+  },
+  {
+    "conversation": "02B",
+    "slide": 36,
+    "conversation_id": "ae2d836d512f43e385885048225bb7c0",
+    "capture_file": "canvas-evidence-02B.jpg",
+    "sha256": "5d504120e67f05a43b26cda4edc08d719f0efd94bb07e179b24ff36b586bee7f",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded validation error identifies the missing repo field. The corrected calls follow in the full history.",
+    "boxes": [
+      [
+        207,
+        91,
+        745,
+        117
+      ]
+    ],
+    "labels": [
+      "Required: repo"
+    ]
+  },
+  {
+    "conversation": "02C",
+    "slide": 37,
+    "conversation_id": "9659953a3ba347088ce3d3c4f7bf218e",
+    "capture_file": "canvas-evidence-02C.jpg",
+    "sha256": "2586d4d368789e9a30d8ab66f80f804f111a11c80f2e194c250f71567435ac9e",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded file-write card creates /tmp/pr16860-body.txt for word counting. Later cleanup is visible in the full history.",
+    "boxes": [
+      [
+        207,
+        267,
+        745,
+        57
+      ]
+    ],
+    "labels": [
+      "Creates a file"
+    ]
+  },
+  {
+    "conversation": "02D",
+    "slide": 38,
+    "conversation_id": "6df4719631bd4024957de2b197fb40d7",
+    "capture_file": "canvas-evidence-02D.jpg",
+    "sha256": "2748fbaa8acc356545bc82b168908f3277361545de3c2d341347a33478051bdc",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "The timeline shows a bundle retrieval and a separate word-count action.",
+    "boxes": [
+      [
+        207,
+        267,
+        745,
+        30
+      ],
+      [
+        207,
+        411,
+        745,
+        30
+      ]
+    ],
+    "labels": [
+      "Fetch bundle",
+      "Count words"
+    ]
+  },
+  {
+    "conversation": "03A",
+    "slide": 60,
+    "conversation_id": "d1115314171343568c44d6bf664e4229",
+    "capture_file": "canvas-evidence-03A.jpg",
+    "sha256": "237aae536d300bf2dfe7061c41cba2aac724b0f7343272fbd489f56dddb59303",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded design-document read shows accepted Decision 002 superseding 001. Decision 003 is also read in this operation.",
+    "boxes": [
+      [
+        207,
+        231,
+        745,
+        50
+      ]
+    ],
+    "labels": [
+      "Accepted design"
+    ]
+  },
+  {
+    "conversation": "03B",
+    "slide": 61,
+    "conversation_id": "565f3a50c9a54ee8996f29e8093cdf03",
+    "capture_file": "canvas-evidence-03B.jpg",
+    "sha256": "03a4bf92877239e43a032c86f8e4d1a5bb0df8de3f8e80cecb55be854b612d9c",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Successful MEMORY.md write card after the scope check. The preceding failed write is also preserved.",
+    "boxes": [
+      [
+        207,
+        228,
+        745,
+        231
+      ]
+    ],
+    "labels": [
+      "Memory write"
+    ]
+  },
+  {
+    "conversation": "03C",
+    "slide": 62,
+    "conversation_id": "e7a77731558d4dd591db5901b5ded92d",
+    "capture_file": "canvas-evidence-03C.jpg",
+    "sha256": "1c70f6671d2dace7860650b8a19507c3ea7aadf79019cce9c7219535e1dd75a6",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Timeline shows decision-record, source, and test reads despite supplied current notes.",
+    "boxes": [
+      [
+        207,
+        267,
+        745,
+        101
+      ]
+    ],
+    "labels": [
+      "Still verifies"
+    ]
+  },
+  {
+    "conversation": "04C",
+    "slide": 89,
+    "conversation_id": "e44aa44509154ccdbaf34951996cb5bf",
+    "capture_file": "canvas-evidence-04C.jpg",
+    "sha256": "f5859b6be393921008e1fb4f6a98e5feccfd7577015568b988229a1bd751fe35",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Actual edit diff: simulated sleep precedes the short locked update.",
+    "boxes": [
+      [
+        282,
+        207,
+        650,
+        24
+      ],
+      [
+        282,
+        276,
+        650,
+        48
+      ]
+    ],
+    "labels": [
+      "Async work",
+      "Locked update"
+    ]
+  },
+  {
+    "conversation": "04D",
+    "slide": 91,
+    "conversation_id": "b50aad33dee24216a563fd633d5c031b",
+    "capture_file": "canvas-evidence-04D.jpg",
+    "sha256": "896d4c6f2a42ecdd68a586fd95a0c96932b1aaa3f58c77b854e78821b748b2ee",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Canvas file preview of SECURITY_REVIEW.md. The phrase ships live credentials is a report claim, not established deployment evidence.",
+    "boxes": [
+      [
+        224,
+        214,
+        709,
+        60
+      ]
+    ],
+    "labels": [
+      "Unproven claim"
+    ]
+  },
+  {
+    "conversation": "04G",
+    "slide": 90,
+    "conversation_id": "5cc9324580344ba7b0e054513d27a983",
+    "capture_file": "canvas-evidence-04G.jpg",
+    "sha256": "e3c9711497e65d589ba4f779112b72037bc97a83aa2def88a929febea8e27692",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Actual edit diff replaces the yielding read-modify-write with self.value += 1. Single-event-loop assumption applies.",
+    "boxes": [
+      [
+        282,
+        197,
+        650,
+        68
+      ]
+    ],
+    "labels": [
+      "No await"
+    ]
+  },
+  {
+    "conversation": "04H",
+    "slide": 92,
+    "conversation_id": "9ec3ec18817b4632ba7ac050faa730fe",
+    "capture_file": "canvas-evidence-04H.jpg",
+    "sha256": "797f9f8f843b5ac707625ef0952e6bb04dbf3cbb1b3ed975af1c9e7666330139",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded terminal output shows no-auth 401 and debug impersonation 200. These are observed fixture results.",
+    "boxes": [
+      [
+        216,
+        271,
+        720,
+        42
+      ]
+    ],
+    "labels": [
+      "401 → 200"
+    ]
+  },
+  {
+    "conversation": "05A",
+    "slide": 107,
+    "conversation_id": "fee0d0ee33e24b74bb0aaf31b876cebb",
+    "capture_file": "canvas-evidence-05A.jpg",
+    "sha256": "c497ed05f735ac51f1c7bdbdcab3d7328d285a946c4f3fe9209ae6c0359b5938",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Final assistant summary shows failing regression with pytest status 1, the one-character fix, and six passing tests with status 0.",
+    "boxes": [
+      [
+        207,
+        98,
+        745,
+        124
+      ],
+      [
+        207,
+        374,
+        745,
+        79
+      ]
+    ],
+    "labels": [
+      "Before fix",
+      "After fix"
+    ]
+  },
+  {
+    "conversation": "05B",
+    "slide": 109,
+    "conversation_id": "5911cbfcb6474586bc7281e17f1b8400",
+    "capture_file": "canvas-evidence-05B.jpg",
+    "sha256": "ad832d040a9ec496c2b7589e772d1b766a4d2bd8f888b7408434a40220f1a689",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Final assistant verification summary plus native Canvas goal status: Round 1/2, complete, score 100%. Reviewer score is not an independent success-rate measurement.",
+    "boxes": [
+      [
+        207,
+        64,
+        745,
+        172
+      ],
+      [
+        207,
+        451,
+        252,
+        28
+      ]
+    ],
+    "labels": [
+      "Passing checks",
+      "Goal review"
+    ]
+  },
+  {
+    "conversation": "05C",
+    "slide": 110,
+    "conversation_id": "4eb6374135f04c4ba7fbc0329d8481d4",
+    "capture_file": "canvas-evidence-05C.jpg",
+    "sha256": "48fd4bad8f18a93ff2dc17853439f2c0a99c004bd664b88a3c5e6f652ced59bb",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Final assistant summary contrasts five passing tests with the failed exact-output check. This run deliberately prohibits edits.",
+    "boxes": [
+      [
+        210,
+        56,
+        740,
+        77
+      ],
+      [
+        210,
+        159,
+        740,
+        100
+      ]
+    ],
+    "labels": [
+      "Tests pass",
+      "Goal fails"
+    ]
+  },
+  {
+    "conversation": "06A",
+    "slide": 124,
+    "conversation_id": "5513d10a637e4146970c1e844f79a1e6",
+    "capture_file": "canvas-evidence-06A.jpg",
+    "sha256": "41c61d5aa37a7d919cef6975e1edf696e9082a8ee864a2241d28951ec100f5a5",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Expanded terminal output shows five repetitions, each with two passing tests, performed by the single owner.",
+    "boxes": [
+      [
+        207,
+        161,
+        745,
+        123
+      ]
+    ],
+    "labels": [
+      "Five repeats"
+    ]
+  },
+  {
+    "conversation": "06B",
+    "slide": 125,
+    "conversation_id": "886eb75f5a3c4d2db7bd9abd8177dd3c",
+    "capture_file": "canvas-evidence-06B.jpg",
+    "sha256": "a33426cf7163ca7d54a832b847cf303697c909fbac99be8f8f19c9fe69beb612",
+    "capture": "Actual Agent Canvas 1.27.1, read-only workshop archive; original pixels cropped to 1100×480",
+    "cue": "Owner final summary reports validator PASS but an inconsistent total: its own listed 3 + 8 + 1 repetitions cannot total 16 test passes. The child’s 8 × 2 = 16 passes is correct.",
+    "boxes": [
+      [
+        225,
+        165,
+        720,
+        70
+      ]
+    ],
+    "labels": [
+      "Recheck total"
+    ]
+  }
+]

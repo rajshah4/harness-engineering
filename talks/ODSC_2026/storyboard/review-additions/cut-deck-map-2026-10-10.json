@@ -1,0 +1,1293 @@
+{
+  "baseline_sha256": "0da552106a6d9de9cac9bba2696dbc411612357b5df74f0f0706623262018c2b",
+  "cut_sha256": "044001b2c8f69c9f4309f0b9cb4809db92ac32560c52306e926aba4ddfbf99ed",
+  "removed_original_slides": [
+    2,
+    3,
+    5,
+    6,
+    8,
+    9,
+    25,
+    26,
+    30,
+    32,
+    34,
+    40,
+    42,
+    43,
+    45,
+    46,
+    48,
+    53,
+    55,
+    58,
+    59,
+    66,
+    74,
+    75,
+    77,
+    81,
+    83,
+    87,
+    88,
+    89,
+    90,
+    91,
+    94,
+    95,
+    96,
+    97,
+    100,
+    108,
+    110,
+    113,
+    115,
+    125,
+    128,
+    130,
+    132,
+    133,
+    136,
+    144,
+    146,
+    151,
+    153,
+    154,
+    159,
+    160,
+    164
+  ],
+  "slides": [
+    {
+      "cut_slide": 1,
+      "original_slide": 1,
+      "component": "Slide0",
+      "title": "The Design of Coding Agents: A Practical Workshop",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "ToyotaEngineReveal",
+      "title": "Toyota 2GR-FE engine reveal",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Engine-only visual reveal before the three vehicles, October 12",
+      "cut_slide": 2
+    },
+    {
+      "original_slide": null,
+      "component": "ToyotaLotusIntro",
+      "title": "Toyota Camry → RAV4 → Lotus Emira",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Visual opening analogy and environment motivation, October 12; talk track left to Rajiv",
+      "cut_slide": 3
+    },
+    {
+      "cut_slide": 4,
+      "original_slide": 4,
+      "component": "Slide3",
+      "title": "Agent = model + harness",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "RobotEnvironmentsIntro",
+      "title": "Build the harness for the environment",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Visual opening analogy and environment motivation, October 12; talk track left to Rajiv",
+      "cut_slide": 5
+    },
+    {
+      "component": "SmallModelSearchEvidence",
+      "original_slide": null,
+      "title": "A fine-tuned 4B model with search beats larger models",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Source examples approved by Rajiv, October 18, 2026",
+      "cut_slide": 6
+    },
+    {
+      "cut_slide": 7,
+      "original_slide": 12,
+      "component": "Slide10",
+      "title": "Harness engineering: what we will test",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 8,
+      "original_slide": 7,
+      "component": "AudienceHarnessPoll",
+      "title": "What harness are you using?",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 9,
+      "original_slide": 10,
+      "component": "Slide9",
+      "title": "Provider harnesses are a good starting point",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 10,
+      "original_slide": 11,
+      "component": "Slide11",
+      "title": "Consequences of a closed harness",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 11,
+      "original_slide": 13,
+      "component": "Slide12",
+      "title": "Workshop roadmap: what we will test",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 12,
+      "original_slide": 14,
+      "component": "Slide13",
+      "title": "Open the saved workshop conversations",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "original_slide": null,
+      "component": "SectionHarness",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 13,
+      "title": "Harness choice"
+    },
+    {
+      "cut_slide": 14,
+      "original_slide": 15,
+      "component": "Slide14",
+      "title": "Workshop 1: Does the harness matter?",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 15,
+      "original_slide": 16,
+      "component": "Slide15",
+      "title": "Change the harness; keep the model/task fixed",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 16,
+      "original_slide": 18,
+      "component": "Slide17",
+      "title": "One request can contain several operations",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 17,
+      "original_slide": 19,
+      "component": "Slide18",
+      "title": "Separate file reads make a different trace",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 18,
+      "original_slide": 20,
+      "component": "Slide19",
+      "title": "Extra checks contain executable expectations",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 19,
+      "original_slide": 21,
+      "component": "Slide20",
+      "title": "Compare harnesses",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 20,
+      "original_slide": 22,
+      "component": "Slide21",
+      "title": "Same model. Same task. Different harnesses use tools differently.",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 21,
+      "original_slide": 23,
+      "component": "Slide25",
+      "title": "The harness effect varied by model",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 22,
+      "original_slide": 24,
+      "component": "Slide26",
+      "title": "Harnesses varied on accuracy, turns, and token use",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 23,
+      "original_slide": 27,
+      "component": "Slide29",
+      "title": "Snowflake's CoCo scored higher at lower cost",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 24,
+      "original_slide": 28,
+      "component": "Slide30",
+      "title": "Harvey’s custom harness improved diligence scores",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 25,
+      "original_slide": 29,
+      "component": "Slide31",
+      "title": "Harvey used a Python REPL and bounded subagents",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 26,
+      "original_slide": 31,
+      "component": "Slide34",
+      "title": "Harness changes can bring bugs 😢",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 27,
+      "original_slide": 33,
+      "component": "Slide36",
+      "title": "Pi’s four-tool setup still went wrong",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "HuggingFaceRepeatability",
+      "title": "Hugging Face is measuring harness consistency",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Hugging Face repeatability mention, October 17, 2026",
+      "cut_slide": 28
+    },
+    {
+      "original_slide": null,
+      "component": "DebriefHarness",
+      "title": "Harness choice: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section debrief, October 14, 2026",
+      "cut_slide": 29
+    },
+    {
+      "original_slide": null,
+      "component": "SectionTools",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 30,
+      "title": "Tools"
+    },
+    {
+      "cut_slide": 31,
+      "original_slide": 35,
+      "component": "Slide38",
+      "title": "Tools and feedback in SWE-agent",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 32,
+      "original_slide": 36,
+      "component": "Slide39",
+      "title": "Workshop 2: Do more tools make a better agent?",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 33,
+      "original_slide": 37,
+      "component": "Slide40",
+      "title": "Change the tools using a fixed task",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 34,
+      "original_slide": 39,
+      "component": "Slide42",
+      "title": "The retrieval work moved from the agent into the tool",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "component": "Conversation02A",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "The agent writes the retrieval procedure",
+      "cut_slide": 35
+    },
+    {
+      "component": "Conversation02B",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "A small tool menu still has argument errors",
+      "cut_slide": 36
+    },
+    {
+      "component": "Conversation02C",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Checking one constraint can violate another",
+      "cut_slide": 37
+    },
+    {
+      "component": "Conversation02D",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Move repeated collection into a tool",
+      "cut_slide": 38
+    },
+    {
+      "cut_slide": 39,
+      "original_slide": 41,
+      "component": "Slide44",
+      "title": "Earlier experiment: a custom tool reduced the work",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 40,
+      "original_slide": 44,
+      "component": "Slide47",
+      "title": "What worked, what didn’t, and the lesson",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 41,
+      "original_slide": 47,
+      "component": "Slide51",
+      "title": "Tool definitions can fill your context",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 42,
+      "original_slide": 49,
+      "component": "Slide55",
+      "title": "Cloudflare reduced 2,600 API endpoints to two model-facing tools",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 43,
+      "original_slide": 50,
+      "component": "Slide54",
+      "title": "DeepSeek Harness: “Everything is a plugin”",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 44,
+      "original_slide": 51,
+      "component": "Slide57",
+      "title": "Three ways an agent can describe the same edit",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 45,
+      "original_slide": 52,
+      "component": "Slide59",
+      "title": "Tools: Action, process, and outcome answer different questions",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "original_slide": null,
+      "component": "DebriefTools",
+      "title": "Tools: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section debrief, October 14, 2026",
+      "cut_slide": 46
+    },
+    {
+      "original_slide": null,
+      "component": "SectionContext",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 47,
+      "title": "Context and memory"
+    },
+    {
+      "cut_slide": 48,
+      "original_slide": 54,
+      "component": "Slide67",
+      "title": "Context is what the model sees on this call",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 49,
+      "original_slide": 56,
+      "component": "Slide23",
+      "title": "A growing conversation repeats earlier context",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "ContextTokenEvidence",
+      "original_slide": null,
+      "title": "Context choices change token use",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Source examples approved by Rajiv, October 18, 2026",
+      "cut_slide": 50
+    },
+    {
+      "cut_slide": 51,
+      "original_slide": 57,
+      "component": "Slide72",
+      "title": "A larger window does not guarantee useful recall",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "SharedTaskStructure",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "cut_slide": 52,
+      "title": "Consider two related tasks"
+    },
+    {
+      "original_slide": null,
+      "component": "AgentUpdateMethods",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "cut_slide": 53,
+      "title": "Methods of updating the agent"
+    },
+    {
+      "cut_slide": 54,
+      "original_slide": 60,
+      "component": "MemorySystemsMap",
+      "title": "A map of instructions and memory",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 55,
+      "original_slide": 61,
+      "component": "Slide60",
+      "title": "How can memory help when adding a new feature to a codebase?",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 56,
+      "original_slide": 62,
+      "component": "SlideW3ExistingV2",
+      "title": "Users already browse the catalog by page number",
+      "visible_copy_changed": true,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 57,
+      "original_slide": 63,
+      "component": "Slide61",
+      "title": "The new feature is Next-page browsing",
+      "visible_copy_changed": true,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 58,
+      "original_slide": 64,
+      "component": "SlideW3HistoryV2",
+      "title": "Saved memory can fall behind the project",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 59,
+      "original_slide": 65,
+      "component": "Slide62",
+      "title": "Same feature request, three memory conditions",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "Conversation03A",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Repository decisions can supply the context",
+      "cut_slide": 60
+    },
+    {
+      "component": "Conversation03B",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "A good repair can still cross the scope boundary",
+      "cut_slide": 61
+    },
+    {
+      "component": "Conversation03C",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Current notes do not replace source verification",
+      "cut_slide": 62
+    },
+    {
+      "cut_slide": 63,
+      "original_slide": 67,
+      "component": "Slide64",
+      "title": "Earlier experiment: results on memory",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 64,
+      "original_slide": 68,
+      "component": "Slide65",
+      "title": "Old memory needs a route to current evidence",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 65,
+      "original_slide": 69,
+      "component": "Slide66",
+      "title": "Save decisions with reasons and a source",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 66,
+      "original_slide": 70,
+      "component": "Slide24",
+      "title": "Prefix caching reuses the shared transcript",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 67,
+      "original_slide": 71,
+      "component": "Slide22",
+      "title": "Remember inference and caching effects",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 68,
+      "original_slide": 72,
+      "component": "Slide70",
+      "title": "Better context means better performance (+19%)",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 69,
+      "original_slide": 73,
+      "component": "Slide75",
+      "title": "Retrieval methods for improving context",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 70,
+      "original_slide": 76,
+      "component": "Slide78",
+      "title": "Anthropic updates removed over 80% of Claude Code's system prompt",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 71,
+      "original_slide": 78,
+      "component": "Slide80",
+      "title": "Five ways to manage a full context window",
+      "visible_copy_changed": true,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 72,
+      "original_slide": 79,
+      "component": "Slide81",
+      "title": "Compaction creates a record for the next turn",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 73,
+      "original_slide": 80,
+      "component": "Slide82",
+      "title": "What to preserve during compaction",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 74,
+      "original_slide": 82,
+      "component": "Slide84",
+      "title": "What if the model could edit its own next input?",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 75,
+      "original_slide": 84,
+      "component": "Slide86",
+      "title": "ACON learns better instructions for compressing context",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "CliffCompaction",
+      "title": "CliffCompaction keeps excerpts, then drops the old block",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "cut_slide": 76
+    },
+    {
+      "cut_slide": 77,
+      "original_slide": 85,
+      "component": "Slide87",
+      "title": "Reuse the cached prefix to produce the summary.",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 78,
+      "original_slide": 86,
+      "component": "Slide88",
+      "title": "Task memory: save state and resume work",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 79,
+      "original_slide": 92,
+      "component": "Slide94",
+      "title": "AGENTS.md: repository guidance for future tasks",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 80,
+      "original_slide": 93,
+      "component": "Slide95",
+      "title": "A test-cost warning reduced repeated full-suite runs",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "component": "SkillDefinition",
+      "original_slide": null,
+      "added_reason": "Basic skill definition before progressive disclosure, October 17, 2026",
+      "cut_slide": 81,
+      "title": "A skill is a reusable procedure for a task",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 82,
+      "original_slide": 98,
+      "component": "Slide100",
+      "title": "A skill loads detailed instructions only when the task needs them",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 83,
+      "original_slide": 99,
+      "component": "Slide101",
+      "title": "Curated skills raised average pass rate",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 84,
+      "original_slide": 101,
+      "component": "Slide103",
+      "title": "Evaluate a skill on the work it should improve",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 85,
+      "original_slide": 102,
+      "component": "Slide104",
+      "title": "Context and memory: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "SectionRouting",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 86,
+      "title": "Model routing"
+    },
+    {
+      "cut_slide": 87,
+      "original_slide": 103,
+      "component": "Slide105",
+      "title": "Workshop 4: Do all tasks need the strongest model?",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 88,
+      "original_slide": 104,
+      "component": "Slide106",
+      "title": "Test model choice on four concrete tasks",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "Conversation04C",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Keep slow work outside the lock",
+      "cut_slide": 89
+    },
+    {
+      "component": "Conversation04G",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Remove the yield inside the shared update",
+      "cut_slide": 90
+    },
+    {
+      "component": "Conversation04D",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "A real probe does not justify every report claim",
+      "cut_slide": 91
+    },
+    {
+      "component": "Conversation04H",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Turn a finding into a checkable claim",
+      "cut_slide": 92
+    },
+    {
+      "cut_slide": 93,
+      "original_slide": 106,
+      "component": "Slide108",
+      "title": "Earlier experiment: security review coverage differed",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "component": "JevDecisionModels",
+      "original_slide": null,
+      "title": "Jev: decision models inside the harness",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Source examples approved by Rajiv, October 18, 2026",
+      "cut_slide": 94
+    },
+    {
+      "cut_slide": 95,
+      "original_slide": 107,
+      "component": "Slide109",
+      "title": "Earlier experiment: model choice reduced this bill",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 96,
+      "original_slide": 109,
+      "component": "Slide112",
+      "title": "Specify the model choice and the escalation evidence",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "CursorRoutingSavings",
+      "title": "Cursor reports 30–50% savings from routing coding work",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Cursor production model-routing savings, October 14, 2026",
+      "cut_slide": 97
+    },
+    {
+      "cut_slide": 98,
+      "original_slide": 111,
+      "component": "Slide118",
+      "title": "Switching models can trade away cache reuse",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 99,
+      "original_slide": 112,
+      "component": "Slide114",
+      "title": "Try again before moving to a better model",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 100,
+      "original_slide": 114,
+      "component": "Slide116",
+      "title": "Execution feedback can improve the next routing decision",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "DebriefRouting",
+      "title": "Model routing: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section debrief, October 14, 2026",
+      "cut_slide": 101
+    },
+    {
+      "original_slide": null,
+      "component": "SectionGoals",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 102,
+      "title": "Goals and stopping"
+    },
+    {
+      "cut_slide": 103,
+      "original_slide": 129,
+      "component": "Slide132",
+      "title": "GPT-6 Astra showed that a software factory can run without making progress",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 104,
+      "original_slide": 116,
+      "component": "Slide119",
+      "title": "Workshop 5: The agent stopped. Is the work finished?",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 105,
+      "original_slide": 117,
+      "component": "Slide120",
+      "title": "Goal mode checks for unfinished work",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 106,
+      "original_slide": 119,
+      "component": "Slide122",
+      "title": "An ordinary run already repaired this bug",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "Conversation05A",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "The ordinary baseline already catches the bug",
+      "cut_slide": 107
+    },
+    {
+      "cut_slide": 108,
+      "original_slide": 120,
+      "component": "Slide123",
+      "title": "Goal mode accepted the fix and capped the blocked run",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "Conversation05B",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Completion review is a separate decision",
+      "cut_slide": 109
+    },
+    {
+      "component": "Conversation05C",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Green tests can coexist with an unmet goal",
+      "cut_slide": 110
+    },
+    {
+      "cut_slide": 111,
+      "original_slide": 121,
+      "component": "Slide124",
+      "title": "Another attempt needs a way to make progress",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 112,
+      "original_slide": 122,
+      "component": "Slide125",
+      "title": "A goal persists. A plan changes. Evidence decides when to stop.",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 113,
+      "original_slide": 123,
+      "component": "Slide126",
+      "title": "Goals define success. Plans choose the next steps.",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 114,
+      "original_slide": 124,
+      "component": "Slide127",
+      "title": "The right result can still fail the task",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 115,
+      "original_slide": 126,
+      "component": "Slide129",
+      "title": "AutoResearch keeps a change only when the metric improves",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "CompilerGoalEvidence",
+      "title": "A test oracle helped agents turn a large goal into fixes",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "cut_slide": 116
+    },
+    {
+      "cut_slide": 117,
+      "original_slide": 127,
+      "component": "Slide130",
+      "title": "An external goal can restart an unfinished task",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 118,
+      "original_slide": 131,
+      "component": "Slide134",
+      "title": "Before acting: choose the execution boundary",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 119,
+      "original_slide": 134,
+      "component": "Slide137",
+      "title": "The harness can reject “done” when the evidence is missing",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 120,
+      "original_slide": 135,
+      "component": "Slide138",
+      "title": "Goals and stopping: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "SectionTeams",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 121,
+      "title": "Multiple agents"
+    },
+    {
+      "cut_slide": 122,
+      "original_slide": 137,
+      "component": "Slide144",
+      "title": "Workshop 6: Does a second agent earn its cost?",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 123,
+      "original_slide": 138,
+      "component": "Slide145",
+      "title": "Two architectures for the same repair",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "component": "Conversation06A",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "One agent can already validate its own repair",
+      "cut_slide": 124
+    },
+    {
+      "component": "Conversation06B",
+      "original_slide": null,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Focused conversation evidence, October 18",
+      "title": "Validate the handoff and the final synthesis",
+      "cut_slide": 125
+    },
+    {
+      "cut_slide": 126,
+      "original_slide": 139,
+      "component": "Slide146",
+      "title": "Fix a counter used by concurrent jobs",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 127,
+      "original_slide": 141,
+      "component": "Slide148",
+      "title": "Earlier experiment: validation added time and tokens",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 128,
+      "original_slide": 142,
+      "component": "Slide151",
+      "title": "Give each agent a purpose, a boundary, and a budget",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "component": "ResearchTeamsEvidence",
+      "original_slide": 145,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Restored empirical comparison, October 11",
+      "cut_slide": 129,
+      "title": "Multi-agent research scored 90.2% higher in Anthropic’s eval"
+    },
+    {
+      "original_slide": null,
+      "component": "NoamBrownSwarmQuote",
+      "title": "You don't need multi-agent!",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Noam Brown quote and missing single-agent baseline, October 14, 2026",
+      "cut_slide": 130
+    },
+    {
+      "component": "EqualBudgetEvidence",
+      "original_slide": 148,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Restored empirical comparison, October 11",
+      "cut_slide": 131,
+      "title": "At the same requested budget, multi-agent did not always win"
+    },
+    {
+      "component": "TaskStructureEvidence",
+      "original_slide": 150,
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Restored empirical comparison, October 11",
+      "cut_slide": 132,
+      "title": "The same team architecture can help one task and hurt another"
+    },
+    {
+      "cut_slide": 133,
+      "original_slide": 147,
+      "component": "ValsAgentTeams",
+      "title": "Agent teams cost more, with one significant score gain",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 134,
+      "original_slide": 149,
+      "component": "Slide159",
+      "title": "Communicating teams helped sometimes",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 135,
+      "original_slide": 152,
+      "component": "Slide162",
+      "title": "Factory serializes code changes and parallelizes investigation.",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 136,
+      "original_slide": 143,
+      "component": "Slide152",
+      "title": "Multiple agents: debrief",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "original_slide": null,
+      "component": "SectionClosing",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Section divider, October 11",
+      "cut_slide": 137,
+      "title": "Putting it together"
+    },
+    {
+      "cut_slide": 138,
+      "original_slide": 155,
+      "component": "Slide165",
+      "title": "Six assumptions tested",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 139,
+      "original_slide": 156,
+      "component": "Slide166",
+      "title": "OpenAI reported ARC-AGI-3 rising from 13.3% to 38.3%",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 140,
+      "original_slide": 157,
+      "component": "Slide167",
+      "title": "Meta-Harness generates and improves harness code",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 141,
+      "original_slide": 158,
+      "component": "Slide168",
+      "title": "Harness-R1 learns to repair the harness from failures",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 142,
+      "original_slide": 161,
+      "component": "Slide171",
+      "title": "Model changes can make harness workarounds obsolete",
+      "visible_copy_changed": false,
+      "notes_revised": true
+    },
+    {
+      "cut_slide": 143,
+      "original_slide": 162,
+      "component": "Slide285",
+      "title": "Mistakes can easily happen",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "cut_slide": 144,
+      "original_slide": 163,
+      "component": "Slide286",
+      "title": "Mistakes can easily happen",
+      "visible_copy_changed": false,
+      "notes_revised": false
+    },
+    {
+      "original_slide": null,
+      "component": "WorkshopWrapUp",
+      "visible_copy_changed": true,
+      "notes_revised": true,
+      "added_reason": "Workshop wrap-up, October 11",
+      "cut_slide": 145,
+      "title": "Whew! What we covered"
+    },
+    {
+      "cut_slide": 146,
+      "original_slide": 165,
+      "component": "Slide172",
+      "title": "Your next experiment",
+      "visible_copy_changed": true,
+      "notes_revised": true
+    }
+  ],
+  "video_slides_removed_2026_10_18": [
+    {
+      "component": "Slide16",
+      "old_slide": 16
+    },
+    {
+      "component": "Slide41",
+      "old_slide": 35
+    },
+    {
+      "component": "Slide107",
+      "old_slide": 84
+    },
+    {
+      "component": "Slide121",
+      "old_slide": 98
+    },
+    {
+      "component": "Slide147",
+      "old_slide": 115
+    }
+  ]
+}

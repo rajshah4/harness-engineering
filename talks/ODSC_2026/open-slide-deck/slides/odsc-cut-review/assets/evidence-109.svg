@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="680" viewBox="0 0 1660 680" role="img" aria-labelledby="retry-title retry-desc">
+  <title id="retry-title">Two cheaper attempts compared with one stronger attempt</title>
+  <desc id="retry-desc">Two aligned bar charts compare reported success and cost for two GLM-5.2 attempts against one Sonnet 5 attempt.</desc>
+  <rect width="1660" height="680" fill="#FFFFFF"/>
+  <g font-family="Arial, sans-serif">
+    <text x="64" y="64" font-size="28" font-weight="700" fill="#676358">REPORTED SUCCESS</text>
+    <text x="884" y="64" font-size="28" font-weight="700" fill="#676358">REPORTED COST</text>
+
+    <line x1="64" y1="504" x2="748" y2="504" stroke="#CCC6B6" stroke-width="3"/>
+    <line x1="884" y1="504" x2="1568" y2="504" stroke="#CCC6B6" stroke-width="3"/>
+
+    <rect x="132" y="158" width="232" height="346" fill="#2E70FF"/>
+    <rect x="448" y="188" width="232" height="316" fill="#D9D6CC"/>
+    <text x="248" y="136" text-anchor="middle" font-size="38" font-weight="700" fill="#2E70FF">57.8%</text>
+    <text x="564" y="166" text-anchor="middle" font-size="38" font-weight="700" fill="#20201E">52.7%</text>
+    <text x="248" y="552" text-anchor="middle" font-size="28" font-weight="700" fill="#20201E">Two GLM attempts</text>
+    <text x="564" y="552" text-anchor="middle" font-size="28" font-weight="700" fill="#20201E">One Sonnet attempt</text>
+
+    <rect x="952" y="398" width="232" height="106" fill="#2E70FF"/>
+    <rect x="1268" y="158" width="232" height="346" fill="#AF3E36"/>
+    <text x="1068" y="376" text-anchor="middle" font-size="38" font-weight="700" fill="#2E70FF">$7.90</text>
+    <text x="1384" y="136" text-anchor="middle" font-size="38" font-weight="700" fill="#AF3E36">$25.84</text>
+    <text x="1068" y="552" text-anchor="middle" font-size="28" font-weight="700" fill="#20201E">Two GLM attempts</text>
+    <text x="1384" y="552" text-anchor="middle" font-size="28" font-weight="700" fill="#20201E">One Sonnet attempt</text>
+
+    <line x1="64" y1="612" x2="1568" y2="612" stroke="#CCC6B6" stroke-width="2"/>
+    <text x="64" y="652" font-size="26" fill="#676358">Best-of-two requires a verifier or selection rule to identify which result to keep.</text>
+  </g>
+</svg>

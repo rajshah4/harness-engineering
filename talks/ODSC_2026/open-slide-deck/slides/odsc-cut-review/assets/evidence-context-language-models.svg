@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="610" viewBox="0 0 1600 610" role="img" aria-label="Two context paths: a fixed summary replaces old turns; a CLM edits a live context file, preserving an exact requirement and next action before the next model call.">
+  <rect width="1600" height="610" fill="#F9F1D9"/>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#20201E}
+    .k{font-size:24;font-weight:700;letter-spacing:2px;fill:#676358}
+    .h{font-size:36;font-weight:700}
+    .b{font-size:28}
+    .m{font-size:25;fill:#676358}
+    .mono{font-family:Menlo,Monaco,monospace;font-size:26}
+  </style>
+  <text x="30" y="55" class="k">WHO CHOOSES THE NEXT CONTEXT?</text>
+  <line x1="30" y1="74" x2="1570" y2="74" stroke="#CCC6B6" stroke-width="2"/>
+  <text x="30" y="135" class="h">Fixed compaction</text>
+  <rect x="30" y="170" width="430" height="125" rx="8" fill="#E9E1CA"/>
+  <text x="54" y="218" class="b">Long conversation</text>
+  <text x="54" y="261" class="m">requirements + logs + work</text>
+  <path d="M475 232 H545" stroke="#676358" stroke-width="5"/><path d="M545 232 l-17 -11 v22 z" fill="#676358"/>
+  <rect x="560" y="170" width="440" height="125" rx="8" fill="#E9E1CA"/>
+  <text x="584" y="218" class="b">Harness triggers summary</text>
+  <text x="584" y="261" class="m">older turns replaced</text>
+  <path d="M1015 232 H1085" stroke="#676358" stroke-width="5"/><path d="M1085 232 l-17 -11 v22 z" fill="#676358"/>
+  <rect x="1100" y="170" width="470" height="125" rx="8" fill="#E9E1CA"/>
+  <text x="1124" y="218" class="b">Next model call</text>
+  <text x="1124" y="261" class="m">reads that summary</text>
+  <line x1="30" y1="327" x2="1570" y2="327" stroke="#CCC6B6" stroke-width="2"/>
+  <text x="30" y="387" class="h">Model-controlled context</text>
+  <rect x="30" y="425" width="430" height="135" rx="8" fill="#DCE8FF" stroke="#2E70FF" stroke-width="2"/>
+  <text x="54" y="472" class="mono">context.txt</text>
+  <text x="54" y="518" class="m">live model input as a file</text>
+  <path d="M475 490 H545" stroke="#2E70FF" stroke-width="5"/><path d="M545 490 l-17 -11 v22 z" fill="#2E70FF"/>
+  <rect x="560" y="425" width="440" height="135" rx="8" fill="#DCE8FF" stroke="#2E70FF" stroke-width="2"/>
+  <text x="584" y="472" class="b">Model edits the file</text>
+  <text x="584" y="516" class="m">keep • update • remove</text>
+  <path d="M1015 490 H1085" stroke="#2E70FF" stroke-width="5"/><path d="M1085 490 l-17 -11 v22 z" fill="#2E70FF"/>
+  <rect x="1100" y="425" width="470" height="135" rx="8" fill="#DCE8FF" stroke="#2E70FF" stroke-width="2"/>
+  <text x="1124" y="472" class="b">Next model call</text>
+  <text x="1124" y="516" class="m">reads the edited context</text>
+  <text x="30" y="600" class="m">The harness still provides file access and syncs edits into the next prompt.</text>
+</svg>

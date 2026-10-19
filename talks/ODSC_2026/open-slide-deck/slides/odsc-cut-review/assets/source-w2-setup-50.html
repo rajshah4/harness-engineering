@@ -1,0 +1,182 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Workshop prompts and inspection steps</title><style>body{margin:0;background:#F9F1D9;color:#20201E;font:18px/1.6 Arial,sans-serif}main{max-width:1000px;margin:48px auto;padding:0 28px 80px}h1{font-size:40px;line-height:1.15}h2{font-size:30px;margin-top:64px;border-top:2px solid #2E70FF;padding-top:24px}h3{font-size:23px}a{color:#2455c5}nav{display:flex;flex-wrap:wrap;gap:20px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.6 monospace;margin:0;padding:24px;background:#fffaf0}code{font-size:.92em}.prompt{border:1px solid #ccc6b6;margin:24px 0}button{font:700 16px Arial,sans-serif;padding:12px 20px;margin:12px;border:0;background:#2E70FF;color:white;cursor:pointer}.status{min-height:24px}</style><main><nav><a href="#workshop-1">Workshop 1</a><a href="#workshop-2">Workshop 2</a><a href="#workshop-3">Workshop 3</a><a href="#workshop-4">Workshop 4</a><a href="#workshop-5">Workshop 5</a><a href="#workshop-6">Workshop 6</a></nav><h1>Workshop prompts and inspection steps</h1>
+<p>Each activity produces a prediction, an evidence-backed verdict, and a decision you can use on your own workload. Slides show only the prompt idea; copy complete task prompts below.</p>
+<h2>Before starting</h2>
+<p>Open the <a href="https://github.com/rajshah4/learn-openhands-harness/blob/main/docs/workshops/odsc-2026/setup.md" target="_blank" rel="noreferrer">workshop setup</a>. Use a fresh starter and conversation for each editing run. Verify model/provider and preinstall tests. Historical interpreter paths refer to the prepared Linux lab; use the verified equivalent in your workspace. In Workshop 5, use that interpreter in place of bare <code>python</code>.</p>
+<p>Recorded October runs use DeepSeek V4.1 Flash. Saved September comparisons have their own fixed models and prompts. Exercise cases are hypothetical decisions, not additional measured runs. Do not pool their results. No new experiments are claimed.</p>
+<p>Workshops 3 and 6 are trace audits; they require no model call. Workshops 1, 2, 4 and 5 allow a prepared live task or saved-run inspection. Finish your prediction before opening a result or facilitator key. <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-inspection-evidence.html" target="_blank" rel="noreferrer">Exact source excerpts</a> support the inspections. <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-recorded-prompts.md" target="_blank" rel="noreferrer">All eight archival prompts</a> are retained separately.</p>
+<h2 id="workshop-1">Workshop 1: Harness choice</h2>
+<p>**Harness question:** We test “harnesses do not matter” by holding the model, pagination bug, starter, user prompt, and checks fixed while swapping OpenHands, Pi, and OpenCode. The repair is the test case; students inspect how the model uses each harness’s tool interface and what it checks before completion. All three pass, but the recorded reads, requests, and edge checks differ. Students name a workflow or verification choice they would want their own harness to support. One take each exposes concrete process differences, not an overall quality or speed ranking.</p>
+<p>Compare how OpenHands, Pi, and OpenCode handle the same small pagination bug. Keep the model, provider, starter, prompt, and checks fixed. Use a fresh workspace for each run, or follow the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-inspection-evidence.html" target="_blank" rel="noreferrer">recorded actions</a>.</p>
+<p>Before running it, predict whether the harnesses will take the same path. Watch the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop1-harness-walkthrough.mp4" target="_blank" rel="noreferrer">28-second silent walkthrough</a>; pause at 22 seconds, write your observations, then view the final comparison. In the screenshot walkthrough, find one difference in what the agents read and one difference in what they check. The OpenHands screenshot shows labels; open its saved request to see the two file reads. For Pi, match the reported extra checks to the executed command before accepting the report. Find what each agent reads, the edit it makes, and the checks it runs. Compare the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop1-recorded-metrics.md" target="_blank" rel="noreferrer">recorded results and usage</a>. A terminal request can bundle several commands, so tool requests are not equal amounts of work.</p>
+<h3>Your worksheet</h3>
+<p>My prediction: ______</p>
+<p>What the harness read: ______</p>
+<p>What it changed: ______</p>
+<p>What it checked: ______</p>
+<p>One difference between the runs: ______</p>
+<p>An extra check I would want on a larger repair: ______</p>
+<h3>Common recorded prompt — OpenHands, Pi, or OpenCode</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-1',this)">Copy prompt</button><pre id="prompt-1">Fix the off-by-one bug in `toyapp/pagination.py`. The pagination tests describe the correct behavior.
+
+Do not modify tests. Work only inside the current repository. Before finishing, run the relevant tests or behavioral checks and inspect the final git status and diff. Report files changed, checks run, and any remaining uncertainty.
+
+The Python test environment is already installed. Use /home/ubuntu/lab-tools/bin/python -m pytest tests/test_pagination.py -q. Do not install dependencies or create a lockfile for this task.</pre></div>
+<h2 id="workshop-2">Workshop 2: Tool design</h2>
+<p>**Harness question:** We test “more tools make a better agent” by holding a PR-explanation task and Sonnet 4.6 fixed while changing the exposed tools. Four GitHub operations already reach 6/6 answer coverage. Expanding to twelve cannot improve that score on this task; the eight extra operations go unused and input use is higher. A custom PR collection tool reaches the same six answer criteria with fewer requests and less input than the broad catalog. Students decide what recurring evidence collection belongs in a tool, what it leaves out, and whether it reports tests or can execute them. The principle is to evaluate useful capability and evidence, rather than count tools or MCP connections.</p>
+<p>Exercise: the saved October PR explanation reports that npm run lint was clean. Read the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-detail-w2-attribution.jpg" target="_blank" rel="noreferrer">saved answer excerpt</a> and find whether the agent ran that command or read the reported result. Its answer says it did not run tests or checks itself. This attribution exercise is separate from the September three-tool measurements.</p>
+<p>Watch the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop2-explainer.mp4" target="_blank" rel="noreferrer">30-second evidence explainer</a>. Pause at 23 seconds and answer the question before the final interpretation. Use the saved evidence to support your decision; the clip summarizes it.</p>
+<p>The task is to explain the PR’s change, implementation, and reported tests, with supporting links. Compare terminal + GitHub API, individual GitHub tools, and a custom PR tool that collects information into one response. Predict which will produce a complete explanation with less work. Then sketch what the custom tool should return and how to obtain any missing detail.</p>
+<p>Inspect the four-operation versus twelve-operation result: both cover 6/6 criteria, with 11 versus 12 tool calls and 42.8K versus 48.7K median fresh input tokens. The extra eight operations were unused. Compare this tool-count change with changing tool shape. Then inspect the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-inspection-evidence.html" target="_blank" rel="noreferrer">real bundle function</a>, <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-september-11-pr-traces.md" target="_blank" rel="noreferrer">two September traces</a>, and <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop2-tool-surface-preliminary.md" target="_blank" rel="noreferrer">September comparison</a>. This is Sonnet 4.6 with a tool built by the experimenter for this workflow/rubric. Separate model-facing requests from backend HTTP work.</p>
+<p>Run the October Flash prompt below or inspect its recorded answer. Open one citation, check whether needed evidence fell outside the selection, and distinguish upstream-reported tests from personally executed checks. This shorter classroom prompt is not a matched September trial. Propose a fallback for missing evidence.</p>
+<h3>Your worksheet</h3>
+<p>Prediction: ______</p>
+<p>Evidence found: ______</p>
+<p>Verdict and reason: ______</p>
+<p>What this cannot show: ______</p>
+<p>What to apply next: ______</p>
+<h3>Recorded classroom prompt</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-2',this)">Copy prompt</button><pre id="prompt-2">Inspect OpenHands/OpenHands pull request #16860 using public GitHub evidence.
+Write a complete final answer in five short bullets, targeting 200 words and
+never exceeding 280 words. Include: the allow-list change; two important
+implementation files selected from src/utils/skill-enablement.ts,
+src/hooks/use-skill-enablement.ts, src/hooks/use-migrate-enabled-skills.ts,
+src/api/agent-server-adapter.ts; the test runner; the new test files; and any
+remaining uncertainty. Provide the PR link and at least two direct file or
+commit links, attached to the claims they support. Do not modify any files.
+Count the words before finishing and shorten if needed. The final response
+must contain the complete answer, not a reference to a hidden analysis.
+
+Explicitly attribute the Vitest, lint and translation results to the upstream PR report. State whether you personally ran any tests; do not imply you executed checks that you only read about. Keep the same five-bullet, 280-word limit.</pre></div>
+<h2 id="workshop-3">Workshop 3: Can memory save work?</h2>
+<p>**Harness question:** Can saved project memory help the agent reach the same correct result with less work?</p>
+<p>The catalog already supports page numbers; a report exporter resumes with tokens. Both share pagination. Add next-page browsing while preserving both callers. The project includes simulated design history: a separate export cursor module was replaced by shared pagination and versioned tokens.</p>
+<p>Compare the identical current starter and request with no memory, older memory (133 words), and current memory (132 words). All conditions can read newer accepted records. The notes are supplied explicitly at the start; this does not compare product-specific memory loading.</p>
+<p>Inspect public imports, token traversal, existing callers, shared token-helper reuse, and focused-then-full test commands. Run the independent checker outside the agent workspace. Check how older notes were reconciled with newer decisions.</p>
+<p>**Recorded result:** Every condition passed 3/3. Current memory used 39% fewer median total tokens and 15% less median time than no memory. Most input was cached; these are not equivalent cost savings. Time ranges overlap. Use the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-report.md" target="_blank" rel="noreferrer">fresh AWS report</a> and its per-trial evidence.</p>
+<h3>Your worksheet</h3>
+<p>Which project decisions should be saved, and why? ______</p>
+<p>What source supersedes the older note? ______</p>
+<p>What independently establishes compatibility? ______</p>
+<p>What changed in correctness, total tokens, and time? ______</p>
+<h3>Exact request</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-3',this)">Copy prompt</button><pre id="prompt-3">This package is a small catalog: browse() supports direct page-number access,
+and report exports already resume across multiple windows.
+
+Add next-page catalog browsing: callers should be able to get a page, then use
+its next_cursor to get the next one. Keep direct page-number browsing and report
+exports working. Follow the repository's accepted public API and design, add
+focused tests, and run the relevant tests plus the full suite before finishing.
+
+Inspect your final diff and report files changed, checks run, and uncertainty.
+Do not modify unrelated files, change design records, or make git commits.</pre></div>
+<h2 id="workshop-4">Workshop 4: Model routing</h2>
+<p>**Harness question:** We test “use the strongest model for every task” with saved Haiku and Opus runs on rename, pagination, concurrent-counter, and security-review tasks. Haiku passes the three repair task types; Opus passes the security-review checks that Haiku misses. A harness rule using Haiku for repairs and Opus for security keeps twelve passing runs at a lower bill, but takes longer than Opus everywhere. Students specify a starting model, checked escalation trigger, final verifier, and budget, then plan how to test the rule on new tasks. The recorded cascade used an LLM judge and different budgets, so verify-then-escalate remains a follow-up rather than a proven result.</p>
+<p>Compare Haiku 4.5 and Opus 4.8 on four tasks: rename a variable without changing behavior, restore a missing pagination item, fix a counter that loses concurrent updates without serializing work, and review authentication code for six required findings. Each model gets three fresh attempts per task. Compare the individual model results before designing a model-selection strategy.</p>
+<p>Watch the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop4-explainer.mp4" target="_blank" rel="noreferrer">30-second evidence explainer</a>. Pause at 23 seconds and answer the question before the final interpretation. Use the saved evidence to support your decision; the clip summarizes it.</p>
+<p>Before the reveal, assign Haiku 4.5 or Opus 4.8 to rename, pagination, async race and security review. Name the consequence of a missed requirement and your final check. Inspect the per-task results before the aggregate totals in the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop4-model-routing-preliminary.md" target="_blank" rel="noreferrer">saved September comparison</a>.</p>
+<p>The static rule is applied before each attempt but designed on this workshop task set. Transfer to new tasks is untested. The cascade uses the same final checker, trials and model family, but different attempt budgets and an LLM judge between tiers. It is not a verifier-gated retry experiment.</p>
+<p>Write a route for your workload: starting model, escalation evidence, verifier, budget, and held-out evaluation plan. Then optionally practice the routing call using the prompt below. All classroom profiles use Flash: this tests call ordering and unchanged behavior, not model-quality or cost differences.</p>
+<h3>Your worksheet</h3>
+<p>Prediction: ______</p>
+<p>Evidence found: ______</p>
+<p>Verdict and reason: ______</p>
+<p>What this cannot show: ______</p>
+<p>What to apply next: ______</p>
+<h3>Recorded mechanics-only prompt</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-4',this)">Copy prompt</button><pre id="prompt-4">Before inspecting files or making edits, call route_task_to_model once to select the model for this task. Then complete the task on the selected model. Do not call switch_llm or manually choose a model.
+
+Rename the local variable `raw_items` to `source_items` in `toyapp/pagination.py`. Keep behavior unchanged and do not edit unrelated files.
+
+Do not modify tests. Work only inside the current repository. Before finishing, run the relevant tests or behavioral checks and inspect the final git status and diff. Report files changed, checks run, and any remaining uncertainty.</pre></div>
+<h2 id="workshop-5">Workshop 5: Native goals, validation, and stopping</h2>
+<p>Question: does goal mode help the agent finish correctly? The task is to preserve the dot in <code>api.v1-endpoint</code> while preserving existing slug behavior. First explain the command: it reviews the conversation after the agent stops, requests another attempt if work is missing, and stops at its review limit. Then inspect repair-allowed and edits-blocked scenarios.</p>
+<p>Watch the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop5-explainer.mp4" target="_blank" rel="noreferrer">36-second explainer</a>. At 23 seconds, the agent has stopped, the objective-specific check fails, and one audit round remains. Predict the next controller action.</p>
+<p>Inspect the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-w56-evidence-design.md" target="_blank" rel="noreferrer">native-goal evidence and design report</a>. Fresh October 9 AWS repair-allowed probe: native complete after one audit, with an external passing behavior assertion. Deliberately constrained no-edit probe: missing dots remain, goal mode continues after the first audit and returns capped after audit two. Five original tests pass in that constrained fixture; the independent dot assertion fails. The constraint is constructed to demonstrate the cap, not a natural model failure.</p>
+<p>The saved October red/green recording remains valid: 1 failed + 5 passed before repair, 6 passed afterward, external check passed. Its launch used an ordinary prompt; no native goal activation was recorded. An ordinary run can already repair this task. The two native-goal scenarios show command behavior, not a measured improvement over ordinary runs. To test improvement, use matched starters, model, task, independent checker and total call budget, with and without /goal, across repeated trials; compare correct completion, time and tokens.</p>
+<h3>Your worksheet</h3>
+<p>Objective and independent completion check: ______</p>
+<p>Current evidence and workspace version: ______</p>
+<p>What new evidence counts as progress: ______</p>
+<p>Continue when; replan or escalate when: ______</p>
+<p>Stop state and total token/time/call limits: ______</p>
+<p>What survives a restart and how you would test it: ______</p>
+<p>A native goal audit cap limits outer audit rounds. It does not by itself enforce total tokens, wall time, or file access. The judge reads transcript evidence; run an executable verifier independently. Persistence across restarts and enforceable access boundaries were not tested by these probes. No comparative performance claim is made.</p>
+<h3>Native activation for optional reproduction</h3>
+<p>Use a fresh missing-dot starter and the verified Flash profile on the instructor host. Create an idle conversation and invoke <code>POST /api/conversations/{id}/goal</code> with <code>objective</code> below and <code>max_iterations: 2</code>. Sending the text as an ordinary chat message does not activate native goal mode. Keep the inner agent step limit separate. Inspect goal state events and run the external checker after termination.</p>
+<div class="prompt"><button onclick="copyPrompt('prompt-5',this)">Copy prompt</button><pre id="prompt-5">Preserve dots: slugify(&quot;api.v1 endpoint&quot;) must return &quot;api.v1-endpoint&quot;.
+Existing slug tests must pass. Inspect first; edit only src/slugify.py
+and tests/test_slugify.py if needed. Preserve existing tests.
+Completion requires passing tests and an exact-output assertion
+with exit status after the latest edit. Report remaining failures honestly.</pre></div>
+<p>For the cap probe, use another clean starter and explicitly prohibit source/test edits while requiring the same output. This is a deliberately unsatisfiable condition. Inspect the first missing verdict, automatic follow-up, and capped state at audit two. The <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-native_goal_probe.py" target="_blank" rel="noreferrer">probe driver</a> and saved objectives preserve exact inputs; the short text above is the teaching version.</p>
+<h3>Recorded ordinary repair prompt</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-6',this)">Copy prompt</button><pre id="prompt-6">Add support for preserving dots in slugify, so &quot;api.v1 endpoint&quot; becomes
+&quot;api.v1-endpoint&quot;. Inspect the implementation and tests first. If the behavior
+already exists, run the tests and report the evidence without making edits.
+If support is missing, add a regression test first. Run
+`python -m pytest tests/test_slugify.py -q` before changing implementation and
+show the failing output and exit status. Then fix the implementation, rerun
+the same command, and show the passing output and exit status.
+Only edit src/slugify.py and tests/test_slugify.py. Preserve existing tests.
+Inspect the final diff. Stop with an honest incomplete result if the checks
+still fail after two repair attempts.</pre></div>
+<h2 id="workshop-6">Workshop 6: Single agent versus multiple agents</h2>
+<p>Question: what changes when we use multiple agents? First compare the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-w6-architecture.html" target="_blank" rel="noreferrer">two architectures</a>: one agent uses repository/test tools directly; the worker-plus-validator system delegates checking to a separate context and returns evidence to the repair owner. The validator works after the repair in this example.</p>
+<p>Then introduce the task: fix the shared counter so 50 concurrent jobs reliably produce 50 while work stays concurrent. Both architectures receive identical starter files, model, task, protected tests, external checker and a total 30-call ceiling. Finally compare correctness, wall time, calls and tokens.</p>
+<p>Watch the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop6-explainer.mp4" target="_blank" rel="noreferrer">30-second comparison explainer</a>. Pause at 23 seconds. Both candidates pass. Name the work the second context added and whether it was needed for this task.</p>
+<p>Recorded October 2 matched-ceiling pair: one agent PASS, 34.52 s, 8 calls, 91,255 provider tokens. Worker plus validator PASS, 62.65 s, 15 calls, 181,347 tokens. All parent and child tokens are included, including repeated and cached input. The equal ceiling is not equal expenditure. External verification is separate: 3.18 s and 3.16 s. One observation per condition cannot establish an average speed or quality ranking.</p>
+<p>Inspect the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-w6-matched-results.json" target="_blank" rel="noreferrer">comparison receipts and source hashes</a>. Trace the sequential handoff: parent repair/check, one native delegation, child’s four calls and independent checks, 142-word evidence return, owner’s final synthesis. There is no parallel implementation in this pair. Three unrelated starter failures remain out of scope. The one-agent candidate already passes, so no correctness gain is observed.</p>
+<h3>Your worksheet</h3>
+<p>Prediction for correctness, total time, and total tokens: ______</p>
+<p>Fixed inputs; architecture variable: ______</p>
+<p>Extra orientation, checking, handoff, or synthesis work: ______</p>
+<p>Work that could proceed independently; files each agent owns: ______</p>
+<p>Use one agent when; add fresh judgment when: ______</p>
+<p>Child return contract and synthesis owner: ______</p>
+<p>Total budget and stop policy: ______</p>
+<p>For optional reproduction use a fresh starter for each architecture. Read the <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-w6-single-prompt.txt" target="_blank" rel="noreferrer">exact single-agent prompt</a> and <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-w6-worker-validator-prompt.txt" target="_blank" rel="noreferrer">exact worker-validator prompt</a>. Preserve the common task and external checker. Enforce the 30-call ceiling at the shared upstream gateway, not just in each agent’s prompt. Do not give each child a separate 30-call allocation. Use repeat trials if you want a performance claim.</p>
+<h3>Separate supporting rule audit</h3>
+<p>The October 3 classroom recording uses a refined worker-validator prompt and is outside the matched-ceiling pair. Inspect <a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-inspection-evidence.html" target="_blank" rel="noreferrer">its parent/child commands and messages</a>. Behavioral checks pass, but the child creates Python bytecode cache files and redirects diagnostic stderr. The parent also changes required wording and uses a prohibited redirection. Do not mix that recording’s 15/20 repeated-check counts or timing with the matched comparison.</p>
+<p>Propose an isolated read-only checking environment and controlled test runner, then a forbidden-write probe. Enforcement was not tested in the recording. The redirects do not establish that a failed test was hidden. The archival prompt below is for this separate audit, not the matched-ceiling experiment. Its later 250-word child limit supersedes the earlier 350-word instruction.</p>
+<h3>Archived worker/validator prompt — optional reproduction</h3>
+<div class="prompt"><button onclick="copyPrompt('prompt-7',this)">Copy prompt</button><pre id="prompt-7">Debug the async race in `toyapp/async_jobs.py`. The async test should pass reliably when run several times, and the simulated async work should remain concurrent rather than being serialized behind one long lock.
+
+Do not modify tests. Work only inside the current repository. Before finishing, run the relevant tests or behavioral checks and inspect the final git status and diff. Report files changed, checks run, and any remaining uncertainty.
+Use /home/ubuntu/lab-tools/bin/python for all Python and pytest checks. The test environment is preinstalled; do not install dependencies.
+
+Architecture for this run:
+First perform the task yourself without any subagents. Then call the
+native task tool exactly once with subagent_type=&quot;general-purpose&quot; for a
+fresh independent validator of the current result. Do not delegate initial
+exploration, implementation, or test execution to another child. The validator must not edit any
+files and must return checks, evidence, uncertainty, and a completion verdict
+in its final response. Keep that handoff within 350 words; include specific
+commands and results rather than a transcript dump.
+Do not modify files while the validator runs. After its return, address any
+specific rejected requirement and report both the initial and final verdict.
+Your final response must contain the requested result and completion evidence.
+
+For baseline inspection, neither the parent nor validator may use git stash, checkout, reset, restore, or any other operation that temporarily changes source files. Use git show and read-only diffs to establish which unrelated failures already exist. The validator must perform read-only inspection and test execution only; prohibit terminal-based file mutations as well as file-editor changes.
+
+When calling the native task tool, include these requirements explicitly in the child prompt: final handoff at most 250 words, with commands/results, uncertainty and PASS/REJECT verdict; count its words in memory and shorten before returning; stdout-only checks with no output-file redirects or temporary source reversion. Keep all repository source read-only during validation. Run Python checks with PYTHONDONTWRITEBYTECODE=1 and pytest -p no:cacheprovider to avoid generated test artifacts. The parent must pass the word limit and read-only requirements to the validator rather than assume it can see the parent prompt.
+
+The parent must forward the following requirements verbatim to the validator and must not add contradictory exceptions: &quot;Do not create, remove or modify files or directories anywhere, including /tmp. Do not extract git archives or create baseline copies. Inspect baseline source with git show, read-only diffs, or execute retrieved source in memory. Do not redirect output, including to /dev/null. For repeated tests, use an in-memory Python subprocess.run loop with capture_output=True and print the counts/results to stdout. Use PYTHONDONTWRITEBYTECODE=1 and pytest -p no:cacheprovider. Final handoff at most 250 words, including commands/results, uncertainty and PASS/REJECT. If an independent baseline execution cannot be established without files, state that uncertainty and rely only on the read-only evidence actually obtained.&quot;
+
+Clarification of the no-redirection requirement: neither parent nor validator may use shell output redirection operators, including 2&gt;&amp;1, &gt;&amp; or &gt;&gt;. To inspect combined stdout and stderr, use subprocess.run(..., capture_output=True, text=True) and print them from Python. The parent must include this clarification explicitly in the validator prompt.</pre></div>
+<h2>Facilitator key</h2>
+<details><summary>Facilitator answers — open after predictions</summary>
+<h3>Workshop 1</h3>
+<p>All three recorded repairs pass the tests and external check. OpenHands bundles source/tests in one terminal request; Pi surveys the repository, reads separately, and adds edge checks; OpenCode reads source/tests separately. Compare those actions before looking at time or usage. Full run tokens are available only for OpenHands in these receipts. The Pi caching example is a separate, larger task.</p>
+<h3>Workshop 2</h3>
+<p>The real bundle takes owner/repository/PR number, fetches the first 100 files/commits, and selects three largest production changes plus two largest test changes. Summary cap: 5500 characters; validation: 3500; five patches: 2500 each. No single global 30K cap is established by the function. A small critical file or later page may be missed: use primitives to retrieve missing evidence and qualify completeness. Backend HTTP requests still happen. September medians show 6/6 evidence for bundle and broad catalog, 4/6 for terminal; these scores held in each of their three trials. The rubric is not complete semantic review validation. October attribution demonstrates only that retrieved test results were credited to their source.</p>
+<h3>Workshop 3</h3>
+<p>Saved verifier passes: no guidance 3/3, stale package 0/3, current package 3/3. The inherited cursor.py/deprecation rules conflict with the accepted current design. Green tests in a new module do not prove CursorPage exists in toyapp.pagination. A good rewrite scopes pagination edits to docs/current/pagination.md, preserves the page API, and checks the expected public exports. Both length and correctness changed; no general memory-product or token-efficiency winner follows.</p>
+<h3>Workshop 4</h3>
+<p>Economical passes rename/pagination/async 3/3 each, security 0/3; all omit timing-safe comparison. Static gets 12/12 at $0.517 median per four-task trial versus $0.883 strongest everywhere, for these selected tasks. Adaptive gets 11/12 and $0.628, with four escalations and different attempt budgets/judge. Require held-out tasks, a fixed verifier, and omissions/cost/latency measures before transferring a route. The Flash demo proves only routing-call order and rename behavior.</p>
+<h3>Workshop 5</h3>
+<p>Native activation is the /goal endpoint, not a detailed ordinary prompt. Repair-allowed native run records complete at audit one and the external assertion passes. Constructed no-edit run records a missing verdict, automatic continuation, then capped at audit two; the external assertion still fails although original tests pass. Progress should refer to current verifier evidence and actual workspace changes, not a plan or judge score alone. Token/time/access limits and restart persistence need separate enforcement/tests. The earlier recorded red/green pair proves behavior only.</p>
+<h3>Workshop 6</h3>
+<p>The matched-ceiling pair holds starter content, Flash model, common task and external checker fixed. Both pass; one agent uses 8 calls/91,255 tokens/34.52 s, worker-validator 15/181,347/62.65 s. Native child uses four calls and returns 142 words. A total 30-call ceiling is shared; actual spend differs. The extra context supplies sequential checking, with no observed correctness improvement. Optional parallel-specialists record also passes but remains one observation. The separate October 3 audit scores behavior PASS, contract REJECT; no failed test is shown hidden. Proposed read-only enforcement requires forbidden-action probes and has not been measured.</p>
+</details>
+<h2>Saved result provenance</h2>
+<p><a href="http://localhost:5173/@fs/Users/rajiv.shah/Code/harness-engineering/talks/ODSC_2026/open-slide-deck/slides/odsc-cut-review/assets/handout-resource-workshop-screenshot-provenance.json" target="_blank" rel="noreferrer">Recording provenance</a> and the original campaign reports support the shown outcomes. This revision restores the saved October 2 architecture comparison and adds two explicitly labeled October 9 native-goal control-flow probes. Exact records are in the evidence/design report.</p><p class="status" id="status" aria-live="polite"></p></main><script>async function copyPrompt(id,button){try{await navigator.clipboard.writeText(document.getElementById(id).textContent);button.textContent='Copied';}catch(e){document.getElementById('status').textContent='Select the prompt text and copy it manually.';}}</script></html>
