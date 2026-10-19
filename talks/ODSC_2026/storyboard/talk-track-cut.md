@@ -4,7 +4,7 @@ Synchronized October 19, 2026. 152 slides and narration entries match the live d
 
 [Open the live deck](http://127.0.0.1:5173/s/odsc-cut-review?p=1)
 
-<!-- Source SHA-256: d122fd9174bcb232f5b051e804069a5c0b45303a3ed022cd64c773f0a1764311 -->
+<!-- Source SHA-256: a39815a87353345f0d75bf48e1d5dec74f65a1800b6cef93057527fa439da588 -->
 
 ## 1. The Design of Coding Agents:A Practical Workshop
 
