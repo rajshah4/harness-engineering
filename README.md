@@ -15,7 +15,7 @@ A practical companion to my talk *Engineering the Harness*. This repo collects t
 
 ## References and further reading
 
-Browse the [reference library](https://rajshah4.github.io/learn-openhands-harness/references) for sources from the current talk and additional reading from backup slides. Filter by topic or search across papers, engineering posts, code, and lectures. Each source records where it appears in the slide collections.
+Browse the [reference library](https://rajshah4.github.io/learn-openhands-harness/references) for sources from the current talk and additional reading from backup slides. Filter by topic or search across papers, engineering posts, code, and lectures.
 
 <!-- HARNESS-VIDEO-GALLERY:START -->
 ## Video gallery
