@@ -2,6 +2,8 @@
 
 A practical companion to my talk *Engineering the Harness*. This repo collects the patterns, experiments, and reference implementations I use when thinking about coding-agent harnesses in concrete terms.
 
+Start with **[Learn Harness Engineering](https://rajshah4.github.io/learn-openhands-harness/)** for the workshops, hands-on exercises, reference library, and saved Agent Canvas conversations.
+
 
 ---
 
