@@ -8,7 +8,8 @@ A practical companion to my talk *Engineering the Harness*. This repo collects t
 ## Presentation Materials
 
 - **Deep Dive on Harness Engineering** - [Youtube](https://www.youtube.com/watch?v=KijChx7q2nY), [Blog post - all the slides](https://rajivshah.com/blog/harness-engineering.html), [ODSC Podcast](https://opendatascience.com/what-is-an-agent-harness-the-architecture-behind-reliable-agentic-ai/)
-- **ODSC Talk, April 28**. [ODSC East](https://odsc.ai/east/) · [Slides](./talks/ODSC_2026/ODSC_Shah_Apr2026.pdf) · [References](./talks/ODSC_2026/references.md)
+- **ODSC West 2026 workshop: The Design of Coding Agents**. [Slides (PDF)](./talks/ODSC_2026/ODSC_Shah_Apr2026.pdf) · [Interactive deck](https://rajshah4.github.io/learn-openhands-harness/slides/odsc-draft/s/odsc-cut-review/) · [Workshop exercises](https://rajshah4.github.io/learn-openhands-harness/workshops/odsc-2026/) · [Source and presenter notes](https://github.com/rajshah4/harness-engineering/tree/codex/odsc-open-slide-deck/talks/ODSC_2026)
+- **ODSC East talk, April 28**. [Conference](https://odsc.ai/east/) · [References](./talks/ODSC_2026/references.md)
 
 
 ---
