@@ -9,9 +9,9 @@ Start with **[Learn Harness Engineering](https://rajshah4.github.io/learn-openha
 
 ## Presentation Materials
 
-- **Deep Dive on Harness Engineering** - [Youtube](https://www.youtube.com/watch?v=KijChx7q2nY), [Blog post - all the slides](https://rajivshah.com/blog/harness-engineering.html), [ODSC Podcast](https://opendatascience.com/what-is-an-agent-harness-the-architecture-behind-reliable-agentic-ai/)
-- **ODSC West 2026 workshop: The Design of Coding Agents**. [Slides (PDF)](./talks/ODSC_2026/ODSC_Shah_Apr2026.pdf) · [Interactive deck](https://rajshah4.github.io/learn-openhands-harness/slides/odsc-draft/s/odsc-cut-review/) · [Workshop exercises](https://rajshah4.github.io/learn-openhands-harness/workshops/odsc-2026/) · [Source and presenter notes](https://github.com/rajshah4/harness-engineering/tree/codex/odsc-open-slide-deck/talks/ODSC_2026)
-- **ODSC East talk, April 28**. [Conference](https://odsc.ai/east/) · [References](./talks/ODSC_2026/references.md)
+- **Deep Dive on Harness Engineering** (May 2026). [YouTube](https://www.youtube.com/watch?v=KijChx7q2nY) · [Blog post and slides](https://rajivshah.com/blog/harness-engineering.html) · [ODSC Podcast](https://opendatascience.com/what-is-an-agent-harness-the-architecture-behind-reliable-agentic-ai/)
+- **ODSC West workshop** (October 27–29, 2026). [Slides (PDF)](./talks/ODSC_2026/ODSC_Shah_Apr2026.pdf) · [Interactive deck](https://rajshah4.github.io/learn-openhands-harness/slides/odsc-draft/s/odsc-cut-review/) · [Workshop exercises](https://rajshah4.github.io/learn-openhands-harness/workshops/odsc-2026/)
+- **ODSC East talk** (April 28, 2026). [Conference](https://odsc.ai/east/) · [References](./talks/ODSC_2026/references.md)
 
 
 ---
